@@ -1,0 +1,137 @@
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+<div
+  class="pvh-guarantee-section"
+  style="background-color: {{ section.settings.background_color }};"
+>
+  <!-- Decorative background blob -->
+  <div class="pvh-guarantee-blob" aria-hidden="true"></div>
+
+  <div class="pvh-guarantee-inner">
+
+    <!-- Left: Shield badge + heading -->
+    <div class="pvh-guarantee-lead">
+      <div class="pvh-guarantee-shield" aria-hidden="true">
+        <svg width="110" height="110" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M55 8L18 22v28c0 22 15.5 42.5 37 49 21.5-6.5 37-27 37-49V22L55 8z" fill="#2D6A4F" opacity="0.12"/>
+          <path d="M55 8L18 22v28c0 22 15.5 42.5 37 49 21.5-6.5 37-27 37-49V22L55 8z" stroke="#2D6A4F" stroke-width="2.5" stroke-linejoin="round"/>
+          <path d="M42 55l9 9 18-18" stroke="#2D6A4F" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+          <text x="55" y="95" text-anchor="middle" font-family="sans-serif" font-size="9" font-weight="800" fill="#2D6A4F" letter-spacing="1">GUARANTEE</text>
+        </svg>
+      </div>
+      <div class="pvh-guarantee-heading-block">
+        <p class="pvh-guarantee-eyebrow">{{ section.settings.eyebrow }}</p>
+        <h2 class="pvh-guarantee-title">{{ section.settings.heading }}</h2>
+        <p class="pvh-guarantee-subtitle">{{ section.settings.subheading }}</p>
+      </div>
+    </div>
+
+    <!-- Right: Guarantee items -->
+    {% if section.blocks.size > 0 %}
+      <div class="pvh-guarantee-items">
+        {% for block in section.blocks %}
+          {% if block.type == 'guarantee_item' %}
+            <div class="pvh-guarantee-item" {{ block.shopify_attributes }}>
+              <div class="pvh-gi-icon" aria-hidden="true">{{ block.settings.icon_emoji }}</div>
+              <div class="pvh-gi-body">
+                <div class="pvh-gi-title">{{ block.settings.title }}</div>
+                <p class="pvh-gi-desc">{{ block.settings.description }}</p>
+              </div>
+            </div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Pet Happiness Guarantee",
+  "class": "pvh-guarantee-section-wrapper",
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "OUR PROMISE"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "The PetVitals Happiness Guarantee"
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "We stand behind every product we sell. If your pet isn't happier and healthier, neither are we."
+    },
+    {
+      "type": "color",
+      "id": "background_color",
+      "label": "Background color",
+      "default": "#f0faf4"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "guarantee_item",
+      "name": "Guarantee item",
+      "settings": [
+        {
+          "type": "text",
+          "id": "icon_emoji",
+          "label": "Icon (emoji)",
+          "default": "🛡️"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "30-Day Money Back"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Not satisfied? Return it within 30 days for a full refund, no questions asked."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Pet Happiness Guarantee",
+      "blocks": [
+        {
+          "type": "guarantee_item",
+          "settings": {
+            "icon_emoji": "🛡️",
+            "title": "30-Day Money Back",
+            "description": "Not satisfied? Return it within 30 days for a full refund, no questions asked."
+          }
+        },
+        {
+          "type": "guarantee_item",
+          "settings": {
+            "icon_emoji": "🚚",
+            "title": "Free Shipping Over €50",
+            "description": "Orders above €50 ship free to 15+ European countries. Fast, reliable delivery every time."
+          }
+        },
+        {
+          "type": "guarantee_item",
+          "settings": {
+            "icon_emoji": "🐾",
+            "title": "Pet-Safe Materials Only",
+            "description": "All materials are food-grade, BPA-free, and vet-approved. Safety is never negotiable."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,319 @@
+{% assign product = all_products['pet-feeder-water-dispenser'] %}
+{% assign first_variant = product.variants.first %}
+
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+<!-- SCROLLING ANNOUNCEMENT BAR -->
+<div class="pvh-announcement-bar">
+  <div class="pvh-announcement-bar-track">
+    <span class="pvh-announcement-bar-item">🐾 Free Shipping on Orders Over €50</span>
+    <span class="pvh-announcement-bar-item">⭐ 4.9/5 Rating from 2,800+ Reviews</span>
+    <span class="pvh-announcement-bar-item">🔄 30-Day Money Back Guarantee</span>
+    <span class="pvh-announcement-bar-item">🚚 Ships to 15+ Countries Across Europe</span>
+    <span class="pvh-announcement-bar-item">🔒 Secure SSL Encrypted Checkout</span>
+    <span class="pvh-announcement-bar-item">💚 Trusted by 10,000+ Pet Owners</span>
+    <span class="pvh-announcement-bar-item">🐾 Free Shipping on Orders Over €50</span>
+    <span class="pvh-announcement-bar-item">⭐ 4.9/5 Rating from 2,800+ Reviews</span>
+    <span class="pvh-announcement-bar-item">🔄 30-Day Money Back Guarantee</span>
+    <span class="pvh-announcement-bar-item">🚚 Ships to 15+ Countries Across Europe</span>
+    <span class="pvh-announcement-bar-item">🔒 Secure SSL Encrypted Checkout</span>
+    <span class="pvh-announcement-bar-item">💚 Trusted by 10,000+ Pet Owners</span>
+  </div>
+</div>
+
+<!-- HERO SECTION -->
+<div class="pvh-hero-section" id="pvh-hero">
+  <div class="pvh-hero-content">
+    <div class="pvh-live-badge">
+      <div class="pvh-live-dot"></div>
+      Smart Pet Care 2026
+    </div>
+    <h1 class="pvh-hero-title">
+      Keep Your Pet<br>
+      <span class="pvh-highlight">Fed &amp; Happy</span><br>
+      All Day Long
+    </h1>
+    <p style="font-size:17px;color:#555;line-height:1.7;margin-bottom:36px;max-width:440px;">
+      The 2-in-1 Automatic Pet Feeder &amp; Water Dispenser ensures your cat or dog always has fresh food and water — even when you're not home.
+    </p>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:36px;">
+      <a href="/products/pet-feeder-water-dispenser" class="pvh-atc-btn" style="width:auto;margin:0;padding:16px 36px;font-size:16px;animation:none;">
+        Shop Now — €34.99 →
+      </a>
+      <a href="#pvh-showcase" style="color:#2D6A4F;font-size:15px;font-weight:600;text-decoration:none;padding:16px 24px;border:2px solid #2D6A4F;border-radius:50px;transition:all 0.2s;">
+        See Details
+      </a>
+    </div>
+    <div style="display:flex;align-items:center;gap:14px;">
+      <div class="pvh-avatar-stack">
+        <div class="pvh-avatar" style="background:#2D6A4F;">MK</div>
+        <div class="pvh-avatar" style="background:#52B788;">JB</div>
+        <div class="pvh-avatar" style="background:#1B4332;">SP</div>
+      </div>
+      <span style="font-size:13px;color:#888;">Trusted by 10,000+ pet owners across Europe</span>
+    </div>
+  </div>
+  <div class="pvh-hero-visual">
+    <div style="position:relative;">
+      <div class="pvh-notify-card pvh-notify-card-1">
+        <span style="font-size:16px;">✅</span> Just ordered from Austria!
+      </div>
+      <div class="pvh-floating-card">
+        <div style="position:absolute;top:-12px;right:20px;background:#e63946;color:#fff;padding:5px 14px;border-radius:50px;font-size:11px;font-weight:800;">SAVE 6%</div>
+        <div style="width:100%;height:200px;background:linear-gradient(135deg,#e8f5ee,#c8e6d4);border-radius:18px;overflow:hidden;margin-bottom:20px;display:flex;align-items:center;justify-content:center;">
+          {% if product.featured_image %}
+            <img src="{{ product.featured_image | img_url: '400x400' }}" alt="{{ product.title | escape }}" style="width:100%;height:100%;object-fit:cover;" loading="lazy" width="400" height="400">
+          {% else %}
+            <span style="font-size:80px;">🍽️</span>
+          {% endif %}
+        </div>
+        <div style="color:#f4a261;font-size:15px;margin-bottom:4px;">★★★★★</div>
+        <div style="font-size:12px;color:#888;margin-bottom:12px;">4.9 · 2,847 reviews</div>
+        <div style="font-size:15px;font-weight:700;color:#1a1a1a;margin-bottom:14px;line-height:1.4;">2-in-1 Automatic Pet Feeder &amp; Water Dispenser</div>
+        <div style="display:flex;align-items:center;gap:10px;margin-bottom:14px;">
+          <span style="font-size:24px;font-weight:900;color:#2D6A4F;">€34.99</span>
+          <span style="font-size:14px;color:#bbb;text-decoration:line-through;">€37.23</span>
+        </div>
+        <div style="display:flex;gap:8px;margin-bottom:16px;">
+          <span class="pvh-swatch active" style="background:#9E9E9E;"></span>
+          <span class="pvh-swatch" style="background:#64B5F6;"></span>
+          <span class="pvh-swatch" style="background:#F48FB1;"></span>
+          <span class="pvh-swatch" style="background:#90A4AE;"></span>
+          <span class="pvh-swatch" style="background:#F06292;"></span>
+          <span class="pvh-swatch" style="background:#FFF176;border:1px solid #ddd;"></span>
+        </div>
+        <button type="button" class="pvh-atc-btn pvh-ajax-atc" data-variant="{{ first_variant.id }}" style="animation:none;cursor:pointer;border:none;width:100%;font-family:inherit;">Add to Cart</button>
+      </div>
+      <div class="pvh-notify-card pvh-notify-card-2">
+        <span style="font-size:16px;">🚚</span> Free shipping included!
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="pvh-trust-bar">
+  <div class="pvh-trust-item"><div class="pvh-trust-icon">🚚</div><div><div style="font-size:14px;font-weight:700;">Free Shipping</div><div style="font-size:12px;opacity:0.7;">On orders over €50</div></div></div>
+  <div class="pvh-trust-item"><div class="pvh-trust-icon">🔄</div><div><div style="font-size:14px;font-weight:700;">30-Day Returns</div><div style="font-size:12px;opacity:0.7;">No questions asked</div></div></div>
+  <div class="pvh-trust-item"><div class="pvh-trust-icon">🔒</div><div><div style="font-size:14px;font-weight:700;">Secure Payment</div><div style="font-size:12px;opacity:0.7;">SSL encrypted checkout</div></div></div>
+  <div class="pvh-trust-item"><div class="pvh-trust-icon">💬</div><div><div style="font-size:14px;font-weight:700;">24/7 Support</div><div style="font-size:12px;opacity:0.7;">Always here to help</div></div></div>
+</div>
+
+<!-- STATS -->
+<div class="pvh-stats-bar">
+  <div class="pvh-stat-item"><div class="pvh-stat-num">10,000+</div><div class="pvh-stat-label">Happy Pet Owners</div></div>
+  <div class="pvh-stat-item"><div class="pvh-stat-num">4.9 ★</div><div class="pvh-stat-label">Average Rating</div></div>
+  <div class="pvh-stat-item"><div class="pvh-stat-num">15+</div><div class="pvh-stat-label">Countries Shipped To</div></div>
+</div>
+
+<!-- PRODUCT SHOWCASE -->
+<div class="pvh-product-showcase" id="pvh-showcase">
+  <div class="pvh-product-visual">
+    {% if product.featured_image %}
+      <img src="{{ product.featured_image | img_url: '600x600' }}" alt="{{ product.title | escape }}" loading="lazy" width="600" height="600">
+    {% else %}
+      🍽️
+    {% endif %}
+  </div>
+  <div style="animation:pvh-fadeInRight 0.8s ease both;">
+    <span class="pvh-section-tag">Our Hero Product</span>
+    <h2 style="font-size:34px;font-weight:800;color:#0a0a0a;margin-bottom:14px;line-height:1.25;">2-in-1 Automatic Pet Feeder &amp; Water Dispenser</h2>
+    <div style="display:flex;align-items:center;gap:10px;margin-bottom:20px;"><span style="color:#f4a261;font-size:18px;">★★★★★</span><span style="font-size:14px;color:#888;">4.9 (2,847 reviews)</span></div>
+    <div class="pvh-price-row"><span class="pvh-price-main">€34.99</span><span class="pvh-price-strike">€37.23</span><span class="pvh-price-save">SAVE 6%</span></div>
+    <ul class="pvh-feature-list">
+      <li class="pvh-feature-item"><div class="pvh-feature-check">✓</div>Auto-releases food &amp; water throughout the day</li>
+      <li class="pvh-feature-item"><div class="pvh-feature-check">✓</div>Perfectly sized for cats and small-to-medium dogs</li>
+      <li class="pvh-feature-item"><div class="pvh-feature-check">✓</div>Dishwasher safe — easy to clean daily</li>
+      <li class="pvh-feature-item"><div class="pvh-feature-check">✓</div>Food-grade PP plastic — 100% pet safe</li>
+      <li class="pvh-feature-item"><div class="pvh-feature-check">✓</div>Available in 6 beautiful colors</li>
+    </ul>
+    <div class="pvh-swatches"><span style="font-size:14px;color:#666;font-weight:600;margin-right:4px;">Color:</span><span class="pvh-swatch active" style="background:#9E9E9E;" title="Gray"></span><span class="pvh-swatch" style="background:#64B5F6;" title="Blue"></span><span class="pvh-swatch" style="background:#F48FB1;" title="Rose Pink"></span><span class="pvh-swatch" style="background:#90A4AE;" title="Whale Grey"></span><span class="pvh-swatch" style="background:#F06292;" title="Pink"></span><span class="pvh-swatch" style="background:#FFF176;border:1px solid #ddd;" title="Yellow"></span></div>
+    <div class="pvh-countdown-wrapper"><span class="pvh-countdown-label">⚡ Sale ends in:</span><span id="pvh-countdown" class="pvh-countdown-timer">00:00:00</span></div>
+    <button type="button" class="pvh-atc-btn pvh-ajax-atc" data-variant="{{ first_variant.id }}" style="cursor:pointer;border:none;width:100%;font-family:inherit;">Add to Cart — €34.99</button>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="pvh-benefits-section">
+  <div class="pvh-section-header"><div class="pvh-section-tag">Why Choose Us</div><h2 class="pvh-section-title">Built for Pet Parents</h2><p class="pvh-section-sub">Everything we make is designed with your pet's health and happiness in mind.</p></div>
+  <div class="pvh-benefits-grid">
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">🕐</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Always On Time</h3><p style="font-size:14px;color:#666;line-height:1.65;">Automatic dispensing means your pet eats and drinks on schedule — even when you're stuck at work or travelling.</p></div>
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">💧</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Always Hydrated</h3><p style="font-size:14px;color:#666;line-height:1.65;">Fresh water available 24/7. Proper hydration is crucial for your pet's kidney health, digestion, and overall wellbeing.</p></div>
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">🧼</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Hygiene First</h3><p style="font-size:14px;color:#666;line-height:1.65;">Made from food-grade PP plastic. Fully dishwasher safe. No bacteria buildup, no harmful chemicals — ever.</p></div>
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">🐱</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Cats &amp; Dogs</h3><p style="font-size:14px;color:#666;line-height:1.65;">Ergonomic bowl height reduces neck strain and supports healthy posture during meals for cats and small dogs.</p></div>
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">🎨</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">6 Beautiful Colors</h3><p style="font-size:14px;color:#666;line-height:1.65;">Gray, Blue, Rose Pink, Whale Grey, Pink, and Yellow. Choose the one that matches your home perfectly.</p></div>
+    <div class="pvh-benefit-card"><div class="pvh-benefit-icon">♻️</div><h3 style="font-size:17px;font-weight:700;color:#0a0a0a;margin-bottom:10px;">Eco-Friendly</h3><p style="font-size:14px;color:#666;line-height:1.65;">Built to last years, not months. Durable design means less waste — better for your pet and the planet.</p></div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="pvh-reviews-section">
+  <div class="pvh-section-header"><div class="pvh-section-tag">Customer Reviews</div><h2 class="pvh-section-title">What Pet Owners Say</h2><p class="pvh-section-sub">Trusted by thousands of happy pet owners across Europe.</p></div>
+  <div class="pvh-reviews-grid">
+    <div class="pvh-review-card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div class="pvh-reviewer-avatar">MK</div><div><div style="font-size:15px;font-weight:700;color:#0a0a0a;">Maria K.</div><div style="font-size:12px;color:#888;margin-top:2px;">Vienna, Austria 🇦🇹</div></div></div><div style="color:#f4a261;font-size:16px;margin-bottom:12px;">★★★★★</div><p style="font-size:14px;color:#555;line-height:1.65;font-style:italic;margin-bottom:12px;">"My cat used to knock over her bowl constantly. This feeder is a total lifesaver — she has food and water all day and I don't worry when I'm at work!"</p><span style="font-size:11px;color:#2D6A4F;font-weight:700;">✓ Verified Purchase</span></div>
+    <div class="pvh-review-card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div class="pvh-reviewer-avatar" style="background:#52B788;">JB</div><div><div style="font-size:15px;font-weight:700;color:#0a0a0a;">James B.</div><div style="font-size:12px;color:#888;margin-top:2px;">London, UK 🇬🇧</div></div></div><div style="color:#f4a261;font-size:16px;margin-bottom:12px;">★★★★★</div><p style="font-size:14px;color:#555;line-height:1.65;font-style:italic;margin-bottom:12px;">"Bought this for my two dogs. The build quality is fantastic — sturdy, easy to clean, and they both love it. Arrived in 8 days, very well packaged."</p><span style="font-size:11px;color:#2D6A4F;font-weight:700;">✓ Verified Purchase</span></div>
+    <div class="pvh-review-card"><div style="display:flex;align-items:center;gap:14px;margin-bottom:16px;"><div class="pvh-reviewer-avatar" style="background:#1B4332;">SP</div><div><div style="font-size:15px;font-weight:700;color:#0a0a0a;">Sofia P.</div><div style="font-size:12px;color:#888;margin-top:2px;">Berlin, Germany 🇩🇪</div></div></div><div style="color:#f4a261;font-size:16px;margin-bottom:12px;">★★★★★</div><p style="font-size:14px;color:#555;line-height:1.65;font-style:italic;margin-bottom:12px;">"Perfect product! My senior cat drinks so much more water now. The vet actually noticed the improvement too. Absolutely worth every cent!"</p><span style="font-size:11px;color:#2D6A4F;font-weight:700;">✓ Verified Purchase</span></div>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="pvh-cta-section">
+  <h2 class="pvh-cta-title">Your Pet Deserves the Best 🐾</h2>
+  <p style="font-size:18px;color:rgba(255,255,255,0.8);margin-bottom:40px;position:relative;z-index:1;">Join 10,000+ happy pet owners. Free shipping on orders over €50.</p>
+  <a href="/products/pet-feeder-water-dispenser" class="pvh-cta-btn">Get Yours Today — €34.99</a>
+</div>
+
+<!-- SOCIAL PROOF POPUP -->
+<div id="pvh-social-proof" class="pvh-social-proof" role="status" aria-live="polite" aria-atomic="true">
+  <div class="pvh-sp-dot"></div>
+  <div><div id="pvh-sp-name" class="pvh-sp-name"></div><div class="pvh-sp-sub">Just purchased this item</div></div>
+</div>
+
+<!-- EMAIL POPUP -->
+<div id="pvh-overlay" class="pvh-overlay" aria-hidden="true">
+  <div class="pvh-popup" role="dialog" aria-modal="true" aria-label="Get 10% off your first order">
+    <button type="button" class="pvh-popup-close" id="pvh-popup-close" aria-label="Close popup">✕</button>
+    <div class="pvh-popup-emoji">🐾</div>
+    <h3 class="pvh-popup-title">Get 10% OFF<br>Your First Order</h3>
+    <p class="pvh-popup-sub">Enter your email for an exclusive discount code</p>
+    <div id="pvh-popup-form">
+      <input type="email" id="pvh-popup-email" class="pvh-popup-input" placeholder="your@email.com" autocomplete="email">
+      <button type="button" class="pvh-popup-submit" id="pvh-popup-submit">Claim My 10% Off</button>
+    </div>
+    <div id="pvh-popup-success" style="display:none;text-align:center;">
+      <div style="font-size:40px;margin-bottom:12px;">🎉</div>
+      <p style="font-weight:700;font-size:18px;color:#1B4332;margin-bottom:8px;">Here's your discount code:</p>
+      <div class="pvh-code-box">WELCOME10</div>
+      <p style="font-size:13px;color:#666;margin-top:12px;">Copy the code and apply at checkout!</p>
+    </div>
+    <p style="font-size:11px;color:#aaa;margin-top:14px;">No spam. Unsubscribe anytime.</p>
+  </div>
+</div>
+
+<!-- STICKY ADD TO CART BAR -->
+<div id="pvh-sticky-bar" class="pvh-sticky-bar" aria-hidden="true">
+  <div class="pvh-sticky-inner">
+    <div class="pvh-sticky-info">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | img_url: '80x80' }}" alt="{{ product.title | escape }}" class="pvh-sticky-img" loading="lazy" width="80" height="80">
+      {% endif %}
+      <div>
+        <div class="pvh-sticky-name">2-in-1 Auto Pet Feeder &amp; Dispenser</div>
+        <div class="pvh-sticky-price">€34.99 <span style="color:#52B788;font-size:12px;font-weight:600;">FREE SHIPPING</span></div>
+      </div>
+    </div>
+    <button type="button" class="pvh-sticky-btn pvh-ajax-atc" data-variant="{{ first_variant.id }}" style="font-family:inherit;">Add to Cart — €34.99</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  function pvhAddToCart(btn) {
+    var variantId = parseInt(btn.getAttribute('data-variant'), 10);
+    if (!variantId) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+    fetch('/cart/add.js', {method: 'POST', headers: {'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest'}, body: JSON.stringify({ id: variantId, quantity: 1 })})
+    .then(function (r) { if (!r.ok) throw new Error('cart_error'); return r.json(); })
+    .then(function () {
+      btn.textContent = 'Added to cart! ✓';
+      btn.style.background = '#1B4332';
+      return fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (cart) {
+      var selectors = ['.cart-count-bubble', '[data-cart-count]', '.header__cart-count', '.cart-icon-bubble', '.icon-cart-count', '#cart-count', '[data-header-cart-count]', '.cart-link__bubble', '.cart__count', '[data-cart-item-count]'];
+      selectors.forEach(function (sel) { document.querySelectorAll(sel).forEach(function (el) { el.textContent = cart.item_count; el.style.display = cart.item_count > 0 ? '' : 'none'; }); });
+      setTimeout(function () { btn.disabled = false; btn.textContent = originalText; btn.style.background = ''; }, 3000);
+    })
+    .catch(function () { btn.disabled = false; btn.textContent = originalText; });
+  }
+
+  document.querySelectorAll('.pvh-ajax-atc').forEach(function (btn) { btn.addEventListener('click', function () { pvhAddToCart(this); }); });
+
+  var countdownEl = document.getElementById('pvh-countdown');
+  if (countdownEl) {
+    var TIMER_KEY = 'pvh_sale_end';
+    var endTime = parseInt(localStorage.getItem(TIMER_KEY), 10);
+    if (!endTime || Date.now() > endTime) { endTime = Date.now() + 86400000; localStorage.setItem(TIMER_KEY, endTime); }
+    function pad2(n) { return n < 10 ? '0' + n : '' + n; }
+    function tickTimer() {
+      var diff = endTime - Date.now();
+      if (diff <= 0) { endTime = Date.now() + 86400000; localStorage.setItem(TIMER_KEY, endTime); diff = 86400000; }
+      countdownEl.textContent = pad2(Math.floor(diff / 3600000)) + ':' + pad2(Math.floor((diff % 3600000) / 60000)) + ':' + pad2(Math.floor((diff % 60000) / 1000));
+    }
+    tickTimer();
+    setInterval(tickTimer, 1000);
+  }
+
+  var spEl = document.getElementById('pvh-social-proof');
+  var spNameEl = document.getElementById('pvh-sp-name');
+  if (spEl && spNameEl) {
+    var notices = ['🇦🇹 Maria from Vienna just purchased!','🇩🇪 Stefan from Berlin just purchased!','🇬🇧 James from London just purchased!','🇫🇷 Sophie from Paris just purchased!','🇳🇱 Lars from Amsterdam just purchased!','🇪🇸 Carlos from Madrid just purchased!','🇮🇹 Giulia from Rome just purchased!','🇸🇪 Anna from Stockholm just purchased!','🇵🇱 Marek from Warsaw just purchased!','🇧🇪 Lena from Brussels just purchased!'];
+    var spIdx = Math.floor(Math.random() * notices.length);
+    function showSocialProof() { spNameEl.textContent = notices[spIdx]; spIdx = (spIdx + 1) % notices.length; spEl.classList.add('pvh-sp-show'); setTimeout(function () { spEl.classList.remove('pvh-sp-show'); }, 4000); }
+    setTimeout(showSocialProof, 10000);
+    setInterval(showSocialProof, 38000);
+  }
+
+  var overlayEl = document.getElementById('pvh-overlay');
+  if (overlayEl && !localStorage.getItem('pvh_popup_shown')) {
+    var popupCloseBtn = document.getElementById('pvh-popup-close');
+    var popupSubmit = document.getElementById('pvh-popup-submit');
+    var popupEmail = document.getElementById('pvh-popup-email');
+    var popupForm = document.getElementById('pvh-popup-form');
+    var popupSuccess = document.getElementById('pvh-popup-success');
+    setTimeout(function () { overlayEl.classList.add('pvh-overlay-show'); overlayEl.setAttribute('aria-hidden', 'false'); }, 8000);
+    function dismissPopup() { overlayEl.classList.remove('pvh-overlay-show'); overlayEl.setAttribute('aria-hidden', 'true'); localStorage.setItem('pvh_popup_shown', '1'); }
+    popupCloseBtn.addEventListener('click', dismissPopup);
+    overlayEl.addEventListener('click', function (e) { if (e.target === overlayEl) dismissPopup(); });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && overlayEl.classList.contains('pvh-overlay-show')) dismissPopup(); });
+    popupSubmit.addEventListener('click', function () {
+      var email = popupEmail.value.trim();
+      if (!email || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) { popupEmail.style.borderColor = '#e63946'; popupEmail.focus(); return; }
+      popupEmail.style.borderColor = '';
+      popupForm.style.display = 'none';
+      popupSuccess.style.display = 'block';
+      localStorage.setItem('pvh_popup_shown', '1');
+    });
+    popupEmail.addEventListener('keydown', function (e) { if (e.key === 'Enter') popupSubmit.click(); });
+  }
+
+  var stickyBar = document.getElementById('pvh-sticky-bar');
+  var heroEl = document.getElementById('pvh-hero');
+  var footerEl = document.querySelector('footer, [class*="footer"]');
+  if (stickyBar && heroEl) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          var heroPast = heroEl.getBoundingClientRect().bottom < 0;
+          var footerNear = footerEl && footerEl.getBoundingClientRect().top < window.innerHeight + 10;
+          if (heroPast && !footerNear) {
+            stickyBar.classList.add('pvh-sticky-visible');
+            stickyBar.classList.remove('pvh-sticky-hidden');
+            stickyBar.setAttribute('aria-hidden', 'false');
+          } else {
+            stickyBar.classList.remove('pvh-sticky-visible');
+            stickyBar.classList.add('pvh-sticky-hidden');
+            stickyBar.setAttribute('aria-hidden', 'true');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+});
+</script>
+
+{% schema %}
+{
+  "name": "PetVitals Home",
+  "settings": [],
+  "presets": [{"name": "PetVitals Home"}]
+}
+{% endschema %}
