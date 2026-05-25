@@ -1,0 +1,119 @@
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+{%- assign product = product -%}
+{%- assign first_variant = product.variants.first -%}
+
+<div id="pvh-product-sticky-bar" class="pvh-product-sticky-bar" aria-hidden="true">
+  <div class="pvh-product-sticky-inner">
+    <div class="pvh-product-sticky-info">
+      {%- if product.featured_image -%}
+        <img
+          src="{{ product.featured_image | image_url: width: 80 }}"
+          alt="{{ product.title | escape }}"
+          class="pvh-product-sticky-img"
+          loading="lazy"
+          width="80"
+          height="80"
+        >
+      {%- endif -%}
+      <div>
+        <div class="pvh-product-sticky-name">{{ product.title | escape }}</div>
+        <div class="pvh-product-sticky-price">
+          {{ first_variant.price | money }}
+          <span class="pvh-product-sticky-shipping">FREE SHIPPING</span>
+        </div>
+      </div>
+    </div>
+    <button
+      type="button"
+      class="pvh-product-sticky-btn pvh-product-sticky-atc-btn"
+      data-variant="{{ first_variant.id }}"
+      style="font-family:inherit;"
+    >
+      Add to Cart
+    </button>
+  </div>
+</div>
+
+<script>
+(function () {
+  var stickyBar = document.getElementById('pvh-product-sticky-bar');
+  if (!stickyBar) return;
+
+  // Watch the main product buy button — show sticky bar when it scrolls out of view
+  var mainBtn = document.querySelector('.shopify-payment-button, [data-testid="Checkout-button"], form[action*="/cart/add"] button[type="submit"], .product-form__submit');
+
+  if (mainBtn && window.IntersectionObserver) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (!entry.isIntersecting) {
+          stickyBar.classList.add('pvh-product-sticky-visible');
+          stickyBar.setAttribute('aria-hidden', 'false');
+        } else {
+          stickyBar.classList.remove('pvh-product-sticky-visible');
+          stickyBar.setAttribute('aria-hidden', 'true');
+        }
+      });
+    }, { threshold: 0 });
+    observer.observe(mainBtn);
+  } else if (!window.IntersectionObserver) {
+    // Fallback for older browsers
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          var scrolled = window.pageYOffset > 500;
+          if (scrolled) {
+            stickyBar.classList.add('pvh-product-sticky-visible');
+            stickyBar.setAttribute('aria-hidden', 'false');
+          } else {
+            stickyBar.classList.remove('pvh-product-sticky-visible');
+            stickyBar.setAttribute('aria-hidden', 'true');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+  // AJAX add to cart
+  var atcBtn = stickyBar.querySelector('.pvh-product-sticky-atc-btn');
+  if (atcBtn) {
+    atcBtn.addEventListener('click', function () {
+      var variantId = parseInt(atcBtn.getAttribute('data-variant'), 10);
+      if (!variantId) return;
+      var orig = atcBtn.textContent;
+      atcBtn.disabled = true;
+      atcBtn.textContent = 'Adding...';
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ id: variantId, quantity: 1 })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function () {
+        atcBtn.textContent = 'Added ✓';
+        atcBtn.style.background = '#1B4332';
+        setTimeout(function () {
+          atcBtn.disabled = false;
+          atcBtn.textContent = orig;
+          atcBtn.style.background = '';
+        }, 2500);
+      })
+      .catch(function () {
+        atcBtn.disabled = false;
+        atcBtn.textContent = orig;
+      });
+    });
+  }
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PVH Product Sticky ATC",
+  "settings": [],
+  "presets": [{"name": "PVH Product Sticky ATC"}]
+}
+{% endschema %}

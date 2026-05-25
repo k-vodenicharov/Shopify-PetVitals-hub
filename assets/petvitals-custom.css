@@ -1,0 +1,1325 @@
+/* ============================================
+   PETVITALS HUB — 2026 Premium Animations
+============================================ */
+
+@keyframes pvh-fadeInUp {
+  from { opacity: 0; transform: translateY(40px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes pvh-fadeInLeft {
+  from { opacity: 0; transform: translateX(-40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pvh-fadeInRight {
+  from { opacity: 0; transform: translateX(40px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pvh-float {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-12px); }
+}
+@keyframes pvh-pulse {
+  0%, 100% { transform: scale(1);    box-shadow: 0 0 0 0 rgba(45,106,79,0.4); }
+  50%       { transform: scale(1.03); box-shadow: 0 0 0 12px rgba(45,106,79,0); }
+}
+@keyframes pvh-shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position:  200% center; }
+}
+/* Task 6: standard + webkit-prefixed marquee keyframes for Safari */
+@-webkit-keyframes pvh-marquee {
+  from { -webkit-transform: translateX(0);    transform: translateX(0); }
+  to   { -webkit-transform: translateX(-50%); transform: translateX(-50%); }
+}
+@keyframes pvh-marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+@keyframes pvh-spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+@keyframes pvh-badge-pulse {
+  0%, 100% { transform: scale(1); }
+  50%       { transform: scale(1.06); }
+}
+@keyframes pvh-dot-pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.5; transform: scale(0.8); }
+}
+@keyframes pvh-count-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+/* Social proof slide-in */
+@keyframes pvh-slideInLeft {
+  from { opacity: 0; transform: translateX(-110%); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes pvh-slideOutLeft {
+  from { opacity: 1; transform: translateX(0); }
+  to   { opacity: 0; transform: translateX(-110%); }
+}
+/* Popup fade-in */
+@keyframes pvh-popupIn {
+  from { opacity: 0; transform: scale(0.9) translateY(20px); }
+  to   { opacity: 1; transform: scale(1) translateY(0); }
+}
+/* Sticky bar slide-up */
+@keyframes pvh-slideUp {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+/* ── Global ─────────────────────────────── */
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+html { scroll-behavior: smooth; }
+
+.button, [class*="btn"] {
+  transition: transform 0.2s ease, background 0.2s ease, box-shadow 0.2s ease !important;
+}
+.button:hover { transform: scale(1.03) !important; }
+
+.header {
+  -webkit-backdrop-filter: blur(10px);
+          backdrop-filter: blur(10px);
+  transition: box-shadow 0.3s ease;
+}
+
+.card, .product-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease !important;
+}
+.card:hover, .product-card:hover {
+  transform: translateY(-6px) !important;
+  box-shadow: 0 20px 50px rgba(45,106,79,0.12) !important;
+}
+
+.section { animation: pvh-fadeInUp 0.7s ease both; }
+
+/* ── Announcement bar ───────────────────── */
+.pvh-announcement-bar {
+  background: linear-gradient(90deg, #1B4332, #2D6A4F, #52B788, #2D6A4F, #1B4332);
+  background-size: 300% auto;
+  -webkit-animation: pvh-shimmer 6s linear infinite;
+          animation: pvh-shimmer 6s linear infinite;
+  color: #fff;
+  padding: 10px 0;
+  overflow: hidden;
+}
+.pvh-announcement-bar-track {
+  display: flex;
+  width: -webkit-max-content;
+  width: max-content;
+  -webkit-animation: pvh-marquee 25s linear infinite;
+          animation: pvh-marquee 25s linear infinite;
+  gap: 60px;
+  align-items: center;
+  will-change: transform;
+}
+/* Pause marquee when user prefers reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .pvh-announcement-bar-track {
+    -webkit-animation: none;
+            animation: none;
+  }
+}
+.pvh-announcement-bar-item {
+  font-size: 13px;
+  font-weight: 600;
+  white-space: nowrap;
+  letter-spacing: 0.4px;
+}
+
+/* ── Hero section ───────────────────────── */
+.pvh-hero-section {
+  background: linear-gradient(135deg, #f0faf4 0%, #e8f5ee 50%, #d8f3e3 100%);
+  min-height: 88vh;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  overflow: hidden;
+  position: relative;
+  padding: 80px;
+  gap: 60px;
+}
+.pvh-hero-section::before {
+  content: '';
+  position: absolute;
+  top: -150px; right: -150px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(45,106,79,0.07), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.pvh-hero-section::after {
+  content: '';
+  position: absolute;
+  bottom: -100px; left: -100px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(82,183,136,0.07), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.pvh-hero-content { animation: pvh-fadeInLeft 0.9s ease both; }
+.pvh-hero-visual {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  animation: pvh-fadeInRight 0.9s ease 0.2s both;
+  position: relative;
+}
+
+/* Live badge */
+.pvh-live-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #d8f3e3;
+  color: #1B4332;
+  padding: 7px 18px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  margin-bottom: 24px;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  animation: pvh-badge-pulse 2.5s ease infinite;
+}
+.pvh-live-dot {
+  width: 8px; height: 8px;
+  background: #2D6A4F;
+  border-radius: 50%;
+  animation: pvh-dot-pulse 1.5s ease infinite;
+}
+
+/* Hero title */
+.pvh-hero-title {
+  font-size: 54px !important;
+  font-weight: 900 !important;
+  line-height: 1.1 !important;
+  color: #0a0a0a !important;
+  margin-bottom: 22px !important;
+  letter-spacing: -1.5px !important;
+}
+.pvh-hero-title .pvh-highlight {
+  color: #2D6A4F;
+  position: relative;
+  display: inline-block;
+}
+.pvh-hero-title .pvh-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: 4px; left: 0; right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, #2D6A4F, #52B788);
+  border-radius: 2px;
+  opacity: 0.3;
+}
+
+/* Floating product card */
+.pvh-floating-card {
+  background: #fff;
+  border-radius: 28px;
+  padding: 32px;
+  box-shadow: 0 30px 80px rgba(45,106,79,0.18), 0 0 0 1px rgba(45,106,79,0.06);
+  animation: pvh-float 4s ease-in-out infinite;
+  max-width: 340px;
+  width: 100%;
+  position: relative;
+}
+
+/* Mini floating notification cards */
+.pvh-notify-card {
+  position: absolute;
+  background: #fff;
+  border-radius: 14px;
+  padding: 10px 16px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+  font-size: 13px;
+  font-weight: 600;
+  color: #1a1a1a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  white-space: nowrap;
+  z-index: 10;
+}
+.pvh-notify-card-1 {
+  top: -15px; right: -15px;
+  animation: pvh-float 3s ease-in-out 0.5s infinite;
+}
+.pvh-notify-card-2 {
+  bottom: 20px; left: -25px;
+  animation: pvh-float 3.5s ease-in-out 1s infinite;
+}
+
+/* ── Trust bar ──────────────────────────── */
+.pvh-trust-bar {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  background: #1B4332;
+}
+.pvh-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 22px 28px;
+  color: #fff;
+  border-right: 1px solid rgba(255,255,255,0.1);
+  transition: background 0.2s;
+}
+.pvh-trust-item:hover { background: rgba(255,255,255,0.06); }
+.pvh-trust-item:last-child { border-right: none; }
+.pvh-trust-icon {
+  width: 46px; height: 46px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 22px;
+  flex-shrink: 0;
+  transition: transform 0.2s;
+}
+.pvh-trust-item:hover .pvh-trust-icon { transform: scale(1.1); }
+
+/* ── Stats ──────────────────────────────── */
+.pvh-stats-bar {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  background: #fff;
+  border-bottom: 1px solid #f0f0f0;
+}
+.pvh-stat-item {
+  text-align: center;
+  padding: 52px 40px;
+  border-right: 1px solid #f0f0f0;
+  transition: background 0.2s;
+  animation: pvh-count-up 0.8s ease both;
+}
+.pvh-stat-item:last-child { border-right: none; }
+.pvh-stat-item:hover { background: #f9fdf9; }
+.pvh-stat-num {
+  font-size: 50px;
+  font-weight: 900;
+  color: #2D6A4F;
+  margin-bottom: 8px;
+  letter-spacing: -2px;
+}
+.pvh-stat-label { font-size: 15px; color: #666; font-weight: 500; }
+
+/* ── Product showcase ───────────────────── */
+.pvh-product-showcase {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: center;
+  padding: 100px 80px;
+  background: #f9fdf9;
+}
+.pvh-product-visual {
+  background: linear-gradient(135deg, #e8f5ee, #c8e6d4);
+  border-radius: 32px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 130px;
+  overflow: hidden;
+  animation: pvh-float 4s ease-in-out infinite;
+  position: relative;
+}
+.pvh-product-visual::before {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 35%;
+  background: linear-gradient(to top, rgba(45,106,79,0.1), transparent);
+  z-index: 1;
+  pointer-events: none;
+}
+.pvh-product-visual img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ── Benefits ───────────────────────────── */
+.pvh-benefits-section { padding: 100px 80px; background: #fff; }
+.pvh-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pvh-benefit-card {
+  background: #f9fdf9;
+  border-radius: 22px;
+  padding: 34px;
+  border: 1px solid #e0f0e6;
+  transition: transform 0.28s ease, box-shadow 0.28s ease;
+  animation: pvh-fadeInUp 0.7s ease both;
+}
+.pvh-benefit-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 24px 60px rgba(45,106,79,0.13);
+}
+.pvh-benefit-icon {
+  width: 60px; height: 60px;
+  background: #d8f3e3;
+  border-radius: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  margin-bottom: 22px;
+  transition: transform 0.2s;
+}
+.pvh-benefit-card:hover .pvh-benefit-icon { transform: scale(1.1) rotate(-5deg); }
+
+/* ── Reviews ────────────────────────────── */
+.pvh-reviews-section { padding: 100px 80px; background: #f9fdf9; }
+.pvh-reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+.pvh-review-card {
+  background: #fff;
+  border-radius: 22px;
+  padding: 30px;
+  border: 1px solid #e0f0e6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  animation: pvh-fadeInUp 0.7s ease both;
+}
+.pvh-review-card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 16px 40px rgba(45,106,79,0.1);
+}
+.pvh-reviewer-avatar {
+  width: 48px; height: 48px;
+  border-radius: 50%;
+  background: #2D6A4F;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 800;
+  flex-shrink: 0;
+}
+
+/* ── CTA ────────────────────────────────── */
+.pvh-cta-section {
+  background: linear-gradient(135deg, #1B4332, #2D6A4F);
+  padding: 110px 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pvh-cta-section::before,
+.pvh-cta-section::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.05);
+}
+.pvh-cta-section::before { width: 500px; height: 500px; top: -200px;  left: -200px;  }
+.pvh-cta-section::after  { width: 400px; height: 400px; bottom: -150px; right: -150px; }
+
+.pvh-cta-title {
+  font-size: 48px;
+  font-weight: 900;
+  color: #fff;
+  margin-bottom: 16px;
+  line-height: 1.15;
+  position: relative;
+  z-index: 1;
+}
+.pvh-cta-btn {
+  background: #fff !important;
+  color: #2D6A4F !important;
+  padding: 20px 60px !important;
+  border-radius: 50px !important;
+  font-size: 18px !important;
+  font-weight: 800 !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  transition: transform 0.2s, box-shadow 0.2s !important;
+  animation: pvh-pulse 3s ease infinite !important;
+  position: relative;
+  z-index: 1;
+}
+.pvh-cta-btn:hover {
+  transform: scale(1.06) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.25) !important;
+}
+
+/* ── Feature list ───────────────────────── */
+.pvh-feature-list { list-style: none; padding: 0; margin-bottom: 28px; }
+.pvh-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 11px 0;
+  font-size: 15px;
+  color: #444;
+  border-bottom: 1px solid #f0f0f0;
+}
+.pvh-feature-item:last-child { border-bottom: none; }
+.pvh-feature-check {
+  width: 24px; height: 24px;
+  background: #d8f3e3;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2D6A4F;
+  font-size: 12px;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+/* ── Swatches ───────────────────────────── */
+.pvh-swatches { display: flex; gap: 10px; align-items: center; margin-bottom: 24px; }
+.pvh-swatch {
+  width: 30px; height: 30px;
+  border-radius: 50%;
+  cursor: pointer;
+  border: 3px solid transparent;
+  transition: transform 0.2s, border-color 0.2s;
+}
+.pvh-swatch:hover { transform: scale(1.2); }
+.pvh-swatch.active { border-color: #2D6A4F; }
+
+/* ── Add to Cart button ─────────────────── */
+.pvh-atc-btn {
+  display: block;
+  width: 100%;
+  background: #2D6A4F;
+  color: #fff !important;
+  padding: 18px;
+  border-radius: 50px;
+  font-size: 17px;
+  font-weight: 700;
+  text-align: center;
+  text-decoration: none !important;
+  transition: transform 0.2s, background 0.2s !important;
+  animation: pvh-pulse 3s ease infinite;
+  margin-bottom: 12px;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pvh-atc-btn:hover { transform: scale(1.02) !important; background: #1B4332 !important; }
+.pvh-atc-btn:disabled { opacity: 0.75; cursor: not-allowed; transform: none !important; }
+
+/* ── Section headers ────────────────────── */
+.pvh-section-header { text-align: center; margin-bottom: 64px; }
+.pvh-section-tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 800;
+  color: #2D6A4F;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.pvh-section-title {
+  font-size: 42px;
+  font-weight: 900;
+  color: #0a0a0a;
+  margin-bottom: 14px;
+  letter-spacing: -1px;
+  line-height: 1.15;
+}
+.pvh-section-sub {
+  font-size: 17px;
+  color: #666;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.65;
+}
+
+/* ── Price ──────────────────────────────── */
+.pvh-price-row { display: flex; align-items: center; gap: 14px; margin-bottom: 28px; }
+.pvh-price-main { font-size: 42px; font-weight: 900; color: #2D6A4F; letter-spacing: -1px; }
+.pvh-price-strike { font-size: 20px; color: #ccc; text-decoration: line-through; }
+.pvh-price-save {
+  background: #e63946;
+  color: #fff;
+  padding: 5px 13px;
+  border-radius: 50px;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.5px;
+}
+
+/* ── Avatar stack ───────────────────────── */
+.pvh-avatar-stack { display: flex; align-items: center; }
+.pvh-avatar {
+  width: 34px; height: 34px;
+  border-radius: 50%;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: -10px;
+}
+
+/* ═══════════════════════════════════════════
+   TASK 3 — COUNTDOWN TIMER
+═══════════════════════════════════════════ */
+.pvh-countdown-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: linear-gradient(135deg, #fff3f3, #ffe8e8);
+  border: 1px solid #f5c6c6;
+  border-radius: 12px;
+  padding: 12px 18px;
+  margin-bottom: 20px;
+}
+.pvh-countdown-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #c0392b;
+  white-space: nowrap;
+}
+.pvh-countdown-timer {
+  font-size: 22px;
+  font-weight: 900;
+  color: #e63946;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 2px;
+  font-family: monospace;
+}
+
+/* ═══════════════════════════════════════════
+   TASK 4 — SOCIAL PROOF POPUP
+═══════════════════════════════════════════ */
+.pvh-social-proof {
+  position: fixed;
+  bottom: 24px;
+  left: 24px;
+  z-index: 9998;
+  background: #1B4332;
+  color: #fff;
+  border-radius: 14px;
+  padding: 14px 20px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 8px 32px rgba(27,67,50,0.35);
+  max-width: 300px;
+  pointer-events: none;
+  /* hidden by default */
+  opacity: 0;
+  transform: translateX(-110%);
+  transition: none;
+}
+.pvh-social-proof.pvh-sp-show {
+  animation: pvh-slideInLeft 0.4s ease forwards;
+  /* auto-hide after 4s is handled in JS; slideOut is triggered by class removal */
+}
+.pvh-social-proof:not(.pvh-sp-show) {
+  animation: pvh-slideOutLeft 0.4s ease forwards;
+}
+.pvh-sp-dot {
+  width: 10px; height: 10px;
+  background: #52B788;
+  border-radius: 50%;
+  flex-shrink: 0;
+  animation: pvh-dot-pulse 1.5s ease infinite;
+}
+.pvh-sp-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  line-height: 1.3;
+}
+.pvh-sp-sub {
+  font-size: 12px;
+  color: rgba(255,255,255,0.7);
+  margin-top: 2px;
+}
+
+/* ═══════════════════════════════════════════
+   TASK 5 — EMAIL POPUP
+═══════════════════════════════════════════ */
+.pvh-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.55);
+  z-index: 10000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  /* hidden by default */
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.pvh-overlay.pvh-overlay-show {
+  opacity: 1;
+  pointer-events: auto;
+}
+.pvh-popup {
+  background: #fff;
+  border-radius: 24px;
+  padding: 40px 36px;
+  max-width: 420px;
+  width: 100%;
+  position: relative;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+  animation: pvh-popupIn 0.35s ease both;
+}
+.pvh-popup-close {
+  position: absolute;
+  top: 14px; right: 18px;
+  background: none;
+  border: none;
+  font-size: 18px;
+  color: #aaa;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 50%;
+  transition: color 0.2s, background 0.2s;
+}
+.pvh-popup-close:hover { color: #333; background: #f0f0f0; }
+.pvh-popup-emoji { font-size: 44px; margin-bottom: 12px; }
+.pvh-popup-title {
+  font-size: 26px;
+  font-weight: 900;
+  color: #0a0a0a;
+  margin-bottom: 10px;
+  line-height: 1.25;
+}
+.pvh-popup-sub {
+  font-size: 15px;
+  color: #666;
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+.pvh-popup-input {
+  width: 100%;
+  padding: 14px 18px;
+  border: 2px solid #e0f0e6;
+  border-radius: 50px;
+  font-size: 15px;
+  outline: none;
+  margin-bottom: 12px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+  font-family: inherit;
+}
+.pvh-popup-input:focus { border-color: #2D6A4F; }
+.pvh-popup-submit {
+  width: 100%;
+  background: #2D6A4F;
+  color: #fff;
+  padding: 15px;
+  border: none;
+  border-radius: 50px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  font-family: inherit;
+}
+.pvh-popup-submit:hover { background: #1B4332; transform: scale(1.02); }
+.pvh-code-box {
+  background: #f0faf4;
+  border: 2px dashed #52B788;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 24px;
+  font-weight: 900;
+  color: #1B4332;
+  letter-spacing: 4px;
+  display: inline-block;
+  margin: 0 auto;
+}
+
+/* ═══════════════════════════════════════════
+   TASK 10 — STICKY ADD TO CART BAR
+═══════════════════════════════════════════ */
+.pvh-sticky-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  background: #2D6A4F;
+  color: #fff;
+  transform: translateY(100%);
+  transition: transform 0.3s ease;
+  box-shadow: 0 -4px 30px rgba(27,67,50,0.25);
+}
+.pvh-sticky-bar.pvh-sticky-visible {
+  transform: translateY(0);
+}
+/* Hide sticky bar when footer is in view */
+.pvh-sticky-bar.pvh-sticky-hidden {
+  transform: translateY(100%);
+}
+.pvh-sticky-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+}
+.pvh-sticky-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+.pvh-sticky-img {
+  width: 52px; height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+  border: 2px solid rgba(255,255,255,0.2);
+}
+.pvh-sticky-name {
+  font-size: 14px;
+  font-weight: 700;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pvh-sticky-price {
+  font-size: 18px;
+  font-weight: 900;
+  color: #fff;
+  margin-top: 2px;
+}
+.pvh-sticky-btn {
+  background: #fff;
+  color: #2D6A4F;
+  border: none;
+  padding: 12px 28px;
+  border-radius: 50px;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.pvh-sticky-btn:hover {
+  transform: scale(1.04);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+}
+.pvh-sticky-btn:disabled { opacity: 0.75; cursor: not-allowed; transform: none; }
+
+/* ═══════════════════════════════════════════
+   RESPONSIVE — Mobile (max-width: 900px)
+═══════════════════════════════════════════ */
+/* ═══════════════════════════════════════════
+   TRUST SIGNALS — snippets/trust-signals.liquid
+═══════════════════════════════════════════ */
+.pvh-trust-signals {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  border: 1.5px solid #e0f0e6;
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 24px;
+  background: #fff;
+}
+.pvh-ts-badge {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 18px;
+  border-bottom: 1px solid #e0f0e6;
+  transition: background 0.18s ease;
+}
+.pvh-ts-badge:last-child { border-bottom: none; }
+.pvh-ts-badge:hover { background: #f7fdf9; }
+.pvh-ts-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2D6A4F;
+  transition: transform 0.2s ease;
+}
+.pvh-ts-badge:hover .pvh-ts-icon { transform: scale(1.1); }
+.pvh-ts-icon--vet  { background: #d8f3e3; }
+.pvh-ts-icon--leaf { background: #e8f5ee; }
+.pvh-ts-icon--ship { background: #d0ece0; }
+.pvh-ts-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0a0a0a;
+  line-height: 1.3;
+}
+.pvh-ts-sub {
+  font-size: 12px;
+  color: #888;
+  margin-top: 2px;
+  line-height: 1.4;
+}
+
+/* ═══════════════════════════════════════════
+   PET HAPPINESS GUARANTEE — sections/pet-happiness-guarantee.liquid
+═══════════════════════════════════════════ */
+.pvh-guarantee-section {
+  position: relative;
+  overflow: hidden;
+  padding: 80px;
+}
+.pvh-guarantee-blob {
+  position: absolute;
+  top: -120px;
+  right: -120px;
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(82,183,136,0.12), transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.pvh-guarantee-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.pvh-guarantee-lead {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 24px;
+}
+.pvh-guarantee-shield {
+  animation: pvh-float 5s ease-in-out infinite;
+  filter: drop-shadow(0 12px 30px rgba(45,106,79,0.2));
+}
+.pvh-guarantee-eyebrow {
+  font-size: 11px;
+  font-weight: 800;
+  color: #2D6A4F;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  margin: 0;
+}
+.pvh-guarantee-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: #0a0a0a;
+  line-height: 1.2;
+  letter-spacing: -0.5px;
+  margin: 6px 0 0;
+}
+.pvh-guarantee-subtitle {
+  font-size: 16px;
+  color: #555;
+  line-height: 1.7;
+  margin: 10px 0 0;
+  max-width: 400px;
+}
+.pvh-guarantee-items {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.pvh-guarantee-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 16px;
+  background: #fff;
+  border-radius: 18px;
+  padding: 20px 22px;
+  border: 1.5px solid #e0f0e6;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.pvh-guarantee-item:hover {
+  transform: translateX(6px);
+  box-shadow: 0 8px 30px rgba(45,106,79,0.1);
+}
+.pvh-gi-icon {
+  font-size: 28px;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+.pvh-gi-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin-bottom: 5px;
+}
+.pvh-gi-desc {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.6;
+  margin: 0;
+}
+
+@media (max-width: 900px) {
+  /* Hero */
+  .pvh-hero-section {
+    grid-template-columns: 1fr;
+    padding: 40px 24px;
+    min-height: auto;
+    gap: 40px;
+  }
+  .pvh-hero-title { font-size: 32px !important; letter-spacing: -0.5px !important; }
+  .pvh-notify-card { display: none; }
+
+  /* Trust bar: 2 columns on mobile */
+  .pvh-trust-bar { grid-template-columns: repeat(2, 1fr); }
+  .pvh-trust-item { border-bottom: 1px solid rgba(255,255,255,0.1); }
+
+  /* Stats: single column */
+  .pvh-stats-bar { grid-template-columns: 1fr; }
+  .pvh-stat-item { padding: 32px 24px; border-right: none; border-bottom: 1px solid #f0f0f0; }
+  .pvh-stat-num { font-size: 36px; }
+
+  /* Product showcase: single column */
+  .pvh-product-showcase {
+    grid-template-columns: 1fr;
+    padding: 48px 24px;
+    gap: 32px;
+  }
+  .pvh-product-visual { height: 280px; }
+
+  /* Benefits: single column */
+  .pvh-benefits-section { padding: 48px 24px; }
+  .pvh-benefits-grid { grid-template-columns: 1fr; }
+
+  /* Reviews: single column */
+  .pvh-reviews-section { padding: 48px 24px; }
+  .pvh-reviews-grid { grid-template-columns: 1fr; }
+
+  /* Section headers */
+  .pvh-section-title { font-size: 26px !important; }
+
+  /* CTA */
+  .pvh-cta-section { padding: 60px 24px; }
+  .pvh-cta-title { font-size: 28px !important; }
+  .pvh-cta-btn { padding: 16px 36px !important; font-size: 15px !important; }
+
+  /* Price */
+  .pvh-price-main { font-size: 32px; }
+  .pvh-price-row { flex-wrap: wrap; }
+
+  /* Countdown */
+  .pvh-countdown-wrapper { flex-wrap: wrap; gap: 6px; }
+  .pvh-countdown-timer { font-size: 18px; }
+
+  /* Social proof: hide on mobile to avoid layout issues */
+  .pvh-social-proof { display: none; }
+
+  /* Email popup */
+  .pvh-popup { padding: 32px 24px; }
+  .pvh-popup-title { font-size: 22px; }
+
+  /* Sticky bar: compact on mobile */
+  .pvh-sticky-inner { padding: 10px 16px; gap: 12px; }
+  .pvh-sticky-img { display: none; }
+  .pvh-sticky-name { font-size: 12px; }
+  .pvh-sticky-price { font-size: 15px; }
+  .pvh-sticky-btn { padding: 11px 20px; font-size: 14px; }
+
+  /* Trust signals: full width on mobile */
+  .pvh-trust-signals { margin-top: 20px; }
+
+  /* Guarantee section: stack on mobile */
+  .pvh-guarantee-section { padding: 48px 24px; }
+  .pvh-guarantee-inner { grid-template-columns: 1fr; gap: 36px; }
+  .pvh-guarantee-lead { align-items: center; text-align: center; }
+  .pvh-guarantee-subtitle { text-align: center; }
+  .pvh-guarantee-title { font-size: 26px; }
+  .pvh-guarantee-shield svg { width: 80px; height: 80px; }
+
+  /* Trust badges product page: wrap to 2 columns on mobile */
+  .pvh-trust-badges-product { gap: 8px 16px; }
+  .pvh-tbp-item { font-size: 0.75rem; }
+}
+
+/* ============================================================
+   TRUST BADGES — Product Page
+   Appears below Add to Cart button
+   ============================================================ */
+.pvh-trust-badges-product {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 24px;
+  padding: 14px 0 2px;
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.pvh-tbp-item {
+  font-size: 0.8125rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  opacity: 0.8;
+  color: var(--color-foreground);
+}
+
+/* ============================================================
+   PRODUCT VIDEO / GIF PLACEHOLDER
+   ============================================================ */
+.pvh-product-video-section {
+  padding: 0 0 40px;
+}
+
+.pvh-product-video-placeholder {
+  width: 100%;
+  max-width: 860px;
+  margin: 0 auto;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.10);
+  background: linear-gradient(135deg, #e8f5ee 0%, #c8e6d4 100%);
+  aspect-ratio: 16 / 9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.pvh-product-video-inner {
+  text-align: center;
+  padding: 32px;
+}
+
+.pvh-product-video-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background: rgba(45, 106, 79, 0.15);
+  border-radius: 50%;
+  font-size: 24px;
+  color: #2D6A4F;
+  margin-bottom: 16px;
+}
+
+.pvh-product-video-label {
+  font-size: 18px;
+  font-weight: 700;
+  color: #1B4332;
+  margin: 0 0 6px;
+}
+
+.pvh-product-video-sub {
+  font-size: 13px;
+  color: #52B788;
+  margin: 0;
+}
+
+/* ============================================================
+   PRODUCT PAGE — STICKY ATC BAR
+   ============================================================ */
+.pvh-product-sticky-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: #fff;
+  border-top: 1px solid rgba(0, 0, 0, 0.10);
+  box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.10);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.pvh-product-sticky-bar.pvh-product-sticky-visible {
+  transform: translateY(0);
+}
+
+.pvh-product-sticky-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.pvh-product-sticky-info {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  flex: 1;
+  min-width: 0;
+}
+
+.pvh-product-sticky-img {
+  width: 52px;
+  height: 52px;
+  border-radius: 10px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.pvh-product-sticky-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0a0a0a;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.pvh-product-sticky-price {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2D6A4F;
+  margin-top: 2px;
+}
+
+.pvh-product-sticky-shipping {
+  font-size: 11px;
+  font-weight: 700;
+  color: #52B788;
+  margin-left: 6px;
+  letter-spacing: 0.04em;
+}
+
+.pvh-product-sticky-btn {
+  background: #2D6A4F;
+  color: #fff;
+  border: none;
+  border-radius: 100px;
+  padding: 13px 28px;
+  font-size: 15px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.pvh-product-sticky-btn:hover {
+  background: #1B4332;
+  transform: translateY(-1px);
+}
+
+.pvh-product-sticky-btn:active {
+  transform: translateY(0);
+}
+
+@media (max-width: 600px) {
+  .pvh-product-sticky-inner {
+    padding: 10px 16px;
+    gap: 10px;
+  }
+
+  .pvh-product-sticky-img {
+    display: none;
+  }
+
+  .pvh-product-sticky-name {
+    font-size: 13px;
+  }
+
+  .pvh-product-sticky-btn {
+    padding: 11px 20px;
+    font-size: 14px;
+  }
+}
+
+/* ============================================================
+   ANNOUNCEMENT BAR — STATIC SINGLE MESSAGE
+   ============================================================ */
+.pvh-announcement-bar-static {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #fff;
+  padding: 0 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ============================================================
+   CLEANUP v1 — MOBILE PERFORMANCE & SCROLL FIXES
+   ============================================================ */
+@media (max-width: 900px) {
+  /* Kill perpetual animations on mobile — battery + distraction */
+  .pvh-atc-btn { animation: none !important; }
+  .pvh-cta-btn { animation: none !important; }
+  .pvh-product-visual { animation: none !important; }
+  .pvh-floating-card { animation: none !important; }
+  .pvh-notify-card { animation: none !important; }
+  .pvh-live-badge { animation: none !important; }
+  .pvh-live-dot { animation: none !important; }
+
+  /* Benefits: 2-col grid on mobile instead of single column */
+  .pvh-benefits-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .pvh-benefit-card { padding: 20px 16px; }
+  .pvh-benefit-card p { font-size: 13px; }
+
+  /* Reviews: horizontal scroll instead of stacked */
+  .pvh-reviews-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 16px;
+    grid-template-columns: none !important;
+  }
+  .pvh-review-card {
+    min-width: 280px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  /* Tighter section padding */
+  .pvh-section-header { margin-bottom: 32px; }
+  .pvh-benefits-section { padding: 40px 20px; }
+  .pvh-reviews-section { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+  .pvh-hero-section { padding: 32px 20px; gap: 32px; }
+  .pvh-hero-title { font-size: 28px !important; }
+  .pvh-section-title { font-size: 22px !important; }
+  .pvh-section-header { margin-bottom: 24px; }
+  .pvh-floating-card { max-width: 100%; }
+  .pvh-trust-item { padding: 14px 12px; }
+  .pvh-trust-item > div:last-child > div:last-child { font-size: 11px; }
+  .pvh-cta-section { padding: 48px 20px; }
+  .pvh-cta-title { font-size: 24px !important; }
+  .pvh-benefit-card { padding: 16px 14px; }
+  .pvh-benefit-card h3 { font-size: 15px !important; }
+  .pvh-benefit-card p { font-size: 12px !important; line-height: 1.55 !important; }
+  .pvh-benefit-icon { font-size: 28px !important; }
+}

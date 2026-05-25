@@ -1,0 +1,462 @@
+/* ============================================================
+   PETVITALS CLEANUP v1
+   Mobile performance + perpetual-animation fixes.
+   Loaded after petvitals-custom.css so these rules win.
+   ============================================================ */
+
+@media (max-width: 900px) {
+  /* Kill perpetual animations on mobile — battery + distraction */
+  .pvh-atc-btn { animation: none !important; }
+  .pvh-cta-btn { animation: none !important; }
+  .pvh-product-visual { animation: none !important; }
+  .pvh-floating-card { animation: none !important; }
+  .pvh-notify-card { animation: none !important; }
+  .pvh-live-badge { animation: none !important; }
+  .pvh-live-dot { animation: none !important; }
+
+  /* Benefits: 2-col grid on mobile (overrides the 900px single-col rule) */
+  .pvh-benefits-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+    gap: 12px;
+  }
+  .pvh-benefit-card { padding: 20px 16px; }
+  .pvh-benefit-card p { font-size: 13px; }
+
+  /* Reviews: horizontal scroll instead of stacked */
+  .pvh-reviews-grid {
+    display: flex !important;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    gap: 16px;
+    padding-bottom: 16px;
+    grid-template-columns: none !important;
+  }
+  .pvh-review-card {
+    min-width: 280px;
+    flex-shrink: 0;
+    scroll-snap-align: start;
+  }
+
+  /* Tighter section padding */
+  .pvh-section-header { margin-bottom: 32px; }
+  .pvh-benefits-section { padding: 40px 20px; }
+  .pvh-reviews-section { padding: 40px 20px; }
+}
+
+@media (max-width: 480px) {
+  .pvh-hero-section { padding: 32px 20px; gap: 32px; }
+  .pvh-hero-title { font-size: 28px !important; }
+  .pvh-section-title { font-size: 22px !important; }
+  .pvh-section-header { margin-bottom: 24px; }
+  .pvh-floating-card { max-width: 100%; }
+  .pvh-trust-item { padding: 14px 12px; }
+  .pvh-cta-section { padding: 48px 20px; }
+  .pvh-cta-title { font-size: 24px !important; }
+  .pvh-benefit-card { padding: 16px 14px; }
+  .pvh-benefit-card h3 { font-size: 15px !important; }
+  .pvh-benefit-card p { font-size: 12px !important; line-height: 1.55 !important; }
+  .pvh-benefit-icon { font-size: 28px !important; }
+}
+
+/* ============================================================
+   WEEK 3 — NEW SECTIONS (problem/solution, how-it-works,
+   guarantee v2, FAQ accordion)
+   ============================================================ */
+
+/* Problem / solution bridge */
+.pvh-problem-section {
+  background: linear-gradient(135deg, #1B4332, #2D6A4F);
+  color: #fff;
+  padding: 100px 80px;
+}
+.pvh-problem-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 80px;
+  align-items: start;
+}
+.pvh-problem-col .pvh-section-tag {
+  margin-bottom: 14px;
+  display: inline-block;
+}
+.pvh-problem-heading {
+  font-size: 32px;
+  font-weight: 900;
+  line-height: 1.2;
+  margin: 0 0 18px;
+  letter-spacing: -0.5px;
+  color: #fff;
+}
+.pvh-problem-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0;
+}
+
+/* How it works */
+.pvh-howit-section {
+  padding: 100px 80px;
+  background: #faf9f7;
+}
+.pvh-howit-grid {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 32px;
+}
+.pvh-howit-step {
+  text-align: center;
+  padding: 20px;
+}
+.pvh-howit-num {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #1B4332;
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 22px;
+}
+.pvh-howit-title {
+  font-size: 20px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin: 0 0 10px;
+}
+.pvh-howit-body {
+  font-size: 15px;
+  line-height: 1.65;
+  color: #555;
+  margin: 0 auto;
+  max-width: 280px;
+}
+
+/* Guarantee v2 */
+.pvh-guarantee-v2 {
+  padding: 90px 80px;
+  background: #f9fdf9;
+}
+.pvh-guarantee-v2-inner {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 56px;
+  align-items: center;
+}
+.pvh-guarantee-v2-shield {
+  color: #2D6A4F;
+  filter: drop-shadow(0 12px 30px rgba(45, 106, 79, 0.18));
+}
+.pvh-guarantee-v2-text .pvh-section-tag {
+  margin-bottom: 12px;
+  display: inline-block;
+}
+.pvh-guarantee-v2-title {
+  font-size: 30px;
+  font-weight: 900;
+  color: #0a0a0a;
+  line-height: 1.25;
+  margin: 0 0 18px;
+  letter-spacing: -0.5px;
+}
+.pvh-guarantee-v2-body {
+  font-size: 16px;
+  line-height: 1.75;
+  color: #444;
+  margin: 0 0 18px;
+}
+.pvh-guarantee-v2-sign {
+  font-size: 15px;
+  font-style: italic;
+  color: #2D6A4F;
+  margin: 0;
+  font-weight: 600;
+}
+
+/* FAQ accordion */
+.pvh-faq-section {
+  padding: 100px 80px;
+  background: #fff;
+}
+.pvh-faq-list {
+  max-width: 760px;
+  margin: 0 auto;
+}
+.pvh-faq-item {
+  border-bottom: 1px solid #e6e6e1;
+}
+.pvh-faq-item:first-child {
+  border-top: 1px solid #e6e6e1;
+}
+.pvh-faq-q {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  font-size: 17px;
+  font-weight: 700;
+  color: #0a0a0a;
+  padding: 24px 0;
+  cursor: pointer;
+  list-style: none;
+  user-select: none;
+}
+.pvh-faq-q::-webkit-details-marker { display: none; }
+.pvh-faq-q::marker { display: none; content: ''; }
+.pvh-faq-chev {
+  font-size: 26px;
+  font-weight: 300;
+  color: #2D6A4F;
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+  line-height: 1;
+}
+.pvh-faq-item[open] .pvh-faq-chev {
+  transform: rotate(45deg);
+}
+.pvh-faq-a {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #555;
+  padding: 0 0 24px;
+  max-width: 640px;
+}
+
+/* Mobile fixes for new Week 3 sections */
+@media (max-width: 900px) {
+  .pvh-problem-section { padding: 56px 24px; }
+  .pvh-problem-inner { grid-template-columns: 1fr; gap: 40px; }
+  .pvh-problem-heading { font-size: 24px; }
+  .pvh-problem-body { font-size: 15px; }
+
+  .pvh-howit-section { padding: 56px 24px; }
+  .pvh-howit-grid { grid-template-columns: 1fr; gap: 32px; }
+  .pvh-howit-num { width: 48px; height: 48px; font-size: 20px; margin-bottom: 16px; }
+  .pvh-howit-title { font-size: 18px; }
+  .pvh-howit-body { font-size: 14px; }
+
+  .pvh-guarantee-v2 { padding: 56px 24px; }
+  .pvh-guarantee-v2-inner { grid-template-columns: 1fr; gap: 28px; text-align: center; }
+  .pvh-guarantee-v2-shield { margin: 0 auto; }
+  .pvh-guarantee-v2-shield svg { width: 64px; height: 64px; }
+  .pvh-guarantee-v2-title { font-size: 22px; }
+  .pvh-guarantee-v2-body { font-size: 15px; }
+
+  .pvh-faq-section { padding: 56px 24px; }
+  .pvh-faq-q { font-size: 16px; padding: 20px 0; }
+  .pvh-faq-a { font-size: 14px; }
+}
+
+/* ============================================================
+   PRODUCT LP SECTION — stats strip, features, reviews
+   ============================================================ */
+
+/* Stats strip */
+.pvh-lp-stats-strip {
+  background: #f0f7f4;
+  padding: 32px 40px;
+  border-top: 1px solid #dde8e3;
+  border-bottom: 1px solid #dde8e3;
+}
+.pvh-lp-stats-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pvh-lp-stat {
+  flex: 1;
+  text-align: center;
+  padding: 0 20px;
+}
+.pvh-lp-stat-num {
+  font-size: 30px;
+  font-weight: 900;
+  color: #2D6A4F;
+  line-height: 1.1;
+  margin-bottom: 4px;
+  letter-spacing: -0.5px;
+}
+.pvh-lp-stat-label {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.4;
+}
+.pvh-lp-stat-divider {
+  width: 1px;
+  height: 52px;
+  background: #c0d8cc;
+  flex-shrink: 0;
+}
+
+/* Feature deep dive */
+.pvh-lp-features {
+  padding: 80px 80px;
+  background: #fff;
+}
+.pvh-lp-features-list {
+  max-width: 800px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.pvh-lp-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 24px;
+  padding: 28px 32px;
+  border-radius: 16px;
+  background: #faf9f7;
+  border: 1px solid #eeede8;
+}
+.pvh-lp-feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: #e8f5ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  color: #2D6A4F;
+}
+.pvh-lp-feature-body h3 {
+  font-size: 18px;
+  font-weight: 800;
+  color: #0a0a0a;
+  margin: 0 0 8px;
+  line-height: 1.3;
+}
+.pvh-lp-feature-body p {
+  font-size: 15px;
+  line-height: 1.75;
+  color: #555;
+  margin: 0;
+}
+
+/* Reviews section */
+.pvh-lp-reviews {
+  padding: 80px 80px;
+  background: #faf9f7;
+}
+.pvh-lp-reviews-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+/* Mobile: product LP */
+@media (max-width: 900px) {
+  .pvh-lp-stats-strip { padding: 24px 20px; }
+  .pvh-lp-stats-inner { flex-wrap: wrap; gap: 16px; }
+  .pvh-lp-stat { flex: 0 0 calc(50% - 8px); padding: 0; }
+  .pvh-lp-stat-num { font-size: 24px; }
+  .pvh-lp-stat-divider { display: none; }
+
+  .pvh-lp-features { padding: 48px 20px; }
+  .pvh-lp-features-list { gap: 14px; }
+  .pvh-lp-feature { padding: 20px; gap: 14px; flex-direction: row; }
+  .pvh-lp-feature-icon { width: 44px; height: 44px; flex-shrink: 0; }
+  .pvh-lp-feature-body h3 { font-size: 16px; }
+  .pvh-lp-feature-body p { font-size: 14px; }
+
+  .pvh-lp-reviews { padding: 48px 20px; }
+}
+
+/* ============================================================
+   HERO TRUST ROW + CLEAN IMAGE VISUAL
+   ============================================================ */
+
+.pvh-hero-trust-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+.pvh-hero-trust-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: #555;
+  font-weight: 500;
+}
+.pvh-hero-trust-item svg { color: #2D6A4F; flex-shrink: 0; }
+.pvh-hero-trust-sep { color: #ccc; font-size: 14px; }
+
+.pvh-hero-img-wrap {
+  position: relative;
+  border-radius: 24px;
+  overflow: hidden;
+  background: linear-gradient(145deg, #e8f5ee 0%, #c8e6d4 100%);
+  aspect-ratio: 1;
+  max-width: 480px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.pvh-hero-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.pvh-hero-img-fallback {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 320px;
+}
+.pvh-hero-badge {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+  background: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 50px;
+  padding: 10px 18px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1B4332;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.pvh-hero-badge svg { color: #2D6A4F; flex-shrink: 0; }
+
+/* Benefit card SVG icon override */
+.pvh-benefit-icon.pvh-benefit-svg {
+  width: 52px;
+  height: 52px;
+  border-radius: 14px;
+  background: #e8f5ee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #2D6A4F;
+  font-size: inherit;
+  margin-bottom: 16px;
+}
+
+@media (max-width: 900px) {
+  .pvh-hero-trust-row { gap: 8px; }
+  .pvh-hero-trust-sep { display: none; }
+  .pvh-hero-img-wrap { max-width: 100%; border-radius: 18px; }
+  .pvh-hero-badge { bottom: 12px; left: 12px; padding: 8px 14px; font-size: 12px; }
+  .pvh-benefit-icon.pvh-benefit-svg { width: 44px; height: 44px; border-radius: 12px; }
+}

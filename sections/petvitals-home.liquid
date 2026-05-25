@@ -1,0 +1,341 @@
+{% assign product = all_products['brook'] %}
+{% assign first_variant = product.variants.first %}
+
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+{{ 'petvitals-cleanup-v1.css' | asset_url | stylesheet_tag }}
+
+<!-- HERO SECTION -->
+<div class="pvh-hero-section" id="pvh-hero">
+  <div class="pvh-hero-content">
+    <span class="pvh-section-tag" style="margin-bottom:18px;">Ceramic cat fountain</span>
+    <h1 class="pvh-hero-title">
+      Your cat ignores her<br>
+      water bowl. <span class="pvh-highlight">There's a reason</span> for that.
+    </h1>
+    <p style="font-size:17px;color:#555;line-height:1.7;margin-bottom:32px;max-width:480px;">
+      Stagnant water tastes stale to cats — and chronic dehydration quietly damages their kidneys. Brook gives them a constant stream of filtered, UV-sterilised running water they actually want to drink.
+    </p>
+    <div style="display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin-bottom:28px;">
+      <a href="/products/brook" class="pvh-atc-btn" style="width:auto;margin:0;padding:16px 36px;font-size:16px;animation:none;">
+        Shop Brook — €64.99 →
+      </a>
+    </div>
+    <div class="pvh-hero-trust-row">
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        <span>7–14 day EU delivery</span>
+      </div>
+      <span class="pvh-hero-trust-sep" aria-hidden="true">·</span>
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 5 5v3"/></svg>
+        <span>30-day returns</span>
+      </div>
+      <span class="pvh-hero-trust-sep" aria-hidden="true">·</span>
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        <span>SSL checkout</span>
+      </div>
+    </div>
+  </div>
+  <div class="pvh-hero-visual">
+    <div class="pvh-hero-img-wrap">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: width: 600 }}" alt="{{ product.title | escape }}" class="pvh-hero-img" loading="eager" width="600" height="600">
+      {% else %}
+        <div class="pvh-hero-img-fallback"><span style="font-size:100px;">🐱</span></div>
+      {% endif %}
+      <div class="pvh-hero-badge">
+        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+        <span>30-day money-back guarantee</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TRUST BAR -->
+<div class="pvh-trust-bar">
+  <div class="pvh-trust-item">
+    <div class="pvh-trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg></div>
+    <div>
+      <div style="font-size:14px;font-weight:700;">Free Shipping</div>
+      <div style="font-size:12px;opacity:0.7;">On orders over €50</div>
+    </div>
+  </div>
+  <div class="pvh-trust-item">
+    <div class="pvh-trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 5 5v3"/></svg></div>
+    <div>
+      <div style="font-size:14px;font-weight:700;">30-Day Returns</div>
+      <div style="font-size:12px;opacity:0.7;">No questions asked</div>
+    </div>
+  </div>
+  <div class="pvh-trust-item">
+    <div class="pvh-trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></div>
+    <div>
+      <div style="font-size:14px;font-weight:700;">Secure Payment</div>
+      <div style="font-size:12px;opacity:0.7;">SSL encrypted checkout</div>
+    </div>
+  </div>
+  <div class="pvh-trust-item">
+    <div class="pvh-trust-icon"><svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.14L4 20l.86-5.4A8 8 0 1 1 21 12z"/></svg></div>
+    <div>
+      <div style="font-size:14px;font-weight:700;">24/7 Support</div>
+      <div style="font-size:12px;opacity:0.7;">Always here to help</div>
+    </div>
+  </div>
+</div>
+
+<!-- PROBLEM / SOLUTION BRIDGE -->
+<div class="pvh-problem-section">
+  <div class="pvh-problem-inner">
+    <div class="pvh-problem-col">
+      <span class="pvh-section-tag" style="color:#7DCEA0;">The hidden problem</span>
+      <h2 class="pvh-problem-heading">Cats weren't built to drink from bowls.</h2>
+      <p class="pvh-problem-body">They descend from desert ancestors who got their water from running streams — never standing pools. Stagnant water in a bowl looks suspicious to their senses, so most cats drink just enough to survive, not enough to thrive. The result is chronic mild dehydration, urinary problems, and kidney stress that builds up silently over years.</p>
+    </div>
+    <div class="pvh-problem-col">
+      <span class="pvh-section-tag" style="color:#7DCEA0;">The fix</span>
+      <h2 class="pvh-problem-heading">Brook gives them the running water they actually want.</h2>
+      <p class="pvh-problem-body">A constant gentle stream of filtered, oxygenated water — quiet enough that cats come back to it on their own. Most owners notice their cat drinking from it within the first day. More water in, more health out.</p>
+    </div>
+  </div>
+</div>
+
+<!-- HOW IT WORKS -->
+<div class="pvh-howit-section">
+  <div class="pvh-section-header">
+    <div class="pvh-section-tag">How it works</div>
+    <h2 class="pvh-section-title">Three steps. That's it.</h2>
+  </div>
+  <div class="pvh-howit-grid">
+    <div class="pvh-howit-step">
+      <div class="pvh-howit-num">1</div>
+      <h3 class="pvh-howit-title">Fill it</h3>
+      <p class="pvh-howit-body">Fill the ceramic reservoir from the tap. Takes 20 seconds.</p>
+    </div>
+    <div class="pvh-howit-step">
+      <div class="pvh-howit-num">2</div>
+      <h3 class="pvh-howit-title">Plug it in</h3>
+      <p class="pvh-howit-body">A whisper-quiet pump circulates the water through the triple-stage filter, 24 hours a day.</p>
+    </div>
+    <div class="pvh-howit-step">
+      <div class="pvh-howit-num">3</div>
+      <h3 class="pvh-howit-title">Walk away</h3>
+      <p class="pvh-howit-body">Refill every 7–10 days. Replace the filter once a month. Your cat does the rest.</p>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFITS -->
+<div class="pvh-benefits-section">
+  <div class="pvh-section-header">
+    <div class="pvh-section-tag">Why Brook works</div>
+    <h2 class="pvh-section-title">Designed around how cats actually drink.</h2>
+    <p class="pvh-section-sub">Every feature has a reason. Nothing is there for the packaging.</p>
+  </div>
+  <div class="pvh-benefits-grid">
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c0 6-8 10-8 14a8 8 0 0 0 16 0c0-4-8-8-8-14z"/></svg>
+      </div>
+      <h3>Cats drink more from running water</h3>
+      <p>Their instinct is to avoid still water — it reads as stagnant and unsafe. Brook's gentle flow matches what they're wired to drink from.</p>
+    </div>
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+      </div>
+      <h3>Triple-stage filtration</h3>
+      <p>Removes fur, food debris, odours, and chlorine. Your cat always drinks clean, filtered water — every time.</p>
+    </div>
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </div>
+      <h3>Whisper-quiet pump</h3>
+      <p>Under 25 decibels. Shy cats won't startle. You won't hear it from the next room. Runs 24/7 without drawing any attention.</p>
+    </div>
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      </div>
+      <h3>Food-safe ceramic</h3>
+      <p>No plastic taste, no BPA, no off-gassing. Ceramic is naturally odour-free — the same material as the bowl you eat from. Cats notice the difference immediately.</p>
+    </div>
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+      </div>
+      <h3>Dishwasher safe</h3>
+      <p>Every part disassembles in under a minute. Every part goes on the top rack. Ceramic means nothing warps, chips, or traps bacteria the way plastic does.</p>
+    </div>
+    <div class="pvh-benefit-card">
+      <div class="pvh-benefit-icon pvh-benefit-svg">
+        <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </div>
+      <h3>Optional UVC sterilisation</h3>
+      <p>The UVC model adds a UV lamp that eliminates 99.9% of waterborne bacteria — beyond what a filter alone can catch. Worth it if your cat is older or prone to urinary issues.</p>
+    </div>
+  </div>
+</div>
+
+<!-- GUARANTEE -->
+<div class="pvh-guarantee-v2">
+  <div class="pvh-guarantee-v2-inner">
+    <div class="pvh-guarantee-v2-shield">
+      <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+    </div>
+    <div class="pvh-guarantee-v2-text">
+      <span class="pvh-section-tag">Our promise</span>
+      <h2 class="pvh-guarantee-v2-title">If your cat won't drink from Brook, we'll refund every cent.</h2>
+      <p class="pvh-guarantee-v2-body">Try Brook for 30 full days. If your cat ignores it, hates it, or you just change your mind — email us. We'll refund your full purchase price. You don't need to return the fountain. We trust your judgement; we believe in the product.</p>
+      <p class="pvh-guarantee-v2-sign">— The PetVitals team</p>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="pvh-faq-section">
+  <div class="pvh-section-header">
+    <div class="pvh-section-tag">Common questions</div>
+    <h2 class="pvh-section-title">Things pet parents usually ask</h2>
+  </div>
+  <div class="pvh-faq-list">
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">How loud is the pump?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Under 25 decibels — quieter than a household fridge. Most owners forget it's running until they hear their cat drinking from it.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">Is it dishwasher safe?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Yes. Every part disassembles and goes on the top rack. Because it's food-safe ceramic, nothing warps or holds bacteria the way plastic fountains do.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">How often do I refill it?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">The 2-litre reservoir lasts most single cats 7–10 days. The triple-stage filter needs swapping out roughly once a month — replacement filter packs are coming soon.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">What if my cat doesn't take to it?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">You get a no-questions 30-day refund. If she ignores Brook after a fair trial, email us and we'll refund your full purchase — no need to ship it back.</div>
+    </details>
+  </div>
+</div>
+
+<!-- CTA SECTION -->
+<div class="pvh-cta-section">
+  <h2 class="pvh-cta-title">Give your cat the water<br>she actually wants.</h2>
+  <p style="font-size:17px;color:rgba(255,255,255,0.85);margin-bottom:40px;position:relative;z-index:1;">€64.99 · Free shipping over €50 · 30-day money-back guarantee</p>
+  <a href="/products/brook" class="pvh-cta-btn">Order Brook</a>
+</div>
+
+<!-- STICKY ADD TO CART BAR -->
+<div id="pvh-sticky-bar" class="pvh-sticky-bar" aria-hidden="true">
+  <div class="pvh-sticky-inner">
+    <div class="pvh-sticky-info">
+      {% if product.featured_image %}
+        <img src="{{ product.featured_image | image_url: width: 80 }}" alt="{{ product.title | escape }}" class="pvh-sticky-img" loading="lazy" width="80" height="80">
+      {% endif %}
+      <div>
+        <div class="pvh-sticky-name">Brook — Ceramic Cat Fountain</div>
+        <div class="pvh-sticky-price">€64.99 <span style="color:#52B788;font-size:12px;font-weight:600;">FREE SHIPPING</span></div>
+      </div>
+    </div>
+    <button type="button" class="pvh-sticky-btn pvh-ajax-atc" data-variant="{{ first_variant.id }}" style="font-family:inherit;">Add to Cart — €64.99</button>
+  </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+
+  // ─── AJAX ADD TO CART ─────────────────────────────────────────────
+  function pvhAddToCart(btn) {
+    var variantId = parseInt(btn.getAttribute('data-variant'), 10);
+    if (!variantId) return;
+    var originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Adding...';
+
+    fetch('/cart/add.js', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Requested-With': 'XMLHttpRequest'
+      },
+      body: JSON.stringify({ id: variantId, quantity: 1 })
+    })
+    .then(function (r) {
+      if (!r.ok) throw new Error('cart_error');
+      return r.json();
+    })
+    .then(function () {
+      btn.textContent = 'Added to cart! ✓';
+      btn.style.background = '#1B4332';
+      return fetch('/cart.js', { headers: { 'X-Requested-With': 'XMLHttpRequest' } });
+    })
+    .then(function (r) { return r.json(); })
+    .then(function (cart) {
+      // Update cart count — covers Rebel theme and most Shopify themes
+      var selectors = [
+        '.cart-count-bubble', '[data-cart-count]', '.header__cart-count',
+        '.cart-icon-bubble', '.icon-cart-count', '#cart-count',
+        '[data-header-cart-count]', '.cart-link__bubble', '.cart__count',
+        '[data-cart-item-count]'
+      ];
+      selectors.forEach(function (sel) {
+        document.querySelectorAll(sel).forEach(function (el) {
+          el.textContent = cart.item_count;
+          el.style.display = cart.item_count > 0 ? '' : 'none';
+        });
+      });
+      setTimeout(function () {
+        btn.disabled = false;
+        btn.textContent = originalText;
+        btn.style.background = '';
+      }, 3000);
+    })
+    .catch(function () {
+      btn.disabled = false;
+      btn.textContent = originalText;
+    });
+  }
+
+  document.querySelectorAll('.pvh-ajax-atc').forEach(function (btn) {
+    btn.addEventListener('click', function () { pvhAddToCart(this); });
+  });
+
+  // ─── EMAIL POPUP ──────────────────────────────────────────────────
+  // ─── STICKY ADD TO CART BAR ───────────────────────────────────────
+  var stickyBar = document.getElementById('pvh-sticky-bar');
+  var heroEl    = document.getElementById('pvh-hero');
+  var footerEl  = document.querySelector('footer, [class*="footer"]');
+  if (stickyBar && heroEl) {
+    var ticking = false;
+    window.addEventListener('scroll', function () {
+      if (!ticking) {
+        window.requestAnimationFrame(function () {
+          var heroPast   = heroEl.getBoundingClientRect().bottom < 0;
+          var footerNear = footerEl && footerEl.getBoundingClientRect().top < window.innerHeight + 10;
+          if (heroPast && !footerNear) {
+            stickyBar.classList.add('pvh-sticky-visible');
+            stickyBar.classList.remove('pvh-sticky-hidden');
+            stickyBar.setAttribute('aria-hidden', 'false');
+          } else {
+            stickyBar.classList.remove('pvh-sticky-visible');
+            stickyBar.classList.add('pvh-sticky-hidden');
+            stickyBar.setAttribute('aria-hidden', 'true');
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    }, { passive: true });
+  }
+
+});
+</script>
+
+{% schema %}
+{
+  "name": "PetVitals Home",
+  "settings": [],
+  "presets": [{"name": "PetVitals Home"}]
+}
+{% endschema %}
