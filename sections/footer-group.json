@@ -815,10 +815,10 @@
         "block_60b2db0e274f": {
           "type": "social-links",
           "settings": {
-            "facebook_url": "",
-            "instagram_url": "",
+            "facebook_url": "https://www.facebook.com/petvitalshub",
+            "instagram_url": "https://www.instagram.com/petvitalshub",
             "youtube_url": "",
-            "tiktok_url": "",
+            "tiktok_url": "https://www.tiktok.com/@petvitalshub",
             "twitter_url": "",
             "threads_url": "",
             "linkedin_url": "",

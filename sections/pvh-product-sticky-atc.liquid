@@ -40,47 +40,51 @@
   var stickyBar = document.getElementById('pvh-product-sticky-bar');
   if (!stickyBar) return;
 
-  // Watch the main product buy button — show sticky bar when it scrolls out of view
-  var mainBtn = document.querySelector('.shopify-payment-button, [data-testid="Checkout-button"], form[action*="/cart/add"] button[type="submit"], .product-form__submit');
+  var atcBtn = stickyBar.querySelector('.pvh-product-sticky-atc-btn');
 
+  function getSelectedVariantId() {
+    var input = document.querySelector('input[name="id"][form]') ||
+                document.querySelector('form[action*="/cart/add"] input[name="id"]') ||
+                document.querySelector('.product-form__input input[name="id"]');
+    if (input) return parseInt(input.value, 10);
+    var sel = document.querySelector('select[name="id"]');
+    if (sel) return parseInt(sel.value, 10);
+    return parseInt(atcBtn.getAttribute('data-variant'), 10);
+  }
+
+  function syncVariant() {
+    var id = getSelectedVariantId();
+    if (id) atcBtn.setAttribute('data-variant', id);
+  }
+
+  document.addEventListener('variant:changed', syncVariant);
+  document.addEventListener('change', function (e) {
+    if (e.target && (e.target.name === 'id' || e.target.closest('.product-form__input'))) {
+      syncVariant();
+    }
+  });
+  setTimeout(syncVariant, 300);
+
+  var mainBtn = document.querySelector('.shopify-payment-button, [data-testid="Checkout-button"], form[action*="/cart/add"] button[type="submit"], .product-form__submit');
   if (mainBtn && window.IntersectionObserver) {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
-        if (!entry.isIntersecting) {
-          stickyBar.classList.add('pvh-product-sticky-visible');
-          stickyBar.setAttribute('aria-hidden', 'false');
-        } else {
-          stickyBar.classList.remove('pvh-product-sticky-visible');
-          stickyBar.setAttribute('aria-hidden', 'true');
-        }
+        stickyBar.classList.toggle('pvh-product-sticky-visible', !entry.isIntersecting);
+        stickyBar.setAttribute('aria-hidden', entry.isIntersecting ? 'true' : 'false');
       });
     }, { threshold: 0 });
     observer.observe(mainBtn);
-  } else if (!window.IntersectionObserver) {
-    // Fallback for older browsers
-    var ticking = false;
+  } else {
     window.addEventListener('scroll', function () {
-      if (!ticking) {
-        window.requestAnimationFrame(function () {
-          var scrolled = window.pageYOffset > 500;
-          if (scrolled) {
-            stickyBar.classList.add('pvh-product-sticky-visible');
-            stickyBar.setAttribute('aria-hidden', 'false');
-          } else {
-            stickyBar.classList.remove('pvh-product-sticky-visible');
-            stickyBar.setAttribute('aria-hidden', 'true');
-          }
-          ticking = false;
-        });
-        ticking = true;
-      }
+      var scrolled = window.pageYOffset > 500;
+      stickyBar.classList.toggle('pvh-product-sticky-visible', scrolled);
+      stickyBar.setAttribute('aria-hidden', scrolled ? 'false' : 'true');
     }, { passive: true });
   }
 
-  // AJAX add to cart
-  var atcBtn = stickyBar.querySelector('.pvh-product-sticky-atc-btn');
   if (atcBtn) {
     atcBtn.addEventListener('click', function () {
+      syncVariant();
       var variantId = parseInt(atcBtn.getAttribute('data-variant'), 10);
       if (!variantId) return;
       var orig = atcBtn.textContent;
@@ -94,17 +98,9 @@
       .then(function (r) { return r.json(); })
       .then(function () {
         atcBtn.textContent = 'Added ✓';
-        atcBtn.style.background = '#1B4332';
-        setTimeout(function () {
-          atcBtn.disabled = false;
-          atcBtn.textContent = orig;
-          atcBtn.style.background = '';
-        }, 2500);
+        setTimeout(function () { atcBtn.disabled = false; atcBtn.textContent = orig; }, 2800);
       })
-      .catch(function () {
-        atcBtn.disabled = false;
-        atcBtn.textContent = orig;
-      });
+      .catch(function () { atcBtn.disabled = false; atcBtn.textContent = orig; });
     });
   }
 })();

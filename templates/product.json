@@ -157,7 +157,7 @@
               "type": "text",
               "name": "Hook & Benefits",
               "settings": {
-                "text": "<p>Fresh, filtered water — cats drink <strong>up to 2× more</strong> from a fountain than a bowl. Brook Ceramic adds UV sterilisation to eliminate bacteria a filter alone can’t catch.</p><ul><li>✓ Food-safe ceramic — no plastic taste, no BPA</li><li>✓ UVC sterilisation — eliminates 99.9% of bacteria (UVC model)</li><li>✓ Near-silent pump (25 dB) — won’t startle shy cats</li><li>✓ Rechargeable battery — no cable across the floor</li><li>✓ Triple-stage filtration — always fresh water</li></ul>",
+                "text": "<p>Fresh, filtered water — independent studies show cats drink <strong>up to 2× more</strong> from a flowing fountain than a static bowl. Brook Ceramic adds UV sterilisation to eliminate bacteria a filter alone can’t catch.</p><ul><li>✓ Food-safe ceramic — no plastic taste, no BPA</li><li>✓ UVC sterilisation — eliminates 99.9% of bacteria (UVC model)</li><li>✓ Near-silent pump (25 dB) — won’t startle shy cats</li><li>✓ Rechargeable battery — no cable across the floor</li><li>✓ Triple-stage filtration — always fresh water</li></ul>",
                 "width": "100%",
                 "max_width": "normal",
                 "alignment": "left",
@@ -298,7 +298,8 @@
             "divider_VJhene",
             "variant_picker_R3rGDr",
             "buy_buttons_eYQEYi",
-            "trust_badges_pvh"
+            "trust_badges_pvh",
+            "text_aEtTtq"
           ]
         }
       },
