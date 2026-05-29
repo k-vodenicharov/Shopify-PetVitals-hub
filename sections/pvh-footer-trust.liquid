@@ -1,0 +1,94 @@
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+<div class="pvh-footer-trust">
+  <div class="pvh-footer-trust-inner">
+
+    <div class="pvh-footer-trust-contact">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      <span>Questions? <a href="mailto:support@petvitalshub.com" class="pvh-footer-trust-email">support@petvitalshub.com</a> — we reply within 1 business day.</span>
+    </div>
+
+    <div class="pvh-footer-trust-payments" aria-label="Accepted payment methods">
+      <!-- Visa -->
+      <svg class="pvh-pay-icon" role="img" aria-label="Visa" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><rect width="38" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"/><text x="50%" y="16" font-family="Arial,sans-serif" font-size="11" font-weight="700" fill="currentColor" text-anchor="middle" letter-spacing="0.5">VISA</text></svg>
+      <!-- Mastercard -->
+      <svg class="pvh-pay-icon" role="img" aria-label="Mastercard" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><rect width="38" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"/><circle cx="14" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.7"/><circle cx="24" cy="12" r="6" fill="none" stroke="currentColor" stroke-width="1.4" opacity="0.7"/></svg>
+      <!-- PayPal -->
+      <svg class="pvh-pay-icon" role="img" aria-label="PayPal" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><rect width="38" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"/><text x="50%" y="16" font-family="Arial,sans-serif" font-size="8.5" font-weight="700" fill="currentColor" text-anchor="middle">PayPal</text></svg>
+      <!-- Apple Pay -->
+      <svg class="pvh-pay-icon" role="img" aria-label="Apple Pay" viewBox="0 0 38 24" xmlns="http://www.w3.org/2000/svg"><rect width="38" height="24" rx="4" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.3"/><text x="50%" y="16" font-family="Arial,sans-serif" font-size="7.5" font-weight="500" fill="currentColor" text-anchor="middle">Apple Pay</text></svg>
+      <span class="pvh-footer-trust-ssl">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        SSL secured
+      </span>
+    </div>
+
+  </div>
+</div>
+
+<style>
+.pvh-footer-trust {
+  background: var(--pvh-bone, #F4EFE6);
+  border-top: 1px solid var(--pvh-border, #E4D9C4);
+  border-bottom: 1px solid var(--pvh-border, #E4D9C4);
+  padding: 20px 48px;
+}
+.pvh-footer-trust-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+.pvh-footer-trust-contact {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--pvh-muted, #8A857C);
+}
+.pvh-footer-trust-contact svg { flex-shrink: 0; color: var(--pvh-muted, #8A857C); }
+.pvh-footer-trust-email {
+  color: var(--pvh-black, #2E2B27);
+  font-weight: 500;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-color: var(--pvh-border, #E4D9C4);
+}
+.pvh-footer-trust-email:hover { text-decoration-color: var(--pvh-black, #2E2B27); }
+.pvh-footer-trust-payments {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pvh-pay-icon {
+  width: 38px;
+  height: 24px;
+  color: var(--pvh-muted, #8A857C);
+}
+.pvh-footer-trust-ssl {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 12px;
+  color: var(--pvh-muted, #8A857C);
+  margin-left: 4px;
+  padding-left: 12px;
+  border-left: 1px solid var(--pvh-border, #E4D9C4);
+}
+@media (max-width: 768px) {
+  .pvh-footer-trust { padding: 20px 24px; }
+  .pvh-footer-trust-inner { flex-direction: column; align-items: flex-start; gap: 16px; }
+}
+</style>
+
+{% schema %}
+{
+  "name": "PVH Footer Trust",
+  "settings": [],
+  "presets": [{ "name": "PVH Footer Trust" }]
+}
+{% endschema %}

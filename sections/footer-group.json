@@ -11,6 +11,10 @@
   "type": "footer",
   "name": "Footer",
   "sections": {
+    "pvh_footer_trust": {
+      "type": "pvh-footer-trust",
+      "settings": {}
+    },
     "section_jehhzd": {
       "type": "section",
       "blocks": {
@@ -848,6 +852,7 @@
     }
   },
   "order": [
+    "pvh_footer_trust",
     "section_jehhzd",
     "footer_utilities"
   ]

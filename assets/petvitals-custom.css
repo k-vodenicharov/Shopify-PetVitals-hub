@@ -5,16 +5,16 @@
 
 /* ── Design tokens ─────────────────────────────────────────── */
 :root {
-  --pvh-white:      #FAFAF8;
-  --pvh-black:      #0D1B12;
-  --pvh-green:      #2D6A4F;
-  --pvh-green-dark: #1B4332;
-  --pvh-green-mid:  #52B788;
-  --pvh-green-pale: #EAF4EE;
-  --pvh-green-tint: #F4FAF6;
-  --pvh-muted:      #6B7B72;
-  --pvh-border:     #E2ECE6;
-  --pvh-gold:       #C8A45A;
+  --pvh-white:      #F4EFE6;
+  --pvh-black:      #2E2B27;
+  --pvh-green:      #A3AE94;
+  --pvh-green-dark: #2E2B27;
+  --pvh-green-mid:  #A3AE94;
+  --pvh-green-pale: #E4D9C4;
+  --pvh-green-tint: #F4EFE6;
+  --pvh-muted:      #8A857C;
+  --pvh-border:     #E4D9C4;
+  --pvh-gold:       #C08457;
   --pvh-radius-sm:  10px;
   --pvh-radius-md:  16px;
   --pvh-radius-lg:  24px;
