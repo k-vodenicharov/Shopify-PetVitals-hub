@@ -338,7 +338,10 @@
         var opts = getSelectedOptions();
         var variant = findVariant(opts);
         if (variant) {
-          if (variantInput) variantInput.value = variant.id;
+          if (variantInput) {
+            variantInput.value = variant.id;
+            variantInput.dispatchEvent(new Event('input', { bubbles: true }));
+          }
           updatePrice(variant);
           updateATC(variant);
           document.dispatchEvent(new CustomEvent('variant:changed', { detail: { variant: variant } }));
@@ -374,6 +377,8 @@
               '.cart-count, .cart__count, [data-cart-count], #cart-count, .header__cart-badge, .cart-icon-bubble > span, .cart-count-bubble > span'
             );
             countEls.forEach(function (el) { el.textContent = cart.item_count; });
+            document.dispatchEvent(new CustomEvent('cart:update', { bubbles: true, detail: { cart: cart } }));
+            document.dispatchEvent(new CustomEvent('pvh:cart:added', { bubbles: true, detail: { cart: cart } }));
           });
         setTimeout(function () {
           atcBtn.disabled = false;
