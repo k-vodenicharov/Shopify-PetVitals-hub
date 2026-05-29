@@ -6,74 +6,77 @@
 <!-- ═══════════════════════════════════════════════════
      HERO
 ════════════════════════════════════════════════════ -->
-<section class="pvh-hero" id="pvh-hero" aria-label="Brook — Ceramic Cat Fountain">
-
-  <!-- ── Text column ──────────────────────────────── -->
+<section class="pvh-hero" id="pvh-hero" aria-label="Hero">
   <div class="pvh-hero-content" data-pvh-enter>
-
     <div class="pvh-hero-eyebrow">
-      <span class="pvh-hero-stars" aria-hidden="true">★★★★★</span>
-      <span class="pvh-hero-eyebrow-score">4.9</span>
-      <span class="pvh-hero-sep" aria-hidden="true"></span>
-      <span class="pvh-hero-eyebrow-label">Ceramic cat fountain</span>
+      <span class="pvh-hero-stars">★★★★★</span>
+      <span class="pvh-hero-rating">4.9</span>
+      <span class="pvh-hero-sep"></span>
+      <span class="pvh-hero-rating" style="color:var(--pvh-muted);">Ceramic cat fountain</span>
     </div>
 
     <h1 class="pvh-hero-title">
-      Your cat ignores<br>
-      her water bowl.<br>
-      <em>There's a reason.</em>
+      Your cat ignores her water bowl.<br>
+      <em>There's a reason for that.</em>
     </h1>
 
     <p class="pvh-hero-sub">
-      Cats evolved to drink from flowing streams — not standing pools.
-      Brook delivers constant, filtered, UV-clean running water
-      your cat will actually return to.
+      Cats evolved to drink from running streams, not standing pools. Stagnant water signals bacteria to their senses — so most cats drink just enough to survive. Brook gives them a constant flow of filtered, UV-sterilised running water they actually want to drink.
     </p>
 
     <div class="pvh-hero-actions">
       <a href="/products/brook" class="pvh-btn-primary">
         Order Brook — €64.99
-        <svg xmlns="http://www.w3.org/2000/svg" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <a href="#pvh-how-it-works" class="pvh-btn-ghost">
-        How it works
-        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        See how it works
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12l7 7 7-7"/></svg>
       </a>
     </div>
 
-    <ul class="pvh-hero-micro" aria-label="Purchase assurances">
-      <li>Free EU shipping</li>
-      <li>30-day money-back</li>
-      <li>7–14 day delivery</li>
-    </ul>
-
+    <div class="pvh-hero-trust">
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
+        7–14 day EU delivery
+      </div>
+      <span class="pvh-hero-trust-dot" aria-hidden="true"></span>
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+        30-day money-back guarantee
+      </div>
+      <span class="pvh-hero-trust-dot" aria-hidden="true"></span>
+      <div class="pvh-hero-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>
+        SSL checkout
+      </div>
+    </div>
   </div>
 
-  <!-- ── Image column (full-bleed) ──────────────────── -->
-  <div class="pvh-hero-visual" data-pvh-enter style="transition-delay:0.2s" id="pvh-hero-visual">
-    <canvas class="pvh-hero-canvas" id="pvh-hero-canvas" aria-hidden="true"></canvas>
-    {% if product.featured_image %}
-      <img
-        src="{{ product.featured_image | image_url: width: 1400 }}"
-        srcset="{{ product.featured_image | image_url: width: 800 }} 800w,
-                {{ product.featured_image | image_url: width: 1100 }} 1100w,
-                {{ product.featured_image | image_url: width: 1400 }} 1400w"
-        sizes="(max-width: 768px) 100vw, 48vw"
-        alt="{{ product.title | escape }}"
-        width="{{ product.featured_image.width }}"
-        height="{{ product.featured_image.height }}"
-        loading="eager"
-        fetchpriority="high"
-        decoding="async"
-        class="pvh-hero-img"
-        id="pvh-hero-img"
-        data-threejs-src="{{ product.featured_image | image_url: width: 1400 }}"
-      >
-    {% else %}
-      <div class="pvh-hero-img-fallback" aria-hidden="true"></div>
-    {% endif %}
+  <div class="pvh-hero-visual" data-pvh-enter style="transition-delay:0.15s">
+    <div class="pvh-hero-img-frame">
+      {% if product.featured_image %}
+        <img
+          src="{{ product.featured_image | image_url: width: 800 }}"
+          alt="{{ product.title | escape }}"
+          loading="eager"
+          width="800"
+          height="800"
+        >
+      {% else %}
+        <div style="font-size:120px;opacity:0.2;">🐱</div>
+      {% endif %}
+    </div>
+    <div class="pvh-hero-badge">
+      <div class="pvh-hero-badge-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+      </div>
+      <div>
+        <div class="pvh-hero-badge-text">30-day guarantee</div>
+        <div class="pvh-hero-badge-sub">No questions asked</div>
+      </div>
+    </div>
   </div>
-
 </section>
 
 <!-- ═══════════════════════════════════════════════════
@@ -131,16 +134,16 @@
     <div class="pvh-proof-divider" aria-hidden="true"></div>
     <div class="pvh-proof-quotes">
       <div class="pvh-proof-quote">
-        <p class="pvh-proof-quote-text">"She started drinking from it the same day it arrived."</p>
-        <div class="pvh-proof-quote-author">Marta K. &mdash; Czech Republic</div>
+        <p class="pvh-proof-quote-text">"She started drinking from it the same day it arrived. I can't believe we waited this long."</p>
+        <div class="pvh-proof-quote-author">— Marta K., Czech Republic</div>
       </div>
       <div class="pvh-proof-quote">
-        <p class="pvh-proof-quote-text">"The ceramic feels genuinely premium. Not like the plastic ones we tried."</p>
-        <div class="pvh-proof-quote-author">Sofia A. &mdash; Netherlands</div>
+        <p class="pvh-proof-quote-text">"Björn barely touched his old bowl before Brook. Now he drinks constantly — and visibly loves it."</p>
+        <div class="pvh-proof-quote-author">— Thomas B., Germany</div>
       </div>
       <div class="pvh-proof-quote">
-        <p class="pvh-proof-quote-text">"Björn drinks constantly now. I can see the difference in his coat."</p>
-        <div class="pvh-proof-quote-author">Thomas B. &mdash; Germany</div>
+        <p class="pvh-proof-quote-text">"It's quieter than I expected and the ceramic feels genuinely premium. Not like the plastic ones."</p>
+        <div class="pvh-proof-quote-author">— Sofia A., Netherlands</div>
       </div>
     </div>
   </div>
@@ -312,7 +315,7 @@
 <!-- ═══════════════════════════════════════════════════
      OUR STORY
 ════════════════════════════════════════════════════ -->
-<section class="pvh-story" aria-label="Our story">
+<section class="pvh-section" style="background:var(--pvh-green-tint); padding:80px 64px;" aria-label="Our story">
   <div class="pvh-container" style="max-width:720px; margin:0 auto; text-align:center;" data-pvh-enter>
     <span class="pvh-tag">Our Story</span>
     <h2 class="pvh-section-title">Built for one cat who refused to drink</h2>
@@ -423,224 +426,6 @@
     </button>
   </div>
 </div>
-
-<script>
-(function pvhHeroWebGL() {
-  /* ── Guards ─────────────────────────────────────── */
-  if (window.matchMedia('(max-width: 768px)').matches) return;
-  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
-  if (typeof THREE === 'undefined') return;
-
-  /* ── DOM refs ───────────────────────────────────── */
-  var visualEl = document.getElementById('pvh-hero-visual');
-  var canvas   = document.getElementById('pvh-hero-canvas');
-  var imgEl    = document.getElementById('pvh-hero-img');
-  if (!visualEl || !canvas) return;
-
-  var imgSrc = imgEl ? imgEl.getAttribute('data-threejs-src') : null;
-  if (!imgSrc) return;
-
-  /* ── Renderer ───────────────────────────────────── */
-  var W = visualEl.offsetWidth;
-  var H = visualEl.offsetHeight;
-  var aspect = W / H;
-
-  var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: false, antialias: false });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.setSize(W, H);
-
-  var camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.01, 10);
-  camera.position.z = 1;
-
-  var scene = new THREE.Scene();
-
-  /* ── Shaders ────────────────────────────────────── */
-  var vertexShader = [
-    'varying vec2 vUv;',
-    'void main() {',
-    '  vUv = uv;',
-    '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
-    '}'
-  ].join('\n');
-
-  var fragmentShader = [
-    'uniform sampler2D uTexture;',
-    'uniform vec2 uMouse;',
-    'uniform float uTime;',
-    'uniform float uStrength;',
-    'varying vec2 vUv;',
-    'void main() {',
-    '  vec2 toMouse = vUv - uMouse;',
-    '  float dist = length(toMouse);',
-    '  float wave = sin(dist * 18.0 - uTime * 3.0) * uStrength * (1.0 - smoothstep(0.0, 0.55, dist));',
-    '  vec2 dir = normalize(toMouse + vec2(0.0001));',
-    '  vec2 displacedUv = vUv + dir * wave;',
-    '  float ca = uStrength * 0.6;',
-    '  vec4 colR = texture2D(uTexture, displacedUv + vec2(ca, 0.0));',
-    '  vec4 colG = texture2D(uTexture, displacedUv);',
-    '  vec4 colB = texture2D(uTexture, displacedUv - vec2(ca, 0.0));',
-    '  gl_FragColor = vec4(colR.r, colG.g, colB.b, 1.0);',
-    '}'
-  ].join('\n');
-
-  /* ── Uniforms + plane mesh ──────────────────────── */
-  var uniforms = {
-    uTexture:  { value: null },
-    uMouse:    { value: new THREE.Vector2(0.5, 0.5) },
-    uTime:     { value: 0.0 },
-    uStrength: { value: 0.003 }
-  };
-
-  var planeGeo = new THREE.PlaneGeometry(1, 1);
-  var mat = new THREE.ShaderMaterial({
-    vertexShader:   vertexShader,
-    fragmentShader: fragmentShader,
-    uniforms:       uniforms
-  });
-  var mesh = new THREE.Mesh(planeGeo, mat);
-  mesh.scale.set(1, aspect, 1);
-  scene.add(mesh);
-
-  /* ── Particle system ────────────────────────────── */
-  var PARTICLE_COUNT = 120;
-  var positions  = new Float32Array(PARTICLE_COUNT * 3);
-  var phases     = new Float32Array(PARTICLE_COUNT);
-  var maxY = 0.5 * aspect;
-  var minY = -maxY;
-
-  for (var i = 0; i < PARTICLE_COUNT; i++) {
-    positions[i * 3]     = (Math.random() - 0.5);
-    positions[i * 3 + 1] = (Math.random() - 0.5) * aspect * 2;
-    positions[i * 3 + 2] = 0.001;
-    phases[i] = Math.random() * Math.PI * 2;
-  }
-
-  var particleGeo = new THREE.BufferGeometry();
-  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-
-  var particleMat = new THREE.PointsMaterial({
-    color:           0x52B788,
-    size:            0.008,
-    transparent:     true,
-    opacity:         0.45,
-    sizeAttenuation: true,
-    depthWrite:      false
-  });
-
-  var particles = new THREE.Points(particleGeo, particleMat);
-  scene.add(particles);
-
-  /* ── Texture loading ────────────────────────────── */
-  var loader = new THREE.TextureLoader();
-  loader.crossOrigin = 'anonymous';
-  loader.load(
-    imgSrc,
-    function (texture) {
-      texture.minFilter = THREE.LinearFilter;
-      texture.magFilter = THREE.LinearFilter;
-      texture.generateMipmaps = false;
-      uniforms.uTexture.value = texture;
-      visualEl.classList.add('pvh-webgl-active');
-      canvas.classList.add('is-ready');
-      startRenderLoop();
-    },
-    undefined,
-    function () { cleanup(); }
-  );
-
-  /* ── Mouse tracking ─────────────────────────────── */
-  var targetMouse    = new THREE.Vector2(0.5, 0.5);
-  var currentMouse   = new THREE.Vector2(0.5, 0.5);
-  var targetStrength = 0.003;
-
-  function onMouseMove(e) {
-    var rect = visualEl.getBoundingClientRect();
-    targetMouse.x = (e.clientX - rect.left) / rect.width;
-    targetMouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
-    targetStrength = 0.015;
-  }
-  function onMouseLeave() {
-    targetMouse.set(0.5, 0.5);
-    targetStrength = 0.003;
-  }
-  visualEl.addEventListener('mousemove',  onMouseMove,  { passive: true });
-  visualEl.addEventListener('mouseleave', onMouseLeave, { passive: true });
-
-  /* ── Resize ─────────────────────────────────────── */
-  var resizeTimer = null;
-  function onResize() {
-    if (resizeTimer) clearTimeout(resizeTimer);
-    resizeTimer = setTimeout(function () {
-      W = visualEl.offsetWidth;
-      H = visualEl.offsetHeight;
-      aspect = W / H;
-      maxY = 0.5 * aspect;
-      minY = -maxY;
-      renderer.setSize(W, H);
-      mesh.scale.set(1, aspect, 1);
-    }, 100);
-  }
-  window.addEventListener('resize', onResize, { passive: true });
-
-  /* ── Render loop ────────────────────────────────── */
-  var rafId = null;
-  var clock = new THREE.Clock();
-
-  function startRenderLoop() {
-    function tick() {
-      rafId = requestAnimationFrame(tick);
-      var elapsed = clock.getElapsedTime();
-
-      currentMouse.x += (targetMouse.x - currentMouse.x) * 0.08;
-      currentMouse.y += (targetMouse.y - currentMouse.y) * 0.08;
-      uniforms.uMouse.value.copy(currentMouse);
-      uniforms.uStrength.value += (targetStrength - uniforms.uStrength.value) * 0.06;
-      uniforms.uTime.value = elapsed;
-
-      var pos = particleGeo.attributes.position;
-      for (var j = 0; j < PARTICLE_COUNT; j++) {
-        pos.array[j * 3 + 1] += 0.00018;
-        pos.array[j * 3]     += Math.sin(elapsed * 0.6 + phases[j]) * 0.00008;
-        if (pos.array[j * 3 + 1] > maxY) {
-          pos.array[j * 3 + 1] = minY;
-          pos.array[j * 3]     = (Math.random() - 0.5);
-        }
-      }
-      pos.needsUpdate = true;
-
-      renderer.render(scene, camera);
-    }
-    tick();
-  }
-
-  /* ── Cleanup ────────────────────────────────────── */
-  function cleanup() {
-    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
-    visualEl.removeEventListener('mousemove',  onMouseMove);
-    visualEl.removeEventListener('mouseleave', onMouseLeave);
-    window.removeEventListener('resize', onResize);
-    if (uniforms.uTexture.value) uniforms.uTexture.value.dispose();
-    planeGeo.dispose();
-    mat.dispose();
-    particleGeo.dispose();
-    particleMat.dispose();
-    renderer.dispose();
-    visualEl.classList.remove('pvh-webgl-active');
-    canvas.classList.remove('is-ready');
-  }
-
-  document.addEventListener('shopify:section:unload', function (e) {
-    if (e.detail && e.detail.sectionId && e.detail.sectionId.indexOf('petvitals-home') === -1) return;
-    cleanup();
-  });
-
-  canvas.addEventListener('webglcontextlost', function (e) {
-    e.preventDefault();
-    cleanup();
-  }, false);
-
-})();
-</script>
 
 <script>
 (function () {

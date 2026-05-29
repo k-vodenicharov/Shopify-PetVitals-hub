@@ -1,22 +1,24 @@
 {{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+{{ 'petvitals-cleanup-v1.css' | asset_url | stylesheet_tag }}
 
-<!-- ═══════════════════════════════════════════════════
-     STATS STRIP
-════════════════════════════════════════════════════ -->
+<!-- OUTCOME STATS STRIP -->
 <div class="pvh-lp-stats-strip">
   <div class="pvh-lp-stats-inner">
     <div class="pvh-lp-stat">
       <div class="pvh-lp-stat-num">2×</div>
       <div class="pvh-lp-stat-label">More water vs. a bowl</div>
     </div>
+    <div class="pvh-lp-stat-divider" aria-hidden="true"></div>
     <div class="pvh-lp-stat">
       <div class="pvh-lp-stat-num">25 dB</div>
       <div class="pvh-lp-stat-label">Near-silent — quieter than a fridge</div>
     </div>
+    <div class="pvh-lp-stat-divider" aria-hidden="true"></div>
     <div class="pvh-lp-stat">
       <div class="pvh-lp-stat-num">99.9%</div>
       <div class="pvh-lp-stat-label">Bacteria eliminated (UVC model)</div>
     </div>
+    <div class="pvh-lp-stat-divider" aria-hidden="true"></div>
     <div class="pvh-lp-stat">
       <div class="pvh-lp-stat-num">3-layer</div>
       <div class="pvh-lp-stat-label">Filtration — always fresh</div>
@@ -24,188 +26,76 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     FEATURE DEEP DIVE
-════════════════════════════════════════════════════ -->
-<section class="pvh-lp-features" aria-label="Brook features">
-  <div class="pvh-lp-features-inner">
-    <div class="pvh-section-header" data-pvh-enter>
-      <span class="pvh-tag">What makes Brook different</span>
-      <h2 class="pvh-section-title" style="max-width:560px;margin-left:auto;margin-right:auto;">Every detail designed around how cats actually drink — and what keeps that water safe.</h2>
-    </div>
-    <div class="pvh-lp-features-list" data-pvh-enter>
-
-      <div class="pvh-lp-feature">
-        <div class="pvh-lp-feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c0 6-8 10-8 14a8 8 0 0 0 16 0c0-4-8-8-8-14z"/></svg>
-        </div>
-        <div class="pvh-lp-feature-body">
-          <h3>Food-safe ceramic</h3>
-          <p>No plastic taste, no BPA, no off-gassing. Ceramic is the same material as the plates and mugs in your kitchen — completely inert, naturally odour-free. Cats have sensitive noses; the material they drink from matters more than most owners realise.</p>
-        </div>
-      </div>
-
-      <div class="pvh-lp-feature">
-        <div class="pvh-lp-feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
-        </div>
-        <div class="pvh-lp-feature-body">
-          <h3>Triple-stage filtration</h3>
-          <p>Layer 1 catches fur and food debris. Layer 2 absorbs odours and chlorine with activated carbon. Layer 3 removes fine particles. The result: clean, fresh water that tastes nothing like tap water from a bowl — and cats can tell the difference.</p>
-        </div>
-      </div>
-
-      <div class="pvh-lp-feature">
-        <div class="pvh-lp-feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
-        </div>
-        <div class="pvh-lp-feature-body">
-          <h3>Whisper-quiet motor</h3>
-          <p>Under 25 decibels — quieter than a household fridge. Shy cats won't bolt at startup. Light sleepers won't hear it from the next room. Brook simply runs, all day, without drawing any attention to itself.</p>
-        </div>
-      </div>
-
-      <div class="pvh-lp-feature">
-        <div class="pvh-lp-feature-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-        </div>
-        <div class="pvh-lp-feature-body">
-          <h3>UVC sterilisation</h3>
-          <p>Available on UVC models. A built-in UV lamp eliminates 99.9% of waterborne bacteria — E. coli, Salmonella, and others that a carbon filter won't catch. Particularly useful for older cats, cats with sensitive stomachs, or anyone who wants complete peace of mind.</p>
-        </div>
-      </div>
-
-    </div>
+<!-- FEATURE DEEP DIVE -->
+<div class="pvh-lp-features">
+  <div class="pvh-section-header">
+    <span class="pvh-section-tag">What makes Brook different</span>
+    <h2 class="pvh-section-title" style="max-width:560px;margin:0 auto;">Every detail designed around how cats actually drink — and what keeps that water safe.</h2>
   </div>
-</section>
+  <div class="pvh-lp-features-list">
 
-<!-- ═══════════════════════════════════════════════════
-     COMPARISON TABLE
-════════════════════════════════════════════════════ -->
-<section class="pvh-comparison" aria-label="Comparison with alternatives">
-  <div class="pvh-comparison-inner">
-    <div class="pvh-section-header" data-pvh-enter>
-      <span class="pvh-tag">How it compares</span>
-      <h2 class="pvh-section-title">Brook vs. the alternatives</h2>
+    <div class="pvh-lp-feature">
+      <div class="pvh-lp-feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c0 6-8 10-8 14a8 8 0 0 0 16 0c0-4-8-8-8-14z"/></svg>
+      </div>
+      <div class="pvh-lp-feature-body">
+        <h3>Food-safe ceramic</h3>
+        <p>No plastic taste, no BPA, no off-gassing. Ceramic is the same material as the plates and mugs in your kitchen — completely inert, naturally odour-free. Cats have sensitive noses; the material matters more than most owners realise.</p>
+      </div>
     </div>
-    <div class="pvh-comparison-scroll">
-    <table class="pvh-comparison-table" data-pvh-enter>
-      <thead>
-        <tr>
-          <th></th>
-          <th class="pvh-col-brook">Brook Ceramic</th>
-          <th>Plastic fountain</th>
-          <th>Standard bowl</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>Running water (cats prefer)</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td class="pvh-check">✓</td>
-          <td class="pvh-cross">✗</td>
-        </tr>
-        <tr>
-          <td>Food-safe, BPA-free material</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td class="pvh-cross">✗</td>
-          <td>Varies</td>
-        </tr>
-        <tr>
-          <td>Triple-stage filtration</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td>Basic</td>
-          <td class="pvh-cross">✗</td>
-        </tr>
-        <tr>
-          <td>Under 25 dB noise level</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td class="pvh-cross">✗</td>
-          <td class="pvh-check">✓</td>
-        </tr>
-        <tr>
-          <td>Dishwasher safe</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td>Top rack only</td>
-          <td class="pvh-check">✓</td>
-        </tr>
-        <tr>
-          <td>No plastic taste or odour</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td class="pvh-cross">✗</td>
-          <td>Varies</td>
-        </tr>
-        <tr>
-          <td>30-day money-back guarantee</td>
-          <td class="pvh-col-brook pvh-check">✓</td>
-          <td class="pvh-cross">✗</td>
-          <td class="pvh-cross">✗</td>
-        </tr>
-      </tbody>
-    </table>
-    </div><!-- /pvh-comparison-scroll -->
-  </div>
-</section>
 
-<!-- ═══════════════════════════════════════════════════
-     REVIEWS (Judge.me widget)
-════════════════════════════════════════════════════ -->
-<section class="pvh-lp-reviews" aria-label="Customer reviews">
+    <div class="pvh-lp-feature">
+      <div class="pvh-lp-feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="4" y1="6" x2="20" y2="6"/><line x1="7" y1="12" x2="17" y2="12"/><line x1="10" y1="18" x2="14" y2="18"/></svg>
+      </div>
+      <div class="pvh-lp-feature-body">
+        <h3>Triple-stage filtration</h3>
+        <p>Layer 1 catches fur and food debris. Layer 2 absorbs odours and chlorine with activated carbon. Layer 3 removes fine particles. The result: clean, fresh water that tastes nothing like a bowl — and cats can tell.</p>
+      </div>
+    </div>
+
+    <div class="pvh-lp-feature">
+      <div class="pvh-lp-feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+      </div>
+      <div class="pvh-lp-feature-body">
+        <h3>Whisper-quiet motor</h3>
+        <p>Under 25 decibels — quieter than a household fridge. Shy cats won't bolt at startup noise. Light sleepers won't hear it from the next room. It simply runs, all day, without drawing attention to itself.</p>
+      </div>
+    </div>
+
+    <div class="pvh-lp-feature">
+      <div class="pvh-lp-feature-icon">
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+      </div>
+      <div class="pvh-lp-feature-body">
+        <h3>UVC sterilisation (available on UVC models)</h3>
+        <p>A built-in UV lamp runs silently inside the fountain, eliminating 99.9% of waterborne bacteria — E. coli, Salmonella, and others that a carbon filter won't catch. Particularly useful for older cats, cats with sensitive stomachs, or anyone who wants real peace of mind.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- REVIEWS (Judge.me widget) -->
+<div class="pvh-lp-reviews">
   <div class="pvh-lp-reviews-inner">
-    <div class="pvh-section-header" data-pvh-enter>
-      <span class="pvh-tag">Customer reviews</span>
+    <div class="pvh-section-header">
+      <span class="pvh-section-tag">Customer reviews</span>
       <h2 class="pvh-section-title">What pet parents say</h2>
     </div>
     <div class="jdgm-widget jdgm-review-widget" data-id="{{ product.id }}"></div>
   </div>
-</section>
+</div>
 
-<!-- ═══════════════════════════════════════════════════
-     EU SHIPPING & DELIVERY
-════════════════════════════════════════════════════ -->
-<section class="pvh-shipping" aria-label="Shipping and delivery information">
-  <div class="pvh-shipping-inner">
-    <div class="pvh-section-header" data-pvh-enter>
-      <span class="pvh-tag">Shipping & delivery</span>
-      <h2 class="pvh-section-title">Delivered across Europe</h2>
-      <p class="pvh-section-sub">Honest timelines, real tracking, and a straightforward return policy.</p>
-    </div>
-    <div class="pvh-shipping-grid" data-pvh-enter>
-      <div class="pvh-shipping-card">
-        <div class="pvh-shipping-card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-        </div>
-        <div class="pvh-shipping-card-title">EU delivery: 7–14 business days</div>
-        <p class="pvh-shipping-card-body">Orders ship within 1–2 business days of purchase. You'll receive a tracking number by email as soon as your parcel leaves our warehouse. If your order hasn't arrived within 20 business days, contact us and we'll resolve it immediately.</p>
-      </div>
-      <div class="pvh-shipping-card">
-        <div class="pvh-shipping-card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        </div>
-        <div class="pvh-shipping-card-title">Free shipping over €50</div>
-        <p class="pvh-shipping-card-body">Brook (€64.99) qualifies for free shipping automatically. No code needed. Standard shipping for orders under €50 is a flat €4.99 anywhere in the EU. We ship to all 27 EU member states.</p>
-      </div>
-      <div class="pvh-shipping-card">
-        <div class="pvh-shipping-card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 5 5v3"/></svg>
-        </div>
-        <div class="pvh-shipping-card-title">30-day hassle-free returns</div>
-        <p class="pvh-shipping-card-body">Not satisfied for any reason within 30 days of delivery? Email us at support@petvitalshub.com. We'll process a full refund. You don't need to return the product. No forms, no restocking fees, no friction.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     GUARANTEE
-════════════════════════════════════════════════════ -->
+<!-- GUARANTEE -->
 <div class="pvh-guarantee-v2">
-  <div class="pvh-guarantee-v2-inner" data-pvh-enter>
+  <div class="pvh-guarantee-v2-inner">
     <div class="pvh-guarantee-v2-shield">
-      <svg xmlns="http://www.w3.org/2000/svg" width="72" height="72" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
+      <svg xmlns="http://www.w3.org/2000/svg" width="84" height="84" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2 4 5v6c0 5 3.4 9.4 8 11 4.6-1.6 8-6 8-11V5l-8-3z"/><path d="m9 12 2 2 4-4"/></svg>
     </div>
-    <div>
-      <span class="pvh-tag">Our promise</span>
+    <div class="pvh-guarantee-v2-text">
+      <span class="pvh-section-tag">Our promise</span>
       <h2 class="pvh-guarantee-v2-title">If your cat won't drink from Brook, we'll refund every cent.</h2>
       <p class="pvh-guarantee-v2-body">Try Brook for 30 full days. If your cat ignores it, hates it, or you just change your mind — email us. We'll refund your full purchase price. You don't need to return the fountain. We trust your judgement; we believe in the product.</p>
       <p class="pvh-guarantee-v2-sign">— The PetVitals team</p>
@@ -213,77 +103,51 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════
-     FAQ
-════════════════════════════════════════════════════ -->
-<section class="pvh-faq" aria-label="Frequently asked questions">
-  <div class="pvh-faq-inner">
-    <div class="pvh-section-header" data-pvh-enter>
-      <span class="pvh-tag">Common questions</span>
-      <h2 class="pvh-section-title">Things pet parents ask before buying</h2>
-    </div>
-    <div class="pvh-faq-grid" data-pvh-enter>
-      <details class="pvh-faq-item">
-        <summary>Will my cat actually use it? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Most cats approach Brook within the first few hours. Some take a day or two. We've never seen a cat completely ignore running water — their instinct is to investigate it. If yours is the exception, our 30-day refund covers you completely. No return needed.</div>
-      </details>
-      <details class="pvh-faq-item">
-        <summary>How loud is the pump? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Under 25 decibels — quieter than a household fridge. Most owners forget it's running until they hear their cat drinking from it.</div>
-      </details>
-      <details class="pvh-faq-item">
-        <summary>How long does shipping take? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">EU orders typically arrive in 7–14 business days. You'll receive a tracking number by email once your order ships. If your order hasn't arrived within 20 business days, contact us and we'll sort it immediately.</div>
-      </details>
-      <details class="pvh-faq-item">
-        <summary>Is it dishwasher safe? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Yes. The ceramic bowl and all removable parts disassemble and go on the top rack. Ceramic doesn't absorb odours or harbour bacteria the way plastic does, so cleaning is more thorough and less frequent.</div>
-      </details>
-      <details class="pvh-faq-item">
-        <summary>How often do I replace the filter? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Once a month with regular use. The triple-stage filter lasts about 30 days before it saturates. We recommend marking the date on your calendar when you first set it up.</div>
-      </details>
-      <details class="pvh-faq-item">
-        <summary>What's in the box? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Brook ceramic fountain bowl and base, silent circulation pump, 1× triple-stage filter cartridge, EU power adapter (or rechargeable battery unit, depending on model), and a setup guide. Everything you need, nothing you don't.</div>
-      </details>
-    </div>
+<!-- FAQ -->
+<div class="pvh-faq-section">
+  <div class="pvh-section-header">
+    <span class="pvh-section-tag">Common questions</span>
+    <h2 class="pvh-section-title">Things pet parents ask before buying</h2>
   </div>
-</section>
-
-<!-- ═══════════════════════════════════════════════════
-     FINAL CTA
-════════════════════════════════════════════════════ -->
-<section class="pvh-cta" aria-label="Order now">
-  <div class="pvh-cta-inner" data-pvh-enter>
-    <h2 class="pvh-cta-title">Give your cat the water<br>she actually wants.</h2>
-    <p class="pvh-cta-sub">€64.99 · Free shipping · 30-day money-back guarantee</p>
-    <a href="/products/brook" class="pvh-btn-light">
-      Order Brook
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-    </a>
+  <div class="pvh-faq-list">
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">Will my cat actually use it?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Most cats approach Brook within the first few hours. Some take a day or two. We've never seen a cat completely ignore running water — their instinct is to investigate it. If yours is the exception, our 30-day refund covers you completely.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">How loud is the pump?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Under 25 decibels — quieter than a household fridge. Most owners forget it's running until they hear their cat drinking from it.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">How long does shipping take?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">EU orders typically arrive in 7–14 business days. You'll receive a tracking number by email once your order ships. If your order hasn't arrived within 20 business days, contact us and we'll sort it immediately.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">Is it dishwasher safe?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Yes. The ceramic bowl and all removable parts disassemble and go on the top rack. Ceramic doesn't absorb odours or harbour bacteria the way plastic does, so cleaning is more thorough and less frequent.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">How often do I replace the filter?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Once a month with regular use. The triple-stage filter lasts about 30 days before it saturates. We recommend marking the date on your calendar when you first set it up.</div>
+    </details>
+    <details class="pvh-faq-item">
+      <summary class="pvh-faq-q">What's in the box?<span class="pvh-faq-chev" aria-hidden="true">+</span></summary>
+      <div class="pvh-faq-a">Brook ceramic fountain bowl + base, silent circulation pump, 1× triple-stage filter cartridge, EU power adapter (or rechargeable battery unit, depending on model), and a setup guide. Everything you need, nothing you don't.</div>
+    </details>
   </div>
-</section>
+</div>
 
-<script>
-(function () {
-  if (!('IntersectionObserver' in window)) {
-    document.querySelectorAll('[data-pvh-enter]').forEach(function (el) { el.classList.add('is-visible'); });
-    return;
-  }
-  var io = new IntersectionObserver(function (entries) {
-    entries.forEach(function (e) {
-      if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
-    });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-  document.querySelectorAll('[data-pvh-enter]').forEach(function (el) { io.observe(el); });
-})();
-</script>
+<!-- FINAL CTA -->
+<div class="pvh-cta-section">
+  <h2 class="pvh-cta-title">Give your cat the water<br>she actually wants.</h2>
+  <p style="font-size:17px;color:rgba(255,255,255,0.85);margin-bottom:40px;position:relative;z-index:1;">€64.99 · Free shipping over €50 · 30-day money-back guarantee</p>
+  <a href="/products/brook" class="pvh-cta-btn">Order Brook Now</a>
+</div>
 
 {% schema %}
 {
   "name": "PVH Product Sales Page",
   "settings": [],
-  "presets": [{ "name": "PVH Product Sales Page" }]
+  "presets": [{"name": "PVH Product Sales Page"}]
 }
 {% endschema %}

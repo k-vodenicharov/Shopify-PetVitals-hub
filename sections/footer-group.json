@@ -573,7 +573,7 @@
                       "name": "t:names.button",
                       "settings": {
                         "label": "Facebook",
-                        "link": "",
+                        "link": "https://www.facebook.com/petvitalshub",
                         "open_in_new_tab": true,
                         "style_class": "link",
                         "width": "fit-content",
@@ -588,7 +588,7 @@
                       "name": "t:names.button",
                       "settings": {
                         "label": "Instagram",
-                        "link": "",
+                        "link": "https://www.instagram.com/petvitalshub",
                         "open_in_new_tab": true,
                         "style_class": "link",
                         "width": "fit-content",
@@ -603,7 +603,7 @@
                       "name": "t:names.button",
                       "settings": {
                         "label": "TikTok",
-                        "link": "",
+                        "link": "https://www.tiktok.com/@petvitalshub",
                         "open_in_new_tab": true,
                         "style_class": "link",
                         "width": "fit-content",

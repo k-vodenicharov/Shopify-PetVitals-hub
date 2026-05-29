@@ -37,14 +37,6 @@
     {% endif %}
 
     {{ content_for_header }}
-
-    <!-- PVH global animation libraries — synchronous by design; section IIFEs depend on them at parse time -->
-    {% # theme-check-disable ParserBlockingScript %}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script>if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') { gsap.registerPlugin(ScrollTrigger); }</script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.165.0/build/three.min.js"></script>
-    {% # theme-check-enable ParserBlockingScript %}
     {% # theme-check-enable RemoteAsset %}
   </head>
 
