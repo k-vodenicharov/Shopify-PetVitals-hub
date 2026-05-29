@@ -22,6 +22,18 @@
   --pvh-shadow-sm:  0 1px 4px rgba(13,27,18,0.06);
   --pvh-shadow-md:  0 4px 20px rgba(13,27,18,0.08);
   --pvh-shadow-lg:  0 12px 48px rgba(13,27,18,0.10);
+
+  /* §6 Brief palette */
+  --pvh-bone:  #F4EFE6;
+  --pvh-oat:   #E4D9C4;
+  --pvh-sage:  #A3AE94;
+  --pvh-clay:  #C08457;
+  --pvh-stone: #8A857C;
+  --pvh-ink:   #2E2B27;
+
+  /* §6 Typography */
+  --pvh-font-heading: 'Fraunces', Georgia, serif;
+  --pvh-font-body:    'Inter', system-ui, sans-serif;
 }
 
 /* ── Animations ────────────────────────────────────────────── */
@@ -53,7 +65,9 @@
 body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: var(--pvh-white);
+  background: var(--pvh-bone);
+  color: var(--pvh-ink);
+  font-family: var(--pvh-font-body);
 }
 html { scroll-behavior: smooth; }
 

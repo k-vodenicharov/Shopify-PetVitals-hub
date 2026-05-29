@@ -468,16 +468,27 @@
     })
     .then(function (r) { return r.json(); })
     .then(function (cart) {
+      /* Fire the base-theme cart:update event so the native cart drawer + icon refresh */
+      document.dispatchEvent(new CustomEvent('cart:update', { bubbles: true, detail: { cart: cart } }));
+      /* Fire our own event so pvh-receipt-drawer picks it up */
+      document.dispatchEvent(new CustomEvent('pvh:cart:added', { bubbles: true, detail: { cart: cart } }));
+
+      /* Fallback: manually update any visible count badge */
       var selectors = [
-        '.cart-count-bubble', '[data-cart-count]', '.header__cart-count',
+        '.cart-count-bubble span', '[data-cart-count]', '.header__cart-count',
         '.cart-icon-bubble', '#cart-count', '[data-cart-item-count]'
       ];
       selectors.forEach(function (sel) {
         document.querySelectorAll(sel).forEach(function (el) {
           el.textContent = cart.item_count;
-          el.style.display = cart.item_count > 0 ? '' : 'none';
+          el.setAttribute('aria-label', cart.item_count + ' items');
+          if (el.closest) {
+            var bubble = el.closest('.cart-count-bubble');
+            if (bubble) bubble.style.display = cart.item_count > 0 ? '' : 'none';
+          }
         });
       });
+
       setTimeout(function () {
         btn.disabled = false;
         btn.textContent = originalText;
