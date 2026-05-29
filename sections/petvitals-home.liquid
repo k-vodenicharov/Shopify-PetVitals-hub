@@ -53,15 +53,18 @@
     </div>
   </div>
 
-  <div class="pvh-hero-visual" data-pvh-enter style="transition-delay:0.15s">
+  <div class="pvh-hero-visual" data-pvh-enter style="transition-delay:0.15s" id="pvh-hero-visual">
     <div class="pvh-hero-img-frame">
+      <canvas class="pvh-hero-canvas" id="pvh-hero-canvas" aria-hidden="true"></canvas>
       {% if product.featured_image %}
         <img
           src="{{ product.featured_image | image_url: width: 800 }}"
           alt="{{ product.title | escape }}"
           loading="eager"
-          width="800"
-          height="800"
+          width="{{ product.featured_image.width }}"
+          height="{{ product.featured_image.height }}"
+          id="pvh-hero-img"
+          data-threejs-src="{{ product.featured_image | image_url: width: 1400 }}"
         >
       {% else %}
         <div style="font-size:120px;opacity:0.2;">🐱</div>
@@ -524,6 +527,172 @@
       });
     }, { passive: true });
   }
+})();
+</script>
+
+<script>
+(function pvhHeroWebGL() {
+  'use strict';
+  if (window.matchMedia('(max-width: 768px)').matches) return;
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  if (typeof THREE === 'undefined') return;
+
+  var visualEl = document.getElementById('pvh-hero-visual');
+  var canvas   = document.getElementById('pvh-hero-canvas');
+  var imgEl    = document.getElementById('pvh-hero-img');
+  if (!visualEl || !canvas) return;
+
+  var imgSrc = imgEl ? imgEl.getAttribute('data-threejs-src') : null;
+  if (!imgSrc) return;
+
+  var W = canvas.offsetWidth  || visualEl.offsetWidth;
+  var H = canvas.offsetHeight || visualEl.offsetHeight;
+  var aspect = W / H || 1;
+
+  var renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: false, antialias: false });
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.setSize(W, H);
+
+  var camera = new THREE.OrthographicCamera(-0.5, 0.5, 0.5, -0.5, 0.01, 10);
+  camera.position.z = 1;
+  var scene = new THREE.Scene();
+
+  var vertexShader = [
+    'varying vec2 vUv;',
+    'void main() {',
+    '  vUv = uv;',
+    '  gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);',
+    '}'
+  ].join('\n');
+
+  var fragmentShader = [
+    'uniform sampler2D uTexture;',
+    'uniform vec2 uMouse;',
+    'uniform float uTime;',
+    'uniform float uStrength;',
+    'varying vec2 vUv;',
+    'void main() {',
+    '  vec2 toMouse = vUv - uMouse;',
+    '  float dist = length(toMouse);',
+    '  float wave = sin(dist * 18.0 - uTime * 3.0) * uStrength * (1.0 - smoothstep(0.0, 0.55, dist));',
+    '  vec2 dir = normalize(toMouse + vec2(0.0001));',
+    '  vec2 displacedUv = vUv + dir * wave;',
+    '  float ca = uStrength * 0.6;',
+    '  vec4 colR = texture2D(uTexture, displacedUv + vec2(ca, 0.0));',
+    '  vec4 colG = texture2D(uTexture, displacedUv);',
+    '  vec4 colB = texture2D(uTexture, displacedUv - vec2(ca, 0.0));',
+    '  gl_FragColor = vec4(colR.r, colG.g, colB.b, 1.0);',
+    '}'
+  ].join('\n');
+
+  var uniforms = {
+    uTexture:  { value: null },
+    uMouse:    { value: new THREE.Vector2(0.5, 0.5) },
+    uTime:     { value: 0.0 },
+    uStrength: { value: 0.003 }
+  };
+
+  var planeGeo = new THREE.PlaneGeometry(1, 1);
+  var mat = new THREE.ShaderMaterial({ vertexShader: vertexShader, fragmentShader: fragmentShader, uniforms: uniforms });
+  var mesh = new THREE.Mesh(planeGeo, mat);
+  mesh.scale.set(1, aspect, 1);
+  scene.add(mesh);
+
+  /* Particles */
+  var PARTICLE_COUNT = 120;
+  var positions = new Float32Array(PARTICLE_COUNT * 3);
+  var phases    = new Float32Array(PARTICLE_COUNT);
+  var maxY = 0.5 * aspect, minY = -maxY;
+  for (var i = 0; i < PARTICLE_COUNT; i++) {
+    positions[i * 3]     = (Math.random() - 0.5);
+    positions[i * 3 + 1] = (Math.random() - 0.5) * aspect * 2;
+    positions[i * 3 + 2] = 0.001;
+    phases[i] = Math.random() * Math.PI * 2;
+  }
+  var particleGeo = new THREE.BufferGeometry();
+  particleGeo.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+  var particleMat = new THREE.PointsMaterial({ color: 0x52B788, size: 0.008, transparent: true, opacity: 0.45, sizeAttenuation: true, depthWrite: false });
+  scene.add(new THREE.Points(particleGeo, particleMat));
+
+  /* Texture */
+  var loader = new THREE.TextureLoader();
+  loader.crossOrigin = 'anonymous';
+  loader.load(imgSrc,
+    function (texture) {
+      texture.minFilter = THREE.LinearFilter;
+      texture.magFilter = THREE.LinearFilter;
+      texture.generateMipmaps = false;
+      uniforms.uTexture.value = texture;
+      visualEl.classList.add('pvh-webgl-active');
+      canvas.classList.add('is-ready');
+      startLoop();
+    },
+    undefined,
+    function () { cleanup(); }
+  );
+
+  /* Mouse */
+  var targetMouse = new THREE.Vector2(0.5, 0.5);
+  var currentMouse = new THREE.Vector2(0.5, 0.5);
+  var targetStrength = 0.003;
+  function onMouseMove(e) {
+    var rect = visualEl.getBoundingClientRect();
+    targetMouse.x = (e.clientX - rect.left) / rect.width;
+    targetMouse.y = 1.0 - (e.clientY - rect.top) / rect.height;
+    targetStrength = 0.015;
+  }
+  function onMouseLeave() { targetMouse.set(0.5, 0.5); targetStrength = 0.003; }
+  visualEl.addEventListener('mousemove', onMouseMove, { passive: true });
+  visualEl.addEventListener('mouseleave', onMouseLeave, { passive: true });
+
+  /* Resize */
+  var resizeTimer = null;
+  window.addEventListener('resize', function () {
+    if (resizeTimer) clearTimeout(resizeTimer);
+    resizeTimer = setTimeout(function () {
+      W = canvas.offsetWidth; H = canvas.offsetHeight; aspect = W / H;
+      maxY = 0.5 * aspect; minY = -maxY;
+      renderer.setSize(W, H); mesh.scale.set(1, aspect, 1);
+    }, 100);
+  }, { passive: true });
+
+  /* Loop */
+  var rafId = null;
+  var clock = new THREE.Clock();
+  function startLoop() {
+    (function tick() {
+      rafId = requestAnimationFrame(tick);
+      var elapsed = clock.getElapsedTime();
+      currentMouse.x += (targetMouse.x - currentMouse.x) * 0.08;
+      currentMouse.y += (targetMouse.y - currentMouse.y) * 0.08;
+      uniforms.uMouse.value.copy(currentMouse);
+      uniforms.uStrength.value += (targetStrength - uniforms.uStrength.value) * 0.06;
+      uniforms.uTime.value = elapsed;
+      var pos = particleGeo.attributes.position;
+      for (var j = 0; j < PARTICLE_COUNT; j++) {
+        pos.array[j * 3 + 1] += 0.00018;
+        pos.array[j * 3]     += Math.sin(elapsed * 0.6 + phases[j]) * 0.00008;
+        if (pos.array[j * 3 + 1] > maxY) { pos.array[j * 3 + 1] = minY; pos.array[j * 3] = (Math.random() - 0.5); }
+      }
+      pos.needsUpdate = true;
+      renderer.render(scene, camera);
+    })();
+  }
+
+  /* Cleanup */
+  function cleanup() {
+    if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
+    visualEl.removeEventListener('mousemove', onMouseMove);
+    visualEl.removeEventListener('mouseleave', onMouseLeave);
+    window.removeEventListener('resize', arguments.callee);
+    if (uniforms.uTexture.value) uniforms.uTexture.value.dispose();
+    planeGeo.dispose(); mat.dispose(); particleGeo.dispose(); particleMat.dispose(); renderer.dispose();
+    visualEl.classList.remove('pvh-webgl-active'); canvas.classList.remove('is-ready');
+  }
+  document.addEventListener('shopify:section:unload', function (e) {
+    if (e.detail && e.detail.sectionId && e.detail.sectionId.indexOf('petvitals-home') !== -1) cleanup();
+  });
+  canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); cleanup(); }, false);
 })();
 </script>
 
