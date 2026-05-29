@@ -1,0 +1,224 @@
+{%- comment -%}
+  pvh-receipt-items.liquid
+  Renders the cream paper block inside the receipt drawer.
+  Included by sections/pvh-receipt-drawer.liquid and re-fetched
+  via the Shopify section rendering API on every cart:update event.
+
+  Metafields read (namespace: pvh_nutrition):
+    serving_size, hydration_boost, filter_life,
+    uv_sterilization, flow_rate, material
+{%- endcomment -%}
+
+{%- assign _date = 'now' | date: '%d/%m/%Y' -%}
+{%- assign _time = 'now' | date: '%H:%M' -%}
+{%- assign _ref  = cart.token | slice: 0, 8 | upcase -%}
+
+<div class="pvh-receipt-paper bg-pvh-paper px-5 pt-6 pb-5 shadow-[0_6px_32px_rgba(0,0,0,0.45)]">
+
+  <!-- ── Store header ────────────────────────────── -->
+  <div class="text-center mb-4">
+    <p class="pvh-mono text-[13px] font-bold tracking-[0.14em] text-pvh-ink uppercase">
+      PET VITALS HUB
+    </p>
+    <p class="pvh-mono text-[9.5px] text-pvh-ink/45 tracking-[0.1em] mt-0.5">
+      petvitalshub.com
+    </p>
+    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 mt-2 tracking-[0.06em]">
+      {{ _date }}&nbsp;&nbsp;{{ _time }}
+    </p>
+    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 tracking-[0.06em]">
+      REF:&nbsp;#{{ _ref }}
+    </p>
+  </div>
+
+  <div class="pvh-mono text-center text-pvh-ink/25 text-[10px] tracking-[0.22em] select-none leading-none">
+    ================================
+  </div>
+
+  <!-- ── Empty state ─────────────────────────────── -->
+  {%- if cart.empty? -%}
+    <p class="pvh-mono text-center text-[10px] text-pvh-ink/40 py-8 tracking-[0.14em] uppercase">
+      -- YOUR CART IS EMPTY --
+    </p>
+
+  {%- else -%}
+
+    <!-- Column headers -->
+    <div class="pvh-mono flex gap-2 text-[9px] text-pvh-ink/40 tracking-[0.1em] uppercase mt-2.5 mb-0.5">
+      <span class="w-5 shrink-0">QTY</span>
+      <span class="flex-1">ITEM</span>
+      <span class="shrink-0">PRICE</span>
+    </div>
+    <div class="pvh-mono text-pvh-ink/20 text-[10px] tracking-[0.2em] leading-none mb-1">
+      --------------------------------
+    </div>
+
+    <!-- ── Line items ──────────────────────────────── -->
+    {%- for item in cart.items -%}
+      {%- assign _n     = item.product.metafields.pvh_nutrition -%}
+      {%- assign _delay = forloop.index | times: 55 -%}
+      {%- assign _has_specs = false -%}
+      {%- if _n.serving_size or _n.hydration_boost or _n.filter_life or _n.uv_sterilization or _n.flow_rate or _n.material -%}
+        {%- assign _has_specs = true -%}
+      {%- endif -%}
+
+      <div class="pvh-item-row" style="animation-delay:{{ _delay }}ms;">
+
+        <!-- Main row: qty · name · line price -->
+        <div class="flex gap-2 items-baseline pvh-mono text-[11.5px]">
+          <span class="w-5 shrink-0 text-pvh-ink/55">{{ item.quantity }}x</span>
+          <span class="flex-1 font-bold text-pvh-ink truncate" title="{{ item.product.title }}">
+            {{- item.product.title | truncate: 21, '' -}}
+          </span>
+          <span class="shrink-0 font-bold text-pvh-ink">
+            {{ item.final_line_price | money }}
+          </span>
+        </div>
+
+        <!-- Variant -->
+        {%- unless item.product.has_only_default_variant -%}
+          <p class="pvh-mono text-[9.5px] text-pvh-ink/50 pl-7 truncate tracking-[0.04em]">
+            &#x21B3;&nbsp;{{ item.variant.title }}
+          </p>
+        {%- endunless -%}
+
+        <!-- Unit price if qty > 1 -->
+        {%- if item.quantity > 1 -%}
+          <p class="pvh-mono text-[9.5px] text-pvh-ink/40 pl-7 tracking-[0.04em]">
+            ({{ item.original_price | money }}&nbsp;each)
+          </p>
+        {%- endif -%}
+
+        <!-- Selling plan -->
+        {%- if item.selling_plan_allocation -%}
+          <p class="pvh-mono text-[9.5px] text-pvh-green pl-7 tracking-[0.04em]">
+            &#x21B3;&nbsp;{{ item.selling_plan_allocation.selling_plan.name }}
+          </p>
+        {%- endif -%}
+
+        <!-- ── pvh_nutrition specs panel ──────────────── -->
+        {%- if _has_specs -%}
+          <div class="mt-2 ml-5 pl-2 border-l-2 border-pvh-green/30">
+
+            <p class="pvh-mono text-[9px] font-bold tracking-[0.16em] text-pvh-green uppercase mb-1">
+              &#9632;&nbsp;PRODUCT SPECS
+            </p>
+
+            {%- if _n.serving_size -%}
+              <div class="pvh-spec-row">
+                <span>DAILY INTAKE</span>
+                <span>{{ _n.serving_size.value }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if _n.hydration_boost -%}
+              <div class="pvh-spec-row">
+                <span>HYDRATION</span>
+                <span>{{ _n.hydration_boost.value }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if _n.filter_life -%}
+              <div class="pvh-spec-row">
+                <span>FILTER LIFE</span>
+                <span>{{ _n.filter_life.value }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if _n.uv_sterilization -%}
+              <div class="pvh-spec-row">
+                <span>UV CYCLE</span>
+                <span>{{ _n.uv_sterilization.value }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if _n.flow_rate -%}
+              <div class="pvh-spec-row">
+                <span>FLOW RATE</span>
+                <span>{{ _n.flow_rate.value }}</span>
+              </div>
+            {%- endif -%}
+
+            {%- if _n.material -%}
+              <div class="pvh-spec-row">
+                <span>MATERIAL</span>
+                <span>{{ _n.material.value }}</span>
+              </div>
+            {%- endif -%}
+
+          </div>
+        {%- endif -%}
+
+      </div>
+
+      {%- unless forloop.last -%}
+        <div class="pvh-mono text-pvh-ink/15 text-[10px] tracking-[0.2em] leading-none my-2">
+          ................................
+        </div>
+      {%- endunless -%}
+
+    {%- endfor -%}
+
+    <!-- ── Totals ───────────────────────────────────── -->
+    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-3 select-none">
+      ================================
+    </div>
+
+    {%- if cart.cart_level_discount_applications.size > 0 -%}
+      {%- for discount in cart.cart_level_discount_applications -%}
+        <div class="flex justify-between pvh-mono text-[10.5px] text-pvh-green mt-1.5">
+          <span>DISCOUNT: {{ discount.title | upcase | truncate: 18, '' }}</span>
+          <span>-{{ discount.total_allocated_amount | money }}</span>
+        </div>
+      {%- endfor -%}
+    {%- endif -%}
+
+    <div class="flex justify-between pvh-mono text-[10.5px] text-pvh-ink/60 mt-2">
+      <span>SUBTOTAL</span>
+      <span>{{ cart.items_subtotal_price | money }}</span>
+    </div>
+    <div class="flex justify-between pvh-mono text-[10.5px] mt-0.5">
+      <span class="text-pvh-ink/60">SHIPPING</span>
+      <span class="text-pvh-green font-bold">FREE (EU)</span>
+    </div>
+
+    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-2 select-none">
+      ================================
+    </div>
+
+    <div class="flex justify-between pvh-mono text-[14px] font-bold text-pvh-ink mt-2">
+      <span>TOTAL</span>
+      <span>
+        {%- if settings.currency_code_enabled_cart_total -%}
+          {{ cart.total_price | money_with_currency }}
+        {%- else -%}
+          {{ cart.total_price | money }}
+        {%- endif -%}
+      </span>
+    </div>
+
+    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-1.5 select-none">
+      ================================
+    </div>
+
+    <p class="pvh-mono text-[9px] text-pvh-ink/30 mt-2 tracking-[0.04em]">
+      * Incl. VAT. Final taxes calculated at checkout.
+    </p>
+
+  {%- endif -%}
+
+  <!-- ── Receipt footer ──────────────────────────── -->
+  <div class="text-center mt-6 mb-1">
+    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 tracking-[0.2em] uppercase">
+      * &nbsp; * &nbsp; THANK&nbsp;YOU! &nbsp; * &nbsp; *
+    </p>
+    <p class="pvh-mono text-[9px] text-pvh-ink/25 mt-1.5 tracking-[0.04em]">
+      Your pet will love this order.
+    </p>
+    <p class="pvh-mono text-[8.5px] text-pvh-ink/20 mt-1 tracking-[0.04em]">
+      Questions? hello@petvitalshub.com
+    </p>
+  </div>
+
+</div>
+{%- comment -%} Torn paper ::after is defined in pvh-receipt-drawer.liquid <style> {%- endcomment -%}

@@ -1,0 +1,401 @@
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign media_count = product.media | size
+-%}
+
+<section
+  class="pvh-pdp"
+  id="pvh-product-hero"
+  data-product-id="{{ product.id }}"
+  aria-label="{{ product.title | escape }}"
+>
+
+  <!-- ══════════════════ MEDIA COLUMN ══════════════════ -->
+  <div class="pvh-pdp-media">
+
+    {%- if media_count > 1 -%}
+      <nav class="pvh-pdp-thumbs" aria-label="Product images">
+        {%- for media in product.media limit: 8 -%}
+          <button
+            class="pvh-pdp-thumb{% if forloop.first %} is-active{% endif %}"
+            type="button"
+            data-idx="{{ forloop.index0 }}"
+            aria-label="View image {{ forloop.index }} of {{ media_count }}"
+          >
+            <img
+              src="{{ media.preview_image | image_url: width: 120 }}"
+              alt="{{ media.alt | escape | default: product.title | escape }}"
+              width="120"
+              height="120"
+              loading="lazy"
+            >
+          </button>
+        {%- endfor -%}
+      </nav>
+    {%- endif -%}
+
+    <div class="pvh-pdp-stage" id="pvh-pdp-stage">
+      {%- for media in product.media limit: 8 -%}
+        <div
+          class="pvh-pdp-slide{% if forloop.first %} is-active{% endif %}"
+          data-slide="{{ forloop.index0 }}"
+          aria-hidden="{% if forloop.first %}false{% else %}true{% endif %}"
+        >
+          {%- if media.media_type == 'image' -%}
+            <img
+              src="{{ media | image_url: width: 1200 }}"
+              srcset="{{ media | image_url: width: 750 }} 750w,
+                      {{ media | image_url: width: 1100 }} 1100w,
+                      {{ media | image_url: width: 1500 }} 1500w"
+              sizes="(max-width: 768px) 100vw, 56vw"
+              alt="{{ media.alt | escape | default: product.title | escape }}"
+              {%- if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
+              decoding="async"
+              class="pvh-pdp-img"
+              width="{{ media.width }}"
+              height="{{ media.height }}"
+            >
+          {%- elsif media.media_type == 'video' -%}
+            <video class="pvh-pdp-img" autoplay muted loop playsinline preload="none">
+              {%- for source in media.sources -%}
+                <source src="{{ source.url }}" type="{{ source.mime_type }}">
+              {%- endfor -%}
+            </video>
+          {%- endif -%}
+        </div>
+      {%- endfor -%}
+
+      {%- if media_count > 1 -%}
+        <div class="pvh-pdp-dots" role="tablist" aria-label="Select image">
+          {%- for media in product.media limit: 8 -%}
+            <button
+              class="pvh-pdp-dot{% if forloop.first %} is-active{% endif %}"
+              type="button"
+              role="tab"
+              aria-selected="{% if forloop.first %}true{% else %}false{% endif %}"
+              data-dot="{{ forloop.index0 }}"
+              aria-label="Image {{ forloop.index }}"
+            ></button>
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
+    </div>
+
+  </div>
+
+
+  <!-- ══════════════════ DETAILS COLUMN ══════════════════ -->
+  <div class="pvh-pdp-details">
+
+    <span class="pvh-tag">Ceramic Cat Water Fountain</span>
+
+    <h1 class="pvh-pdp-title">Brook&thinsp;—&thinsp;the<br><em>ceramic</em> cat fountain</h1>
+
+    <div class="pvh-pdp-rating" aria-label="4.9 out of 5 stars from 124 reviews">
+      <span class="pvh-pdp-stars" aria-hidden="true">★★★★★</span>
+      <span class="pvh-pdp-rating-num">4.9</span>
+      <span class="pvh-pdp-rating-div" aria-hidden="true"></span>
+      <a href="#pvh-reviews" class="pvh-pdp-rating-link">124 reviews</a>
+    </div>
+
+    <div class="pvh-pdp-price-wrap" id="pvh-pdp-price">
+      {%- if current_variant.compare_at_price > current_variant.price -%}
+        <s class="pvh-pdp-was">{{ current_variant.compare_at_price | money }}</s>
+        <span class="pvh-pdp-now">{{ current_variant.price | money }}</span>
+        <span class="pvh-pdp-save-badge">Save&nbsp;{{ current_variant.compare_at_price | minus: current_variant.price | money }}</span>
+      {%- else -%}
+        <span class="pvh-pdp-now">{{ current_variant.price | money }}</span>
+      {%- endif -%}
+      <span class="pvh-pdp-ship-flag">Free shipping</span>
+    </div>
+
+    <p class="pvh-pdp-hook">
+      Cats drink up to&nbsp;<strong>2× more</strong> from flowing water than a bowl.
+      Brook adds ceramic purity, UV sterilisation, and a near-silent pump —
+      so the water is always clean, and so is the counter.
+    </p>
+
+    <ul class="pvh-pdp-chips" aria-label="Key features">
+      <li class="pvh-pdp-chip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2c0 6-8 10-8 14a8 8 0 0 0 16 0c0-4-8-8-8-14z"/></svg>
+        Ceramic body
+      </li>
+      <li class="pvh-pdp-chip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        UVC sterilisation
+      </li>
+      <li class="pvh-pdp-chip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/><line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/></svg>
+        25 dB silent
+      </li>
+      <li class="pvh-pdp-chip">
+        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
+        Cordless
+      </li>
+    </ul>
+
+    <hr class="pvh-pdp-rule" aria-hidden="true">
+
+    {%- form 'product', product, id: 'pvh-product-form', novalidate: 'novalidate' -%}
+      <input type="hidden" name="id" id="pvh-variant-id" value="{{ current_variant.id }}">
+
+      {%- unless product.has_only_default_variant -%}
+        <div class="pvh-pdp-variants">
+          {%- for option in product.options_with_values -%}
+            {%- assign opt_pos = forloop.index -%}
+            <div class="pvh-pdp-option">
+              <div class="pvh-pdp-option-label">
+                {{ option.name }}:&ensp;<strong class="pvh-pdp-option-val" data-option="{{ opt_pos }}">{{ option.selected_value }}</strong>
+              </div>
+              <div class="pvh-pdp-option-btns" role="radiogroup" aria-label="{{ option.name }}">
+                {%- for value in option.values -%}
+                  <button
+                    type="button"
+                    class="pvh-pdp-opt-btn{% if option.selected_value == value %} is-active{% endif %}"
+                    data-option="{{ opt_pos }}"
+                    data-value="{{ value | escape }}"
+                    role="radio"
+                    aria-checked="{% if option.selected_value == value %}true{% else %}false{% endif %}"
+                  >{{ value }}</button>
+                {%- endfor -%}
+              </div>
+            </div>
+          {%- endfor -%}
+        </div>
+      {%- endunless -%}
+
+      <button
+        type="submit"
+        name="add"
+        id="pvh-atc-main"
+        class="pvh-pdp-atc"
+        {% unless current_variant.available %}disabled aria-disabled="true"{% endunless %}
+      >
+        <span class="pvh-pdp-atc-text">
+          {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
+        </span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+
+    {%- endform -%}
+
+    <ul class="pvh-pdp-trust" aria-label="Purchase guarantees">
+      <li class="pvh-pdp-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        Secure checkout
+      </li>
+      <li class="pvh-pdp-trust-sep" aria-hidden="true"></li>
+      <li class="pvh-pdp-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 14l-4-4 4-4"/><path d="M5 10h9a5 5 0 0 1 5 5v3"/></svg>
+        30-day returns
+      </li>
+      <li class="pvh-pdp-trust-sep" aria-hidden="true"></li>
+      <li class="pvh-pdp-trust-item">
+        <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Free EU shipping
+      </li>
+    </ul>
+
+    {%- if product.description != blank -%}
+      <details class="pvh-pdp-desc">
+        <summary class="pvh-pdp-desc-toggle">
+          Product details
+          <svg class="pvh-pdp-desc-icon" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+        </summary>
+        <div class="pvh-pdp-desc-body rte">{{ product.description }}</div>
+      </details>
+    {%- endif -%}
+
+  </div>
+
+</section>
+
+<script>
+(function () {
+  'use strict';
+
+  // Variant data with Liquid-formatted prices
+  var pvhVariants = [
+    {%- for v in product.variants -%}
+    {
+      id: {{ v.id }},
+      available: {{ v.available }},
+      price: "{{ v.price | money }}",
+      compareAtPrice: {%- if v.compare_at_price > v.price -%}"{{ v.compare_at_price | money }}"{%- else -%}null{%- endif -%},
+      savings: {%- if v.compare_at_price > v.price -%}"{{ v.compare_at_price | minus: v.price | money }}"{%- else -%}null{%- endif -%},
+      options: [{% for o in v.options %}"{{ o | escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}]
+    }{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ];
+
+  // ─── Gallery ───────────────────────────────────────────────────
+  var slides = document.querySelectorAll('.pvh-pdp-slide');
+  var thumbs = document.querySelectorAll('.pvh-pdp-thumb');
+  var dots   = document.querySelectorAll('.pvh-pdp-dot');
+  var stage  = document.getElementById('pvh-pdp-stage');
+  var i;
+
+  function goTo(idx) {
+    for (i = 0; i < slides.length; i++) {
+      var active = i === idx;
+      slides[i].classList.toggle('is-active', active);
+      slides[i].setAttribute('aria-hidden', active ? 'false' : 'true');
+    }
+    for (i = 0; i < thumbs.length; i++) thumbs[i].classList.toggle('is-active', i === idx);
+    for (i = 0; i < dots.length; i++) {
+      dots[i].classList.toggle('is-active', i === idx);
+      dots[i].setAttribute('aria-selected', i === idx ? 'true' : 'false');
+    }
+  }
+
+  for (i = 0; i < thumbs.length; i++) {
+    thumbs[i].addEventListener('click', (function (n) { return function () { goTo(n); }; })(i));
+  }
+  for (i = 0; i < dots.length; i++) {
+    dots[i].addEventListener('click', (function (n) { return function () { goTo(n); }; })(i));
+  }
+
+  // Swipe on mobile
+  if (stage) {
+    var swipeX = 0;
+    stage.addEventListener('touchstart', function (e) { swipeX = e.touches[0].clientX; }, { passive: true });
+    stage.addEventListener('touchend', function (e) {
+      var delta = swipeX - e.changedTouches[0].clientX;
+      if (Math.abs(delta) < 50) return;
+      var cur = 0;
+      for (var j = 0; j < slides.length; j++) { if (slides[j].classList.contains('is-active')) { cur = j; break; } }
+      if (delta > 0 && cur < slides.length - 1) goTo(cur + 1);
+      else if (delta < 0 && cur > 0) goTo(cur - 1);
+    }, { passive: true });
+  }
+
+  // ─── Variant selection ─────────────────────────────────────────
+  var variantInput = document.getElementById('pvh-variant-id');
+  var priceWrap    = document.getElementById('pvh-pdp-price');
+  var atcBtn       = document.getElementById('pvh-atc-main');
+  var atcText      = atcBtn && atcBtn.querySelector('.pvh-pdp-atc-text');
+  var optBtns      = document.querySelectorAll('.pvh-pdp-opt-btn');
+
+  function getSelectedOptions() {
+    var opts = {};
+    for (var b = 0; b < optBtns.length; b++) {
+      if (optBtns[b].classList.contains('is-active')) {
+        opts[optBtns[b].dataset.option] = optBtns[b].dataset.value;
+      }
+    }
+    return opts;
+  }
+
+  function findVariant(opts) {
+    for (var v = 0; v < pvhVariants.length; v++) {
+      var vnt = pvhVariants[v];
+      var ok = true;
+      for (var j = 0; j < vnt.options.length; j++) {
+        if (opts[j + 1] !== vnt.options[j]) { ok = false; break; }
+      }
+      if (ok) return vnt;
+    }
+    return null;
+  }
+
+  function updatePrice(v) {
+    if (!priceWrap || !v) return;
+    var h = '';
+    if (v.compareAtPrice) {
+      h += '<s class="pvh-pdp-was">' + v.compareAtPrice + '</s>';
+      h += '<span class="pvh-pdp-now">' + v.price + '</span>';
+      h += '<span class="pvh-pdp-save-badge">Save&nbsp;' + v.savings + '</span>';
+    } else {
+      h += '<span class="pvh-pdp-now">' + v.price + '</span>';
+    }
+    h += '<span class="pvh-pdp-ship-flag">Free shipping</span>';
+    priceWrap.innerHTML = h;
+  }
+
+  function updateATC(v) {
+    if (!atcBtn) return;
+    var avail = v && v.available;
+    atcBtn.disabled = !avail;
+    atcBtn.setAttribute('aria-disabled', avail ? 'false' : 'true');
+    if (atcText) atcText.textContent = avail ? 'Add to Cart' : 'Sold Out';
+  }
+
+  for (i = 0; i < optBtns.length; i++) {
+    optBtns[i].addEventListener('click', (function (btn) {
+      return function () {
+        var key = btn.dataset.option;
+        var siblings = document.querySelectorAll('.pvh-pdp-opt-btn[data-option="' + key + '"]');
+        for (var s = 0; s < siblings.length; s++) {
+          siblings[s].classList.remove('is-active');
+          siblings[s].setAttribute('aria-checked', 'false');
+        }
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-checked', 'true');
+        var lbl = document.querySelector('.pvh-pdp-option-val[data-option="' + key + '"]');
+        if (lbl) lbl.textContent = btn.dataset.value;
+        var opts = getSelectedOptions();
+        var variant = findVariant(opts);
+        if (variant) {
+          if (variantInput) variantInput.value = variant.id;
+          updatePrice(variant);
+          updateATC(variant);
+          document.dispatchEvent(new CustomEvent('variant:changed', { detail: { variant: variant } }));
+        }
+      };
+    })(optBtns[i]));
+  }
+
+  // ─── AJAX add-to-cart ──────────────────────────────────────────
+  var form = document.getElementById('pvh-product-form');
+  if (form && atcBtn) {
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (atcBtn.disabled) return;
+      var varId = parseInt(variantInput.value, 10);
+      if (!varId) return;
+      var origText = atcText ? atcText.textContent : 'Add to Cart';
+      atcBtn.disabled = true;
+      if (atcText) atcText.textContent = 'Adding…';
+
+      fetch('/cart/add.js', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        body: JSON.stringify({ id: varId, quantity: 1 })
+      })
+      .then(function (r) { return r.json(); })
+      .then(function () {
+        if (atcText) atcText.textContent = 'Added ✓';
+        fetch('/cart.js')
+          .then(function (r) { return r.json(); })
+          .then(function (cart) {
+            var countEls = document.querySelectorAll(
+              '.cart-count, .cart__count, [data-cart-count], #cart-count, .header__cart-badge, .cart-icon-bubble > span, .cart-count-bubble > span'
+            );
+            countEls.forEach(function (el) { el.textContent = cart.item_count; });
+          });
+        setTimeout(function () {
+          atcBtn.disabled = false;
+          if (atcText) atcText.textContent = origText;
+        }, 2600);
+      })
+      .catch(function () {
+        atcBtn.disabled = false;
+        if (atcText) atcText.textContent = origText;
+      });
+    });
+  }
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PVH Product Hero",
+  "tag": "section",
+  "class": "pvh-pdp-section",
+  "settings": [],
+  "presets": [{ "name": "PVH Product Hero" }]
+}
+{% endschema %}

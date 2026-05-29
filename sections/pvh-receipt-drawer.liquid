@@ -1,0 +1,347 @@
+{%- comment -%}
+  sections/pvh-receipt-drawer.liquid
+
+  Receipt-styled cart drawer. Add to the header-group template so it renders
+  on every page. It stays hidden until a cart:update event fires.
+
+  Architecture:
+  - <dialog> is always in the DOM; open/close is JS-only.
+  - On cart:update, fetch /?sections=pvh-receipt-drawer via section rendering API.
+  - Parse response, swap #pvh-receipt-inner and #pvh-receipt-actions innerHTML.
+  - call dialog.showModal() to reveal.
+  - Cart items rendered via snippets/pvh-receipt-items.liquid (full Liquid access
+    to cart.items and product metafields).
+
+  Metafields (namespace: pvh_nutrition) are created on Brook:
+    serving_size, hydration_boost, filter_life,
+    uv_sterilization, flow_rate, material
+{%- endcomment -%}
+
+{{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
+
+<!-- Tailwind Play CDN — synchronous by design; scans DOM on load, defer/async causes FOUC -->
+{% # theme-check-disable ParserBlockingScript, RemoteAsset %}
+<script src="https://cdn.tailwindcss.com"></script>
+{% # theme-check-enable ParserBlockingScript, RemoteAsset %}
+<script>
+  if (typeof tailwind !== 'undefined' && !window.__pvhTailwindConfigured) {
+    window.__pvhTailwindConfigured = true;
+    tailwind.config = {
+      corePlugins: { preflight: false },
+      theme: {
+        extend: {
+          colors: {
+            'pvh-green':      '#2D6A4F',
+            'pvh-green-dark': '#1B4332',
+            'pvh-green-mid':  '#52B788',
+            'pvh-paper':      '#FAF7F2',
+            'pvh-paper-dim':  '#EDE8DF',
+            'pvh-ink':        '#1A1A1A',
+          },
+          fontFamily: {
+            sans: ['var(--font-primary--family)', 'system-ui', 'sans-serif'],
+          },
+          boxShadow: {
+            'receipt': '0 6px 32px rgba(0,0,0,0.45)',
+          },
+        },
+      },
+    };
+  }
+</script>
+
+<style>
+  /* ── Monospace base ──────────────────────────────────────── */
+  .pvh-mono { font-family: 'Courier New', Courier, monospace; }
+
+  /* ── Dialog positioning ──────────────────────────────────── */
+  #pvh-receipt-dialog {
+    position: fixed;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100dvh;
+    max-width: 100%;
+    max-height: 100%;
+    border: none;
+    background: transparent;
+    overflow: hidden;
+  }
+  #pvh-receipt-dialog:not([open]) { display: none; }
+  #pvh-receipt-dialog::backdrop {
+    background: rgba(0, 0, 0, 0.62);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+
+  /* ── Panel slide-in from right ───────────────────────────── */
+  @keyframes pvh-receipt-slide-in {
+    from { transform: translateX(100%); }
+    to   { transform: translateX(0); }
+  }
+  #pvh-receipt-panel {
+    animation: pvh-receipt-slide-in 0.34s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    #pvh-receipt-panel { animation: none; }
+  }
+
+  /* ── Torn paper bottom edge ──────────────────────────────── */
+  /*
+   * Two 135°/225° gradients, each 33.33% paper-color then transparent,
+   * tiled at 18px × 14px create alternating downward-pointing triangles —
+   * the jagged tear effect. The `bottom: -13px` positions them so the
+   * peaks sit flush with the paper bottom and the valleys extend below it.
+   */
+  .pvh-receipt-paper {
+    position: relative;
+  }
+  .pvh-receipt-paper::after {
+    content: '';
+    pointer-events: none;
+    position: absolute;
+    bottom: -13px;
+    left: 0;
+    right: 0;
+    height: 14px;
+    background:
+      linear-gradient(135deg, #FAF7F2 33.33%, transparent 33.33%) 0 0,
+      linear-gradient(225deg, #FAF7F2 33.33%, transparent 33.33%) 0 0;
+    background-size: 18px 14px;
+    background-repeat: repeat-x;
+  }
+
+  /* ── Receipt line item animation ─────────────────────────── */
+  @keyframes pvh-item-in {
+    from { opacity: 0; transform: translateY(5px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .pvh-item-row { animation: pvh-item-in 0.28s ease both; }
+
+  /* ── Spec row: label + dot-leader + value ─────────────────── */
+  .pvh-spec-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 6px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 9.5px;
+    line-height: 1.7;
+    color: rgba(26, 26, 26, 0.55);
+  }
+  .pvh-spec-row > span:first-child {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    /* Dot leader: repeating dots fill the space between label and value */
+    background-image: radial-gradient(circle, rgba(26,26,26,0.25) 1px, transparent 1px);
+    background-size: 5px 1px;
+    background-repeat: repeat-x;
+    background-position: 0 bottom;
+    padding-bottom: 2px;
+    margin-bottom: -2px;
+  }
+  .pvh-spec-row > span:last-child {
+    flex-shrink: 0;
+    white-space: nowrap;
+    color: rgba(26, 26, 26, 0.75);
+    font-weight: bold;
+  }
+
+  /* ── Custom scrollbar in receipt panel ───────────────────── */
+  #pvh-receipt-scroll {
+    scrollbar-width: thin;
+    scrollbar-color: #444 transparent;
+  }
+  #pvh-receipt-scroll::-webkit-scrollbar { width: 4px; }
+  #pvh-receipt-scroll::-webkit-scrollbar-track { background: transparent; }
+  #pvh-receipt-scroll::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+</style>
+
+<!-- ══════════════════════════════════════════════════════
+     RECEIPT DRAWER — dialog element
+══════════════════════════════════════════════════════ -->
+<dialog id="pvh-receipt-dialog" aria-label="Cart receipt">
+
+  <!-- Backdrop — <form method="dialog"> submits the dialog, closing it -->
+  <form
+    method="dialog"
+    style="position: fixed; inset: 0; cursor: pointer;"
+    aria-label="Close receipt"
+  ></form>
+
+  <!-- Drawer panel (sits above backdrop via z-index) -->
+  <div
+    id="pvh-receipt-panel"
+    style="position: fixed; top: 0; right: 0; bottom: 0; width: min(400px, 100vw); z-index: 1;"
+    class="flex flex-col bg-pvh-ink"
+  >
+
+    <!-- ── Top bar ──────────────────────────────────────── -->
+    <div class="flex items-center justify-between px-5 py-3 bg-black border-b border-white/10 shrink-0">
+      <div class="flex items-center gap-2.5">
+        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pvh-green-mid" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="pvh-mono text-[10px] font-bold tracking-[0.18em] text-pvh-paper/55 uppercase">
+          Your Receipt
+        </span>
+      </div>
+      <form method="dialog">
+        <button
+          type="submit"
+          class="pvh-mono text-pvh-paper/35 hover:text-pvh-paper/80 transition-colors text-[17px] leading-none px-1 py-0.5"
+          aria-label="Close receipt drawer"
+        >✕</button>
+      </form>
+    </div>
+
+    <!-- ── Scrollable receipt ───────────────────────────── -->
+    <div
+      id="pvh-receipt-scroll"
+      class="flex-1 overflow-y-auto"
+      style="padding: 24px 20px 36px;"
+    >
+      <!-- #pvh-receipt-inner: swapped on every cart:update re-render -->
+      <div id="pvh-receipt-inner">
+        {%- render 'pvh-receipt-items' -%}
+      </div>
+      <!-- 36px spacer so torn edge clears the scroll container bottom -->
+      <div style="height: 36px;"></div>
+    </div>
+
+    <!-- ── Sticky CTA ───────────────────────────────────── -->
+    <div
+      id="pvh-receipt-actions"
+      class="shrink-0 px-5 py-4 bg-black border-t border-white/10"
+    >
+      {%- if cart.empty? -%}
+        <a
+          href="{{ routes.all_products_collection_url }}"
+          class="pvh-mono block w-full text-center text-white py-[14px] text-[11px] font-bold tracking-[0.14em] uppercase transition-colors bg-pvh-green hover:bg-pvh-green-dark"
+          style="border-radius: 2px; text-decoration: none;"
+        >
+          BROWSE PRODUCTS
+        </a>
+      {%- else -%}
+        <a
+          href="/checkout"
+          class="pvh-mono block w-full text-center text-white py-[14px] text-[11px] font-bold tracking-[0.14em] uppercase transition-colors bg-pvh-green hover:bg-pvh-green-dark"
+          style="border-radius: 2px; text-decoration: none;"
+        >
+          PROCEED TO CHECKOUT &rarr;
+        </a>
+        <a
+          href="{{ routes.cart_url }}"
+          class="pvh-mono block w-full text-center py-[10px] text-[9.5px] tracking-[0.1em] uppercase transition-colors text-pvh-paper/35 hover:text-pvh-paper/65"
+          style="text-decoration: none;"
+        >
+          VIEW FULL CART
+        </a>
+      {%- endif -%}
+    </div>
+
+  </div><!-- /pvh-receipt-panel -->
+</dialog>
+
+<!-- ══════════════════════════════════════════════════════
+     JAVASCRIPT
+══════════════════════════════════════════════════════ -->
+<script>
+(function pvhReceiptDrawer() {
+  'use strict';
+
+  var SECTION_KEY = 'pvh-receipt-drawer';
+  var dialog = document.getElementById('pvh-receipt-dialog');
+  if (!dialog) return;
+
+  /* ── Open / close ──────────────────────────────────── */
+  function openDrawer() {
+    if (!dialog.open) dialog.showModal();
+  }
+
+  /* ── Re-render via Shopify section rendering API ───── */
+  /*
+   * Fetches fresh Liquid-rendered HTML for this section (including
+   * cart.items and pvh_nutrition metafields) then swaps only the
+   * two mutable regions so the dialog's open state is preserved.
+   */
+  function refreshReceipt(andOpen) {
+    fetch('/?sections=' + SECTION_KEY, { cache: 'no-store' })
+      .then(function(r) {
+        if (!r.ok) throw new Error('Section fetch failed: ' + r.status);
+        return r.json();
+      })
+      .then(function(sections) {
+        var html = sections[SECTION_KEY];
+        if (!html) return;
+
+        var parser = new DOMParser();
+        var doc    = parser.parseFromString(html, 'text/html');
+
+        /* Swap receipt items */
+        var newInner   = doc.getElementById('pvh-receipt-inner');
+        var curInner   = document.getElementById('pvh-receipt-inner');
+        if (newInner && curInner) curInner.innerHTML = newInner.innerHTML;
+
+        /* Swap checkout CTA (reflects cart empty/not empty state) */
+        var newActions = doc.getElementById('pvh-receipt-actions');
+        var curActions = document.getElementById('pvh-receipt-actions');
+        if (newActions && curActions) curActions.innerHTML = newActions.innerHTML;
+
+        if (andOpen) openDrawer();
+      })
+      .catch(function() {
+        /* Graceful fallback: open with stale content rather than silently failing */
+        if (andOpen) openDrawer();
+      });
+  }
+
+  /* ── Handlers ──────────────────────────────────────── */
+  /*
+   * cart:update = ThemeEvents.cartUpdate — fires after every
+   * add / remove / quantity change from the base theme's AJAX cart.
+   * CartAddEvent.eventName also resolves to this same string (events.js:115).
+   */
+  function onCartUpdate() { refreshReceipt(true); }
+
+  /*
+   * pvh:cart:added — fired by our custom pvh-ajax-atc buttons
+   * in petvitals-home.liquid and pvh-product-sticky-atc.liquid.
+   */
+  function onPvhCartAdded() { refreshReceipt(true); }
+
+  document.addEventListener('cart:update',    onCartUpdate);
+  document.addEventListener('pvh:cart:added', onPvhCartAdded);
+
+  /* ── Scroll receipt to top when drawer opens ───────── */
+  dialog.addEventListener('toggle', function(e) {
+    if (e.newState === 'open') {
+      var scrollArea = document.getElementById('pvh-receipt-scroll');
+      if (scrollArea) scrollArea.scrollTop = 0;
+    }
+  });
+
+  /* ── Section unload (Shopify Theme Editor) ─────────── */
+  document.addEventListener('shopify:section:unload', function(e) {
+    if (!e.detail || e.detail.sectionId.indexOf(SECTION_KEY) === -1) return;
+    document.removeEventListener('cart:update',    onCartUpdate);
+    document.removeEventListener('pvh:cart:added', onPvhCartAdded);
+  });
+
+  /* ── Section select (Theme Editor: click section) ──── */
+  document.addEventListener('shopify:section:select', function(e) {
+    if (!e.detail || e.detail.sectionId.indexOf(SECTION_KEY) === -1) return;
+    refreshReceipt(true);
+  });
+
+})();
+</script>
+
+{% schema %}
+{
+  "name": "PVH Receipt Drawer",
+  "settings": [],
+  "presets": [
+    { "name": "PVH Receipt Drawer" }
+  ]
+}
+{% endschema %}

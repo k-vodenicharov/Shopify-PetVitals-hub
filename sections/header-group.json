@@ -15,6 +15,10 @@
       "type": "pvh-announcement-bar",
       "settings": {}
     },
+    "pvh_receipt_drawer": {
+      "type": "pvh-receipt-drawer",
+      "settings": {}
+    },
     "header_section": {
       "type": "header",
       "blocks": {
@@ -90,6 +94,7 @@
   },
   "order": [
     "pvh_announcement_bar",
+    "pvh_receipt_drawer",
     "header_section"
   ]
 }
