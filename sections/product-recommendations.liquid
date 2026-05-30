@@ -5,6 +5,12 @@
   fetchpriority="low"
 ></script>
 
+{% stylesheet %}
+  product-recommendations:has(.resource-list[data-has-recommendations="false"]) {
+    display: none;
+  }
+{% endstylesheet %}
+
 {% liquid
   case section.settings.layout_type
     when 'grid'
@@ -79,7 +85,8 @@
           endif
 
         else
-          assign products = recommendations.products
+          assign current_product_id = section.settings.product.id | default: product.id
+          assign products = recommendations.products | reject: 'id', current_product_id
         endif
       %}
       {% capture list_items %}
