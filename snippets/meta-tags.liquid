@@ -28,6 +28,13 @@
   assign og_type = 'website'
   assign og_description = page_description | default: shop.description | default: shop.name
 
+  if request.page_type == 'index' and og_title == shop.name
+    assign og_title = 'Cat Water Fountain for Cats — Brook | ' | append: shop.name
+  endif
+  if request.page_type == 'index' and og_description == blank or request.page_type == 'index' and og_description == shop.name
+    assign og_description = 'Brook is a quiet, triple-filtered cat water fountain. USB-powered with a motion-sensor outlet — designed to get your cat drinking more.'
+  endif
+
   if request.page_type == 'product'
     assign og_type = 'product'
   elsif request.page_type == 'article'
@@ -108,10 +115,10 @@
 >
 
 <title>
-  {{ page_title }}
+  {{ og_title }}
   {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
   {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
-  {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+  {%- unless og_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
 </title>
 
 <link
