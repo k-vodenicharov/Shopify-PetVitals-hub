@@ -49,7 +49,7 @@
               srcset="{{ media | image_url: width: 750 }} 750w,
                       {{ media | image_url: width: 1100 }} 1100w,
                       {{ media | image_url: width: 1500 }} 1500w"
-              sizes="(max-width: 768px) 100vw, 56vw"
+              sizes="(max-width: 768px) calc(100vw - 48px), 56vw"
               alt="{{ media.alt | escape | default: product.title | escape }}"
               {%- if forloop.first %}loading="eager" fetchpriority="high"{% else %}loading="lazy"{% endif %}
               decoding="async"

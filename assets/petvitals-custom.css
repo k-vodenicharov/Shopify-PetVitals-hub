@@ -106,6 +106,11 @@ html { scroll-behavior: smooth; }
   letter-spacing: -0.02em;
   margin: 0 0 14px;
 }
+.pvh-section-title--lp-features {
+  max-width: 560px;
+  margin-left: auto;
+  margin-right: auto;
+}
 .pvh-section-sub {
   font-size: 17px;
   color: var(--pvh-muted);
@@ -1044,6 +1049,8 @@ html { scroll-behavior: smooth; }
 .pvh-comparison-inner {
   max-width: 880px;
   margin: 0 auto;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 .pvh-comparison-table {
   width: 100%;
@@ -1333,6 +1340,9 @@ video.pvh-pdp-img { object-fit: cover; }
 
 /* Mobile */
 @media (max-width: 768px) {
+  /* Offset fixed sticky bars so they don't obscure bottom-of-page content */
+  body { padding-bottom: 72px; }
+
   /* PDP */
   .pvh-pdp { grid-template-columns: 1fr; padding: 32px 24px 48px; gap: 32px; }
   .pvh-pdp-media { position: static; flex-direction: column-reverse; }
@@ -1456,6 +1466,7 @@ video.pvh-pdp-img { object-fit: cover; }
   .pvh-hero-actions { flex-direction: column; align-items: flex-start; }
   .pvh-btn-primary { width: 100%; justify-content: center; }
   .pvh-section-title { font-size: 24px !important; }
+  .pvh-section-title--lp-features { max-width: 100%; }
   .pvh-benefit { padding: 28px 24px; }
   .pvh-faq-item summary { font-size: 14px; }
   .pvh-lp-feature { padding: 28px 24px; }
