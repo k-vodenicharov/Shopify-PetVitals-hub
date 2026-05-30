@@ -29,10 +29,10 @@
   assign og_description = page_description | default: shop.description | default: shop.name
 
   if request.page_type == 'index' and og_title == shop.name
-    assign og_title = 'Cat Water Fountain for Cats — Brook | ' | append: shop.name
+    assign og_title = 'Pet Water Fountain for Cats & Dogs — Brook | ' | append: shop.name
   endif
   if request.page_type == 'index' and og_description == blank or request.page_type == 'index' and og_description == shop.name
-    assign og_description = 'Brook is a quiet, triple-filtered cat water fountain. USB-powered with a motion-sensor outlet — designed to get your cat drinking more.'
+    assign og_description = 'Brook is a quiet, triple-filtered pet water fountain for cats and dogs. USB-powered with a motion-sensor outlet — designed to get your pet drinking more.'
   endif
 
   if request.page_type == 'product'
@@ -126,9 +126,7 @@
   href="{{ canonical_url }}"
 >
 
-{% if page_description %}
-  <meta
-    name="description"
-    content="{{ page_description | escape }}"
-  >
-{% endif %}
+<meta
+  name="description"
+  content="{{ og_description | escape }}"
+>
