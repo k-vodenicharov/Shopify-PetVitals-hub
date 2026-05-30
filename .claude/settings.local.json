@@ -1,0 +1,39 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(grep -E '\\(json|liquid|yaml|yml\\)$')",
+      "mcp__claude_ai_Shopify__get-shop-info",
+      "mcp__claude_ai_Shopify__search_products",
+      "mcp__claude_ai_Shopify__search_collections",
+      "mcp__claude_ai_Shopify__graphql_schema",
+      "mcp__claude_ai_Shopify__validate_graphql_codeblocks",
+      "mcp__claude_ai_Shopify__graphql_mutation",
+      "mcp__claude_ai_Shopify__graphql_query",
+      "mcp__claude_ai_Shopify__create-discount",
+      "Bash(Get-Content \"C:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\\\\assets\\\\petvitals-custom.css\" -Raw)",
+      "Bash(Measure-Object -Character)",
+      "Bash(Select-Object -ExpandProperty Characters)",
+      "PowerShell($css = Get-Content \"C:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\\\\assets\\\\petvitals-custom.css\" -Raw; Write-Host \"Length: $\\($css.Length\\)\")",
+      "mcp__claude_ai_Shopify__create-product",
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\\\\assets\\\\petvitals-custom.css\"\\); [Convert]::ToBase64String\\($bytes\\))",
+      "Bash(python3 -c ' *)",
+      "Bash(git remote *)",
+      "Bash(git add *)",
+      "Bash(git fetch *)",
+      "Bash(git checkout *)",
+      "Bash(git pull *)",
+      "Bash(git commit -m ' *)",
+      "Bash(Get-Content \"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\\\\templates\\\\index.json\" -Raw)",
+      "Bash(Out-String)",
+      "PowerShell($bytes = [System.IO.File]::ReadAllBytes\\(\"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\\\\sections\\\\petvitals-home.liquid\"\\); [Convert]::ToBase64String\\($bytes\\))",
+      "Bash(shopify version *)",
+      "Bash(shopify theme *)",
+      "Bash(where shopify *)",
+      "Bash(where theme-check *)",
+      "Bash(findstr /C:\"pvh-receipt-drawer\" /C:\"pvh-receipt-items\" /C:\"dynamic-pet-showcase\" /C:\"petvitals-home\" /C:\"theme.liquid\" /C:\"[error]\" /C:\"[warning]\" /C:\"No errors\" /C:\"Checking\" /C:\"errors found\" /C:\"warnings found\")",
+      "Bash(Select-String -Pattern \"pvh-receipt-drawer|pvh-receipt-items|dynamic-pet-showcase|petvitals-home|theme\\\\.liquid|\\\\[error\\\\]|\\\\[warning\\\\]|errors found|warnings found|No errors\")",
+      "Bash(Select-Object -First 60)",
+      "PowerShell(cd \"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\"; $out = shopify theme check --path . 2>&1; $lines = $out -join \"`n\"; $start = $lines.IndexOf\\(\"petvitals-home\"\\); $end = $lines.IndexOf\\(\"pvh-receipt-items\"\\); $lines.Substring\\($start, $end - $start\\))"
+    ]
+  }
+}

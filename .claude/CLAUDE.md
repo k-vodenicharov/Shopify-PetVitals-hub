@@ -50,7 +50,7 @@ Base theme sections live in `sections/` alongside custom ones but do not use the
 
 ### Design System Tokens
 
-All PVH styles use CSS custom properties defined in `:root` inside `petvitals-custom.css`:
+All PVH styles use CSS custom properties defined in `:root` inside `petvitals-custom.css`. Never hardcode color, spacing, or typography values — always use `--pvh-*` tokens.
 
 | Token | Value | Use |
 |-------|-------|-----|
@@ -64,7 +64,7 @@ All PVH styles use CSS custom properties defined in `:root` inside `petvitals-cu
 | `--pvh-muted` | `#6B7B72` | Body text, captions |
 | `--pvh-border` | `#E2ECE6` | Dividers, card borders |
 
-### Scroll-enter animation pattern
+### Scroll-enter Animation Pattern
 
 Custom sections use a CSS/JS scroll-reveal pattern. Add `data-pvh-enter` to any element; the IntersectionObserver in the section's `<script>` adds `.is-visible` when it enters the viewport. CSS transitions handle the fade-up. No perpetual animations on any interactive element.
 
@@ -86,15 +86,58 @@ The homepage section hardcodes the Brook product via `{% assign product = all_pr
 
 Custom ATC buttons use the class `pvh-ajax-atc` and a `data-variant="<variant_id>"` attribute. The JS in `petvitals-home.liquid` (and duplicated in `pvh-product-sticky-atc.liquid`) handles the `/cart/add.js` fetch and updates cart count across multiple theme-specific selectors.
 
-## Brand & Copy Rules
+## Frontend Libraries (CDN Only — No npm)
 
-See `.claude/BRAND_GUIDELINES.md`, `.claude/PROJECT_RULES.md`, and `.claude/CONVERSION_STANDARDS.md` for full guidance. Key rules:
+All libraries are loaded via CDN. Never suggest npm install or local versions of these.
 
-- Never use: "Premium Quality", "Best Product", "Amazing Solution", "Must Have", "Revolutionary", "High Quality"
-- Copy must be benefit-driven, emotionally specific, and easy to scan
-- No fake urgency, fake scarcity, or spammy tactics
-- Every change should answer: *"Does this increase trust and make the brand feel more real?"*
+| Library | Version | Purpose |
+|---------|---------|---------|
+| GSAP | 3.12.5 | Scroll animations, hover effects |
+| ScrollTrigger | 3.12.5 | GSAP plugin, scroll-driven animations |
+| Three.js | 0.165.0 | WebGL hero canvas on homepage |
+| Google Fonts | — | Fraunces (headings) + Inter (body) |
+
+## JavaScript Patterns
+
+- All section JS wrapped in **IIFEs** — `(function() { ... })();` — no ES modules, no bundler syntax
+- Cart operations: `/cart/add.js`, `/cart.js`, `/?sections=` (Sections Rendering API)
+- Cross-component communication: `CustomEvent` with names `cart:update`, `pvh:cart:added`
+- Scroll animations: `IntersectionObserver` for scroll-enter, `requestAnimationFrame` loop for Three.js/WebGL
+- Sticky ATC visibility: `IntersectionObserver` on the hero section
+
+## WebGL Hero (petvitals-home.liquid)
+
+The homepage hero is a WebGL canvas built with Three.js. **Do not modify the shader or Three.js setup unless explicitly instructed.**
+
+- `Three.js WebGLRenderer` + `OrthographicCamera`
+- Custom GLSL fragment shader: radial sine-wave displacement + chromatic aberration
+- 120 ambient floating particles via `PointsMaterial`
+- `uMouse` uniform updated via `mousemove` with lerp smoothing
+- Render loop via `requestAnimationFrame`
 
 ## Localization
 
 User-facing strings in base theme sections use `t:` keys resolved from `locales/en.default.json`. Custom PVH sections use hardcoded English strings directly in the Liquid — do not introduce `t:` keys into custom sections unless explicitly requested.
+
+## Brand & Copy Rules
+
+See `.claude/BRAND_GUIDELINES.md`, `.claude/PROJECT_RULES.md`, and `.claude/CONVERSION_STANDARDS.md` for full guidance. Key rules:
+
+- **Never use:** "Premium Quality", "Best Product", "Amazing Solution", "Must Have", "Revolutionary", "High Quality"
+- Copy must be benefit-driven, emotionally specific, and easy to scan
+- No fake urgency, fake scarcity, or spammy tactics
+- Every change should answer: *"Does this increase trust and make the brand feel more real?"*
+- Fonts: Fraunces (headings), Inter (body) — loaded via Google Fonts
+
+## Never Introduce
+
+The following are intentionally absent from this project. Do not suggest or add them under any circumstances:
+
+- React, Vue, Alpine, or any component framework
+- TypeScript
+- npm, `package.json`, `node_modules`, or any build tooling (no Webpack, Vite, Rollup, etc.)
+- Tailwind, Sass, PostCSS, or any CSS preprocessor/utility framework
+- `t:` localization keys in custom PVH sections
+- Hardcoded color, spacing, or typography values — always use `--pvh-*` tokens
+- Inline styles on elements (use classes and tokens instead)
+- Any modification to the WebGL shader unless explicitly requested
