@@ -323,7 +323,7 @@
 <section class="pvh-cta" aria-label="Order now">
   <div class="pvh-cta-inner" data-pvh-enter>
     <h2 class="pvh-cta-title">Give your cat the water<br>she actually wants.</h2>
-    <p class="pvh-cta-sub">€64.99 · Free shipping over €50 · 30-day money-back guarantee</p>
+    <p class="pvh-cta-sub">{{ first_variant.price | money }} · Free shipping over €50 · 30-day money-back guarantee</p>
     <a href="/products/brook" class="pvh-btn-light">
       Order Brook
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -349,7 +349,7 @@
       {% endif %}
       <div>
         <div class="pvh-sticky-name">Brook — Ceramic Cat Fountain</div>
-        <div class="pvh-sticky-price">€64.99 &nbsp;·&nbsp; Free shipping over €50</div>
+        <div class="pvh-sticky-price">{{ first_variant.price | money }} &nbsp;·&nbsp; Free shipping over €50</div>
       </div>
     </div>
     <button
