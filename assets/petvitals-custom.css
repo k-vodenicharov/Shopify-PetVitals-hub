@@ -843,12 +843,13 @@ html { scroll-behavior: smooth; }
   color: #fff;
   border: none;
   border-radius: 100px;
-  padding: 13px 28px;
-  font-size: 15px;
+  padding: 14px 28px;
+  font-size: 16px;
   font-weight: 700;
   cursor: pointer;
   white-space: nowrap;
   flex-shrink: 0;
+  min-height: 48px;
   transition: background 0.2s, transform 0.15s;
   font-family: inherit;
 }
@@ -1276,6 +1277,7 @@ video.pvh-pdp-img { object-fit: cover; }
   background: #fff;
   font-size: 13px; font-weight: 600; color: var(--pvh-ink);
   cursor: pointer; font-family: inherit;
+  min-height: 44px;
   transition: border-color 0.2s, background 0.2s;
 }
 .pvh-pdp-opt-btn:hover { border-color: var(--pvh-green); }
@@ -1431,7 +1433,7 @@ video.pvh-pdp-img { object-fit: cover; }
   .pvh-sticky-btn    { padding: 11px 22px; font-size: 13px; }
   .pvh-product-sticky-inner { padding: 12px 20px; }
   .pvh-product-sticky-img   { display: none; }
-  .pvh-product-sticky-btn   { padding: 11px 22px; font-size: 14px; }
+  .pvh-product-sticky-btn   { padding: 14px 22px; font-size: 16px; min-height: 48px; }
 
   /* LP stats strip */
   .pvh-lp-stats-inner { grid-template-columns: repeat(2, 1fr); }
