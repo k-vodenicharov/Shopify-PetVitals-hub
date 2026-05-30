@@ -1476,3 +1476,9 @@ video.pvh-pdp-img { object-fit: cover; }
   .pvh-product-sticky-price { font-size: 12px; }
   .pvh-product-sticky-shipping { display: none; }
 }
+
+/* Hide reviews section wrapper when placeholder has no injected content */
+.pvh-reviews:has(#reviews-app-placeholder:empty),
+.pvh-lp-reviews:has(#reviews-app-placeholder:empty) {
+  display: none;
+}
