@@ -1479,6 +1479,18 @@ video.pvh-pdp-img { object-fit: cover; }
   .pvh-product-sticky-shipping { display: none; }
 }
 
+/* ── Header deduplication fixes ──────────────────────────────────────────── */
+
+/* The header order with customer accounts enabled includes both drawer_search
+   (class: search-action--hidden-on-menu) and search in the same row.
+   The base theme only hides drawer_search under [data-menu-style='menu'],
+   which never fires with menu_style='featured_products'. Hide it always. */
+.search-action--hidden-on-menu { display: none !important; }
+
+/* Ensure the desktop dropdown localization is never visible inside the
+   mobile nav drawer (drawer-localization-component handles mobile). */
+.menu-drawer__localization .dropdown-localization { display: none !important; }
+
 /* Hide reviews section wrapper when placeholder has no injected content */
 .pvh-reviews:has(#reviews-app-placeholder:empty),
 .pvh-lp-reviews:has(#reviews-app-placeholder:empty) {

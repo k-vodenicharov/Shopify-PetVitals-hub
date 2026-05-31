@@ -9,6 +9,8 @@
     uv_sterilization, flow_rate, material
 {%- endcomment -%}
 
+{%- if cart.item_count > 0 -%}
+
 {%- assign _date = 'now' | date: '%d/%m/%Y' -%}
 {%- assign _time = 'now' | date: '%H:%M' -%}
 {%- assign _ref  = cart.token | slice: 0, 8 | upcase -%}
@@ -35,13 +37,7 @@
     ================================
   </div>
 
-  <!-- ── Empty state ─────────────────────────────── -->
-  {%- if cart.empty? -%}
-    <p class="pvh-mono text-center text-[10px] text-pvh-ink/40 py-8 tracking-[0.14em] uppercase">
-      -- YOUR CART IS EMPTY --
-    </p>
-
-  {%- else -%}
+  <!-- ── Line items ─────────────────────────────── -->
 
     <!-- Column headers -->
     <div class="pvh-mono flex gap-2 text-[9px] text-pvh-ink/40 tracking-[0.1em] uppercase mt-2.5 mb-0.5">
@@ -205,8 +201,6 @@
       * Incl. VAT. Final taxes calculated at checkout.
     </p>
 
-  {%- endif -%}
-
   <!-- ── Receipt footer ──────────────────────────── -->
   <div class="text-center mt-6 mb-1">
     <p class="pvh-mono text-[9.5px] text-pvh-ink/35 tracking-[0.2em] uppercase">
@@ -222,3 +216,9 @@
 
 </div>
 {%- comment -%} Torn paper ::after is defined in pvh-receipt-drawer.liquid <style> {%- endcomment -%}
+
+{%- else -%}
+  <p class="pvh-mono text-center text-[11px] text-pvh-paper/40 py-12 tracking-[0.16em] uppercase">
+    Your cart is empty
+  </p>
+{%- endif -%}
