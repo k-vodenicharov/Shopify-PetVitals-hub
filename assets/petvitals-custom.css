@@ -1430,7 +1430,7 @@ video.pvh-pdp-img { object-fit: cover; }
   /* Sticky bar */
   .pvh-sticky-inner  { padding: 12px 20px; }
   .pvh-sticky-img    { display: none; }
-  .pvh-sticky-btn    { padding: 11px 22px; font-size: 13px; }
+  .pvh-sticky-btn    { padding: 14px 22px; font-size: 16px; min-height: 48px; }
   .pvh-product-sticky-inner { padding: 12px 20px; }
   .pvh-product-sticky-img   { display: none; }
   .pvh-product-sticky-btn   { padding: 14px 22px; font-size: 16px; min-height: 48px; }
@@ -1470,7 +1470,7 @@ video.pvh-pdp-img { object-fit: cover; }
   .pvh-section-title { font-size: 24px !important; }
   .pvh-section-title--lp-features { max-width: 100%; }
   .pvh-benefit { padding: 28px 24px; }
-  .pvh-faq-item summary { font-size: 14px; }
+  .pvh-faq-item summary { font-size: 16px; }
   .pvh-lp-feature { padding: 28px 24px; }
   .pvh-benefits-grid { grid-template-columns: 1fr; }
   .pvh-hero-trust { flex-direction: column; align-items: flex-start; gap: 8px; }
