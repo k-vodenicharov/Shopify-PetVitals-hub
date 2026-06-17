@@ -19,38 +19,17 @@
 
 {{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
 
-<!-- Tailwind Play CDN — synchronous by design; scans DOM on load, defer/async causes FOUC -->
-{% # theme-check-disable ParserBlockingScript, RemoteAsset %}
-<script src="https://cdn.tailwindcss.com"></script>
-{% # theme-check-enable ParserBlockingScript, RemoteAsset %}
-<script>
-  if (typeof tailwind !== 'undefined' && !window.__pvhTailwindConfigured) {
-    window.__pvhTailwindConfigured = true;
-    tailwind.config = {
-      corePlugins: { preflight: false },
-      theme: {
-        extend: {
-          colors: {
-            'pvh-green':      '#2D6A4F',
-            'pvh-green-dark': '#1B4332',
-            'pvh-green-mid':  '#52B788',
-            'pvh-paper':      '#FAF7F2',
-            'pvh-paper-dim':  '#EDE8DF',
-            'pvh-ink':        '#1A1A1A',
-          },
-          fontFamily: {
-            sans: ['var(--font-primary--family)', 'system-ui', 'sans-serif'],
-          },
-          boxShadow: {
-            'receipt': '0 6px 32px rgba(0,0,0,0.45)',
-          },
-        },
-      },
-    };
-  }
-</script>
-
 <style>
+  /* ── Local palette (kept local so the drawer renders consistently
+        even if the parent page does not load petvitals-custom.css yet) ── */
+  #pvh-receipt-dialog {
+    --rcpt-ink:        #1A1A1A;
+    --rcpt-paper:      #FAF7F2;
+    --rcpt-green:      #2D6A4F;
+    --rcpt-green-dark: #1B4332;
+    --rcpt-green-mid:  #52B788;
+  }
+
   /* ── Monospace base ──────────────────────────────────────── */
   .pvh-mono { font-family: 'Courier New', Courier, monospace; }
 
@@ -156,6 +135,284 @@
   #pvh-receipt-scroll::-webkit-scrollbar { width: 4px; }
   #pvh-receipt-scroll::-webkit-scrollbar-track { background: transparent; }
   #pvh-receipt-scroll::-webkit-scrollbar-thumb { background: #444; border-radius: 2px; }
+
+  /* ══════════════════════════════════════════════════════
+     LAYOUT (formerly Tailwind utilities — ported to plain CSS)
+  ══════════════════════════════════════════════════════ */
+  /* Backdrop (clickable area to close) */
+  .pvh-rcpt-backdrop-form {
+    position: fixed;
+    inset: 0;
+    cursor: pointer;
+  }
+
+  /* Drawer panel — anchored to the right inside the full-screen dialog */
+  #pvh-receipt-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: min(400px, 100vw);
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    background: var(--rcpt-ink);
+  }
+
+  #pvh-receipt-scroll { padding: 24px 20px 36px; }
+  .pvh-rcpt-bottom-spacer { height: 36px; }
+  .pvh-rcpt-top {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 20px;
+    background: #000;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  .pvh-rcpt-top-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .pvh-rcpt-top-svg { color: var(--rcpt-green-mid); }
+  .pvh-rcpt-top-text {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    color: rgba(250, 247, 242, 0.55);
+    text-transform: uppercase;
+  }
+  .pvh-rcpt-close {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    color: rgba(250, 247, 242, 0.35);
+    font-size: 17px;
+    line-height: 1;
+    padding: 2px 4px;
+    transition: color 0.15s ease;
+  }
+  .pvh-rcpt-close:hover { color: rgba(250, 247, 242, 0.80); }
+
+  #pvh-receipt-scroll {
+    flex: 1 1 auto;
+    overflow-y: auto;
+  }
+
+  #pvh-receipt-actions {
+    flex-shrink: 0;
+    padding: 16px 20px;
+    background: #000;
+    border-top: 1px solid rgba(255, 255, 255, 0.10);
+  }
+  .pvh-rcpt-cta-primary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    background: var(--rcpt-green);
+    border-radius: 2px;
+    transition: background 0.15s ease;
+  }
+  .pvh-rcpt-cta-primary:hover { background: var(--rcpt-green-dark); }
+  .pvh-rcpt-cta-secondary {
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    padding: 10px 0;
+    font-size: 9.5px;
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    color: rgba(250, 247, 242, 0.35);
+    transition: color 0.15s ease;
+  }
+  .pvh-rcpt-cta-secondary:hover { color: rgba(250, 247, 242, 0.65); }
+
+  /* ── Receipt paper (the cream block) ─────────────────────── */
+  .pvh-receipt-paper {
+    background: var(--rcpt-paper);
+    padding: 24px 20px 20px;
+    box-shadow: 0 6px 32px rgba(0, 0, 0, 0.45);
+  }
+  .pvh-rcpt-store { text-align: center; margin-bottom: 16px; }
+  .pvh-rcpt-store-name {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    color: var(--rcpt-ink);
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .pvh-rcpt-store-url {
+    font-size: 9.5px;
+    letter-spacing: 0.10em;
+    color: rgba(26, 26, 26, 0.45);
+    margin: 2px 0 0;
+  }
+  .pvh-rcpt-store-meta {
+    font-size: 9.5px;
+    letter-spacing: 0.06em;
+    color: rgba(26, 26, 26, 0.35);
+    margin: 8px 0 0;
+  }
+  .pvh-rcpt-store-meta + .pvh-rcpt-store-meta { margin-top: 0; }
+
+  .pvh-rcpt-divider {
+    text-align: center;
+    color: rgba(26, 26, 26, 0.25);
+    font-size: 10px;
+    letter-spacing: 0.22em;
+    line-height: 1;
+    user-select: none;
+  }
+  .pvh-rcpt-divider--dim   { color: rgba(26, 26, 26, 0.20); margin: 0 0 4px; }
+  .pvh-rcpt-divider--dot   { color: rgba(26, 26, 26, 0.15); margin: 8px 0; }
+  .pvh-rcpt-divider--total { margin-top: 12px; }
+  .pvh-rcpt-divider--total-bottom { margin-top: 8px; }
+  .pvh-rcpt-divider--final { margin-top: 6px; }
+
+  .pvh-rcpt-cols {
+    display: flex;
+    gap: 8px;
+    font-size: 9px;
+    color: rgba(26, 26, 26, 0.40);
+    letter-spacing: 0.10em;
+    text-transform: uppercase;
+    margin: 10px 0 2px;
+  }
+  .pvh-rcpt-cols .pvh-rcpt-qty   { width: 20px; flex-shrink: 0; }
+  .pvh-rcpt-cols .pvh-rcpt-name  { flex: 1; }
+  .pvh-rcpt-cols .pvh-rcpt-price { flex-shrink: 0; }
+
+  .pvh-rcpt-main {
+    display: flex;
+    gap: 8px;
+    align-items: baseline;
+    font-size: 11.5px;
+  }
+  .pvh-rcpt-main .pvh-rcpt-qty {
+    width: 20px;
+    flex-shrink: 0;
+    color: rgba(26, 26, 26, 0.55);
+  }
+  .pvh-rcpt-main .pvh-rcpt-name {
+    flex: 1;
+    font-weight: 700;
+    color: var(--rcpt-ink);
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pvh-rcpt-main .pvh-rcpt-price {
+    flex-shrink: 0;
+    font-weight: 700;
+    color: var(--rcpt-ink);
+  }
+
+  .pvh-rcpt-variant,
+  .pvh-rcpt-each {
+    font-size: 9.5px;
+    padding-left: 28px;
+    letter-spacing: 0.04em;
+    margin: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .pvh-rcpt-variant { color: rgba(26, 26, 26, 0.50); }
+  .pvh-rcpt-each    { color: rgba(26, 26, 26, 0.40); }
+  .pvh-rcpt-plan {
+    font-size: 9.5px;
+    padding-left: 28px;
+    letter-spacing: 0.04em;
+    color: var(--rcpt-green);
+    margin: 0;
+  }
+
+  .pvh-rcpt-specs {
+    margin: 8px 0 0 20px;
+    padding-left: 8px;
+    border-left: 2px solid rgba(45, 106, 79, 0.30);
+  }
+  .pvh-rcpt-specs-head {
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    color: var(--rcpt-green);
+    text-transform: uppercase;
+    margin: 0 0 4px;
+  }
+
+  .pvh-rcpt-totals-line {
+    display: flex;
+    justify-content: space-between;
+    font-size: 10.5px;
+  }
+  .pvh-rcpt-totals-line + .pvh-rcpt-totals-line { margin-top: 2px; }
+  .pvh-rcpt-totals-line .pvh-rcpt-label { color: rgba(26, 26, 26, 0.60); }
+  .pvh-rcpt-totals-line .pvh-rcpt-value { color: rgba(26, 26, 26, 0.60); }
+  .pvh-rcpt-totals-line--discount {
+    color: var(--rcpt-green);
+    margin-top: 6px;
+  }
+  .pvh-rcpt-totals-line--free .pvh-rcpt-value {
+    color: var(--rcpt-green);
+    font-weight: 700;
+  }
+  .pvh-rcpt-totals-line--subtotal { margin-top: 8px; }
+
+  .pvh-rcpt-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--rcpt-ink);
+    margin-top: 8px;
+  }
+
+  .pvh-rcpt-vat {
+    font-size: 9px;
+    color: rgba(26, 26, 26, 0.30);
+    letter-spacing: 0.04em;
+    margin: 8px 0 0;
+  }
+
+  .pvh-rcpt-footer { text-align: center; margin: 24px 0 4px; }
+  .pvh-rcpt-thanks {
+    font-size: 9.5px;
+    color: rgba(26, 26, 26, 0.35);
+    letter-spacing: 0.20em;
+    text-transform: uppercase;
+    margin: 0;
+  }
+  .pvh-rcpt-fine {
+    font-size: 9px;
+    color: rgba(26, 26, 26, 0.25);
+    letter-spacing: 0.04em;
+    margin: 6px 0 0;
+  }
+  .pvh-rcpt-fine--xs {
+    font-size: 8.5px;
+    color: rgba(26, 26, 26, 0.20);
+    margin: 4px 0 0;
+  }
+
+  .pvh-rcpt-empty {
+    text-align: center;
+    font-size: 11px;
+    color: rgba(250, 247, 242, 0.40);
+    padding: 48px 0;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
 </style>
 
 <!-- ══════════════════════════════════════════════════════
@@ -166,73 +423,57 @@
   <!-- Backdrop — <form method="dialog"> submits the dialog, closing it -->
   <form
     method="dialog"
-    style="position: fixed; inset: 0; cursor: pointer;"
+    class="pvh-rcpt-backdrop-form"
     aria-label="Close receipt"
   ></form>
 
   <!-- Drawer panel (sits above backdrop via z-index) -->
-  <div
-    id="pvh-receipt-panel"
-    style="position: fixed; top: 0; right: 0; bottom: 0; width: min(400px, 100vw); z-index: 1;"
-    class="flex flex-col bg-pvh-ink"
-  >
+  <div id="pvh-receipt-panel">
 
     <!-- ── Top bar ──────────────────────────────────────── -->
-    <div class="flex items-center justify-between px-5 py-3 bg-black border-b border-white/10 shrink-0">
-      <div class="flex items-center gap-2.5">
-        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-pvh-green-mid" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
-        <span class="pvh-mono text-[10px] font-bold tracking-[0.18em] text-pvh-paper/55 uppercase">
-          Your Receipt
-        </span>
+    <div class="pvh-rcpt-top">
+      <div class="pvh-rcpt-top-label">
+        <svg class="pvh-rcpt-top-svg" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+        <span class="pvh-mono pvh-rcpt-top-text">Your Receipt</span>
       </div>
       <form method="dialog">
         <button
           type="submit"
-          class="pvh-mono text-pvh-paper/35 hover:text-pvh-paper/80 transition-colors text-[17px] leading-none px-1 py-0.5"
+          class="pvh-mono pvh-rcpt-close"
           aria-label="Close receipt drawer"
         >✕</button>
       </form>
     </div>
 
     <!-- ── Scrollable receipt ───────────────────────────── -->
-    <div
-      id="pvh-receipt-scroll"
-      class="flex-1 overflow-y-auto"
-      style="padding: 24px 20px 36px;"
-    >
+    <div id="pvh-receipt-scroll">
       <!-- #pvh-receipt-inner: swapped on every cart:update re-render -->
       <div id="pvh-receipt-inner">
         {%- render 'pvh-receipt-items' -%}
       </div>
-      <!-- 36px spacer so torn edge clears the scroll container bottom -->
-      <div style="height: 36px;"></div>
+      <!-- spacer so torn edge clears the scroll container bottom -->
+      <div class="pvh-rcpt-bottom-spacer" aria-hidden="true"></div>
     </div>
 
     <!-- ── Sticky CTA ───────────────────────────────────── -->
-    <div
-      id="pvh-receipt-actions"
-      class="shrink-0 px-5 py-4 bg-black border-t border-white/10"
-    >
+    <div id="pvh-receipt-actions">
       {%- if cart.empty? -%}
         <a
           href="{{ routes.all_products_collection_url }}"
-          class="pvh-mono block w-full text-center text-white py-[14px] text-[11px] font-bold tracking-[0.14em] uppercase transition-colors bg-pvh-green hover:bg-pvh-green-dark"
-          style="border-radius: 2px; text-decoration: none;"
+          class="pvh-mono pvh-rcpt-cta-primary"
         >
           BROWSE PRODUCTS
         </a>
       {%- else -%}
         <a
           href="/checkout"
-          class="pvh-mono block w-full text-center text-white py-[14px] text-[11px] font-bold tracking-[0.14em] uppercase transition-colors bg-pvh-green hover:bg-pvh-green-dark"
-          style="border-radius: 2px; text-decoration: none;"
+          class="pvh-mono pvh-rcpt-cta-primary"
         >
           PROCEED TO CHECKOUT &rarr;
         </a>
         <a
           href="{{ routes.cart_url }}"
-          class="pvh-mono block w-full text-center py-[10px] text-[9.5px] tracking-[0.1em] uppercase transition-colors text-pvh-paper/35 hover:text-pvh-paper/65"
-          style="text-decoration: none;"
+          class="pvh-mono pvh-rcpt-cta-secondary"
         >
           VIEW FULL CART
         </a>

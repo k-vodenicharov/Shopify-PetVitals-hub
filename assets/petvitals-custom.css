@@ -1283,6 +1283,23 @@ video.pvh-pdp-img { object-fit: cover; }
 .pvh-pdp-opt-btn:hover { border-color: var(--pvh-green); }
 .pvh-pdp-opt-btn.is-active { border-color: var(--pvh-green); background: var(--pvh-green-pale); color: var(--pvh-green); }
 
+/* Tier explainer */
+.pvh-tier-explainer { margin: 12px 0 0; border: 1px solid var(--pvh-border); border-radius: var(--pvh-radius-sm); overflow: hidden; }
+.pvh-tier-explainer-toggle {
+  list-style: none; display: flex; align-items: center; gap: 6px;
+  padding: 10px 14px; font-size: 13px; font-weight: 500; color: var(--pvh-green);
+  cursor: pointer; user-select: none; background: var(--pvh-green-pale);
+}
+.pvh-tier-explainer-toggle::-webkit-details-marker { display: none; }
+.pvh-tier-explainer-chev { margin-left: auto; transition: transform 0.2s; }
+.pvh-tier-explainer[open] .pvh-tier-explainer-chev { transform: rotate(180deg); }
+.pvh-tier-explainer-body { padding: 12px 14px; }
+.pvh-tier-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+.pvh-tier-table th { text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--pvh-muted); padding: 0 0 8px; border-bottom: 1px solid var(--pvh-border); }
+.pvh-tier-table td { padding: 9px 0; border-bottom: 1px solid var(--pvh-border); vertical-align: top; color: var(--pvh-ink); }
+.pvh-tier-table tbody tr:last-child td { border-bottom: none; }
+.pvh-tier-table td:first-child { width: 90px; padding-right: 12px; white-space: nowrap; }
+
 /* ATC */
 .pvh-pdp-atc {
   display: flex; align-items: center; justify-content: center; gap: 10px;
@@ -1299,10 +1316,13 @@ video.pvh-pdp-img { object-fit: cover; }
 .pvh-pdp-atc svg { flex-shrink: 0; }
 
 /* Trust row */
-.pvh-pdp-trust { list-style: none; margin: 0 0 24px; padding: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; }
+.pvh-pdp-trust { list-style: none; margin: 0 0 10px; padding: 0; display: flex; align-items: center; flex-wrap: wrap; gap: 6px 16px; }
 .pvh-pdp-trust-item { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: 500; color: var(--pvh-muted); }
 .pvh-pdp-trust-item svg { color: var(--pvh-green); flex-shrink: 0; }
 .pvh-pdp-trust-sep { width: 3px; height: 3px; border-radius: 50%; background: var(--pvh-border); flex-shrink: 0; }
+
+/* Shipping disclosure note */
+.pvh-pdp-ship-note { font-size: 11.5px; color: var(--pvh-muted); margin: 0 0 24px; line-height: 1.5; }
 
 /* Description accordion */
 .pvh-pdp-desc { border-top: 1px solid var(--pvh-border); }
@@ -1495,4 +1515,165 @@ video.pvh-pdp-img { object-fit: cover; }
 .pvh-reviews:has(#reviews-app-placeholder:empty),
 .pvh-lp-reviews:has(#reviews-app-placeholder:empty) {
   display: none;
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Inline-style replacements (audit cleanup — keep colors and spacing
+   in the token system instead of element style="" attributes)
+   ════════════════════════════════════════════════════════════════════ */
+
+/* Hero eyebrow tag — was style="margin:0;" inline */
+.pvh-hero-eyebrow .pvh-tag { margin: 0; }
+
+/* Hero visual second-element transition delay (was inline style) */
+.pvh-hero-visual--delay { transition-delay: 0.15s; }
+
+/* Hero image fallback when no featured image */
+.pvh-hero-fallback {
+  width: 100%;
+  height: 100%;
+  background: var(--pvh-oat);
+}
+
+/* Problem/solution second column scroll-enter delay (was inline) */
+.pvh-problem-col--delay { transition-delay: 0.12s; }
+
+/* Steps column scroll-enter delays (was inline) */
+.pvh-step--delay-1 { transition-delay: 0.10s; }
+.pvh-step--delay-2 { transition-delay: 0.20s; }
+
+/* "Our story" section — was inline style with hard-coded background + padding */
+.pvh-story {
+  background: var(--pvh-green-tint);
+  padding: 80px 64px;
+}
+.pvh-story-inner {
+  max-width: 720px;
+  margin: 0 auto;
+  text-align: center;
+}
+.pvh-story-sub {
+  max-width: 600px;
+  margin: 0 auto 32px;
+}
+.pvh-story-sign {
+  font-size: 14px;
+  color: var(--pvh-muted);
+  font-style: italic;
+}
+
+/* Sticky bar button "font-family inherit" was inline */
+.pvh-sticky-btn,
+.pvh-product-sticky-btn { font-family: inherit; }
+
+/* ── LP "Order Brook Now" final CTA section ──────────────────────────── */
+.pvh-cta-section {
+  background: var(--pvh-green-dark);
+  color: #fff;
+  text-align: center;
+  padding: 96px 64px;
+  position: relative;
+  overflow: hidden;
+}
+.pvh-cta-section .pvh-cta-title {
+  position: relative;
+  z-index: 1;
+}
+.pvh-cta-section-sub {
+  font-size: 17px;
+  color: rgba(255, 255, 255, 0.85);
+  margin: 0 auto 40px;
+  max-width: 520px;
+  position: relative;
+  z-index: 1;
+}
+.pvh-cta-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #fff;
+  color: var(--pvh-green-dark);
+  padding: 18px 40px;
+  border-radius: 100px;
+  font-size: 16px;
+  font-weight: 700;
+  font-family: inherit;
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+  position: relative;
+  z-index: 1;
+}
+.pvh-cta-btn:hover {
+  background: var(--pvh-green-pale);
+  transform: translateY(-1px);
+}
+.pvh-cta-btn:focus-visible {
+  outline: 2px solid #fff;
+  outline-offset: 3px;
+}
+
+@media (max-width: 768px) {
+  .pvh-cta-section { padding: 64px 24px; }
+  .pvh-cta-section-sub { font-size: 15px; }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Announcement bar — refactor to class-based, allow wrap on mobile
+   ════════════════════════════════════════════════════════════════════ */
+.pvh-announcement-bar-msg {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.4px;
+  color: #fff;
+  padding: 0 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+@media (max-width: 480px) {
+  .pvh-announcement-bar-msg {
+    font-size: 12px;
+    letter-spacing: 0.2px;
+    padding: 0 12px;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: clip;
+    line-height: 1.35;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════════════
+   Tap-target safety — ensure interactive PDP/home affordances are
+   at least 44 × 44 px on touch devices.
+   ════════════════════════════════════════════════════════════════════ */
+.pvh-pdp-thumb {
+  min-width: 44px;
+  min-height: 44px;
+}
+.pvh-pdp-dot {
+  min-width: 24px;
+  min-height: 24px;
+  /* Hit area expands without changing visual size */
+  position: relative;
+}
+.pvh-pdp-dot::before {
+  content: '';
+  position: absolute;
+  inset: -10px;
+}
+.pvh-pdp-opt-btn {
+  min-height: 44px;
+}
+.pvh-faq-item summary,
+.pvh-faq-q {
+  min-height: 44px;
+}
+.pvh-tier-explainer-toggle {
+  min-height: 44px;
+}
+.pvh-pdp-desc-toggle {
+  min-height: 44px;
 }

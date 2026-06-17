@@ -1,7 +1,6 @@
 {{ 'petvitals-custom.css' | asset_url | stylesheet_tag }}
 
-{%- assign product = product -%}
-{%- assign first_variant = product.variants.first -%}
+{%- assign current_variant = product.selected_or_first_available_variant -%}
 
 <div id="pvh-product-sticky-bar" class="pvh-product-sticky-bar" aria-hidden="true">
   <div class="pvh-product-sticky-inner">
@@ -19,18 +18,19 @@
       <div>
         <div class="pvh-product-sticky-name">{{ product.title | escape }}</div>
         <div class="pvh-product-sticky-price">
-          {{ first_variant.price | money }}
-          <span class="pvh-product-sticky-shipping">FREE SHIPPING</span>
+          <span id="pvh-sticky-price">{{ current_variant.price | money }}</span>
+          <span class="pvh-product-sticky-shipping">FREE EU SHIPPING</span>
         </div>
       </div>
     </div>
     <button
       type="button"
       class="pvh-product-sticky-btn pvh-product-sticky-atc-btn"
-      data-variant="{{ first_variant.id }}"
-      style="font-family:inherit;"
+      data-variant="{{ current_variant.id }}"
+      data-available="{{ current_variant.available }}"
+      {% unless current_variant.available %}disabled aria-disabled="true"{% endunless %}
     >
-      Add to Cart
+      {%- if current_variant.available -%}Add to Cart{%- else -%}Sold Out{%- endif -%}
     </button>
   </div>
 </div>
@@ -41,11 +41,12 @@
   if (!stickyBar) return;
 
   var atcBtn = stickyBar.querySelector('.pvh-product-sticky-atc-btn');
+  var priceEl = document.getElementById('pvh-sticky-price');
 
   function getSelectedVariantId() {
-    var input = document.querySelector('input[name="id"][form]') ||
-                document.querySelector('form[action*="/cart/add"] input[name="id"]') ||
-                document.querySelector('.product-form__input input[name="id"]');
+    var input = document.getElementById('pvh-variant-id') ||
+                document.querySelector('input[name="id"][form]') ||
+                document.querySelector('form[action*="/cart/add"] input[name="id"]');
     if (input) return parseInt(input.value, 10);
     var sel = document.querySelector('select[name="id"]');
     if (sel) return parseInt(sel.value, 10);
@@ -57,7 +58,21 @@
     if (id) atcBtn.setAttribute('data-variant', id);
   }
 
-  document.addEventListener('variant:changed', syncVariant);
+  function setAvailable(available) {
+    if (!atcBtn) return;
+    atcBtn.disabled = !available;
+    atcBtn.setAttribute('aria-disabled', available ? 'false' : 'true');
+    atcBtn.setAttribute('data-available', available ? 'true' : 'false');
+    atcBtn.textContent = available ? 'Add to Cart' : 'Sold Out';
+  }
+
+  document.addEventListener('variant:changed', function (e) {
+    syncVariant();
+    if (e.detail && e.detail.variant) {
+      if (priceEl && e.detail.variant.price) priceEl.textContent = e.detail.variant.price;
+      setAvailable(!!e.detail.variant.available);
+    }
+  });
   document.addEventListener('change', function (e) {
     if (e.target && (e.target.name === 'id' || e.target.closest('.product-form__input'))) {
       syncVariant();
@@ -65,7 +80,7 @@
   });
   setTimeout(syncVariant, 300);
 
-  var mainBtn = document.querySelector('.shopify-payment-button, [data-testid="Checkout-button"], form[action*="/cart/add"] button[type="submit"], .product-form__submit');
+  var mainBtn = document.getElementById('pvh-atc-main');
   if (mainBtn && window.IntersectionObserver) {
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
@@ -84,6 +99,10 @@
 
   if (atcBtn) {
     atcBtn.addEventListener('click', function () {
+      // Guard: refuse to add a sold-out variant
+      if (atcBtn.disabled) return;
+      if (atcBtn.getAttribute('data-available') === 'false') return;
+
       syncVariant();
       var variantId = parseInt(atcBtn.getAttribute('data-variant'), 10);
       if (!variantId) return;

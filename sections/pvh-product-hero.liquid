@@ -3,7 +3,62 @@
 {%- liquid
   assign current_variant = product.selected_or_first_available_variant
   assign media_count = product.media | size
+
+  # Price-valid-until: 90 days from page render (Google flags Offer without this)
+  assign price_valid_seconds = 'now' | date: '%s' | plus: 7776000
+  assign price_valid_until = price_valid_seconds | date: '%Y-%m-%d'
+
+  # Tier-explainer placeholder check: hide the disclosure until real spec
+  # copy exists. Set tier_specs_ready = true (and fill the cells below) once
+  # the Standard/Quiet/Premium differences land.
+  assign tier_specs_ready = false
 -%}
+
+{%- capture pvh_variants_json -%}
+[
+  {%- for v in product.variants -%}
+    {
+      "id": {{ v.id }},
+      "available": {{ v.available }},
+      "price": {{ v.price | money | json }},
+      "compareAtPrice": {%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | money | json }}{%- else -%}null{%- endif -%},
+      "savings": {%- if v.compare_at_price > v.price -%}{{ v.compare_at_price | minus: v.price | money | json }}{%- else -%}null{%- endif -%},
+      "options": [
+        {%- for o in v.options -%}
+          {{ o | json }}{%- unless forloop.last -%},{%- endunless -%}
+        {%- endfor -%}
+      ]
+    }{%- unless forloop.last -%},{%- endunless -%}
+  {%- endfor -%}
+]
+{%- endcapture -%}
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.title | json }},
+  "url": {{ shop.url | append: product.url | json }},
+  "description": {{ product.description | strip_html | truncate: 500 | json }},
+  "brand": { "@type": "Brand", "name": "PetVitals" },
+  "sku": {{ current_variant.sku | default: product.id | json }},
+  "image": [
+    {%- for media in product.media limit: 3 -%}
+      {{ media | image_url: width: 1200 | prepend: 'https:' | json }}{% unless forloop.last %},{% endunless %}
+    {%- endfor -%}
+  ],
+  "offers": {
+    "@type": "Offer",
+    "priceCurrency": "EUR",
+    "price": {{ current_variant.price | divided_by: 100.0 }},
+    "priceValidUntil": {{ price_valid_until | json }},
+    "itemCondition": "https://schema.org/NewCondition",
+    "availability": "{% if product.available %}https://schema.org/InStock{% else %}https://schema.org/OutOfStock{% endif %}",
+    "url": {{ shop.url | append: product.url | json }},
+    "seller": { "@type": "Organization", "name": {{ shop.name | json }} }
+  }
+}
+</script>
 
 <section
   class="pvh-pdp"
@@ -93,8 +148,6 @@
 
     <h1 class="pvh-pdp-title">Brook&thinsp;—&thinsp;the<br><em>filtered</em> pet fountain</h1>
 
-    <div id="reviews-app-placeholder"></div>
-
     <div class="pvh-pdp-price-wrap" id="pvh-pdp-price">
       {%- if current_variant.compare_at_price > current_variant.price -%}
         <s class="pvh-pdp-was">{{ current_variant.compare_at_price | money }}</s>
@@ -103,11 +156,11 @@
       {%- else -%}
         <span class="pvh-pdp-now">{{ current_variant.price | money }}</span>
       {%- endif -%}
-      <span class="pvh-pdp-ship-flag">Free shipping</span>
+      <span class="pvh-pdp-ship-flag">Free EU shipping over €50</span>
     </div>
 
     <p class="pvh-pdp-hook">
-      Cats tend to drink more from flowing water than a still bowl.
+      Cats and dogs both drink more from flowing water than a still bowl.
       Brook adds triple-stage filtration, a motion-sensor outlet, and a near-silent pump —
       so the water is always clean, and so is the counter.
     </p>
@@ -157,6 +210,45 @@
         </div>
       {%- endunless -%}
 
+      {%- comment -%}
+        Tier explainer is hidden until real Standard/Quiet/Premium specs land.
+        To re-enable: set `tier_specs_ready = true` at the top of this file and
+        fill in the table cells below with the real differentiators.
+      {%- endcomment -%}
+      {%- if tier_specs_ready and product.has_only_default_variant == false -%}
+        <details class="pvh-tier-explainer" open>
+          <summary class="pvh-tier-explainer-toggle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            What's the difference?
+            <svg class="pvh-tier-explainer-chev" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+          </summary>
+          <div class="pvh-tier-explainer-body">
+            <table class="pvh-tier-table">
+              <thead>
+                <tr>
+                  <th scope="col">Tier</th>
+                  <th scope="col">Highlights</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><strong>Standard</strong></td>
+                  <td><!-- TODO: real spec, e.g. 1.5 L · standard pump · 3-layer filter --></td>
+                </tr>
+                <tr>
+                  <td><strong>Quiet</strong></td>
+                  <td><!-- TODO: real spec, e.g. 2 L · brushless pump &lt;25 dB · 3-layer filter --></td>
+                </tr>
+                <tr>
+                  <td><strong>Premium</strong></td>
+                  <td><!-- TODO: real spec, e.g. 2.5 L · dual-mode flow · extra filter included --></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </details>
+      {%- endif -%}
+
       <button
         type="submit"
         name="add"
@@ -185,9 +277,13 @@
       <li class="pvh-pdp-trust-sep" aria-hidden="true"></li>
       <li class="pvh-pdp-trust-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="1" y="3" width="15" height="13" rx="2"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
-        Free EU shipping
+        Free EU shipping · 8–17 business days
       </li>
     </ul>
+
+    <p class="pvh-pdp-ship-note">
+      Fulfilled by our EU logistics partner. Orders dispatch within 1–2 business days; typical delivery 8–17 business days. Tracking number sent by email once dispatched.
+    </p>
 
     {%- if product.description != blank -%}
       <details class="pvh-pdp-desc">
@@ -207,19 +303,10 @@
 (function () {
   'use strict';
 
-  // Variant data with Liquid-formatted prices
-  var pvhVariants = [
-    {%- for v in product.variants -%}
-    {
-      id: {{ v.id }},
-      available: {{ v.available }},
-      price: "{{ v.price | money }}",
-      compareAtPrice: {%- if v.compare_at_price > v.price -%}"{{ v.compare_at_price | money }}"{%- else -%}null{%- endif -%},
-      savings: {%- if v.compare_at_price > v.price -%}"{{ v.compare_at_price | minus: v.price | money }}"{%- else -%}null{%- endif -%},
-      options: [{% for o in v.options %}"{{ o | escape }}"{% unless forloop.last %},{% endunless %}{% endfor %}]
-    }{% unless forloop.last %},{% endunless %}
-    {%- endfor -%}
-  ];
+  // Variant data with Liquid-formatted prices.
+  // Built as a JSON literal so option values containing quotes/backslashes
+  // can't break parsing. `| json` escapes everything correctly.
+  var pvhVariants = {{ pvh_variants_json }};
 
   // ─── Gallery ───────────────────────────────────────────────────
   var slides = document.querySelectorAll('.pvh-pdp-slide');
@@ -301,7 +388,7 @@
     } else {
       h += '<span class="pvh-pdp-now">' + v.price + '</span>';
     }
-    h += '<span class="pvh-pdp-ship-flag">Free shipping</span>';
+    h += '<span class="pvh-pdp-ship-flag">Free EU shipping over €50</span>';
     priceWrap.innerHTML = h;
   }
 

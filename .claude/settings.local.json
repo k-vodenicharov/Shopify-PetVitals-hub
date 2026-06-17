@@ -33,7 +33,8 @@
       "Bash(findstr /C:\"pvh-receipt-drawer\" /C:\"pvh-receipt-items\" /C:\"dynamic-pet-showcase\" /C:\"petvitals-home\" /C:\"theme.liquid\" /C:\"[error]\" /C:\"[warning]\" /C:\"No errors\" /C:\"Checking\" /C:\"errors found\" /C:\"warnings found\")",
       "Bash(Select-String -Pattern \"pvh-receipt-drawer|pvh-receipt-items|dynamic-pet-showcase|petvitals-home|theme\\\\.liquid|\\\\[error\\\\]|\\\\[warning\\\\]|errors found|warnings found|No errors\")",
       "Bash(Select-Object -First 60)",
-      "PowerShell(cd \"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\"; $out = shopify theme check --path . 2>&1; $lines = $out -join \"`n\"; $start = $lines.IndexOf\\(\"petvitals-home\"\\); $end = $lines.IndexOf\\(\"pvh-receipt-items\"\\); $lines.Substring\\($start, $end - $start\\))"
+      "PowerShell(cd \"c:\\\\Users\\\\Kiril Vodenicharov\\\\Desktop\\\\PetVitals Shopify\"; $out = shopify theme check --path . 2>&1; $lines = $out -join \"`n\"; $start = $lines.IndexOf\\(\"petvitals-home\"\\); $end = $lines.IndexOf\\(\"pvh-receipt-items\"\\); $lines.Substring\\($start, $end - $start\\))",
+      "Bash(git -C \"C:/Users/Kiril Vodenicharov/Desktop/PetVitals Shopify\" config --get remote.origin.url)"
     ]
   }
 }

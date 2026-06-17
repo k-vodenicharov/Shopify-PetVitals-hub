@@ -9,7 +9,7 @@
 <section class="pvh-hero" id="pvh-hero" aria-label="Hero">
   <div class="pvh-hero-content" data-pvh-enter>
     <div class="pvh-hero-eyebrow">
-      <span class="pvh-tag" style="margin:0;">Pet water fountain</span>
+      <span class="pvh-tag">Pet water fountain</span>
     </div>
 
     <h1 class="pvh-hero-title">
@@ -31,7 +31,7 @@
     <div class="pvh-hero-trust">
       <div class="pvh-hero-trust-item">
         <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
-        7–14 day EU delivery
+        Free EU shipping over €50
       </div>
       <span class="pvh-hero-trust-dot" aria-hidden="true"></span>
       <div class="pvh-hero-trust-item">
@@ -46,21 +46,24 @@
     </div>
   </div>
 
-  <div class="pvh-hero-visual" data-pvh-enter style="transition-delay:0.15s" id="pvh-hero-visual">
+  <div class="pvh-hero-visual pvh-hero-visual--delay" data-pvh-enter id="pvh-hero-visual">
     <div class="pvh-hero-img-frame">
       <canvas class="pvh-hero-canvas" id="pvh-hero-canvas" aria-hidden="true"></canvas>
       {% if product.featured_image %}
+        {%- assign hero_img_src = product.featured_image | image_url: width: 1100 -%}
         <img
-          src="{{ product.featured_image | image_url: width: 800 }}"
+          src="{{ hero_img_src }}"
           alt="{{ product.title | escape }}"
           loading="eager"
+          fetchpriority="high"
+          decoding="async"
           width="{{ product.featured_image.width }}"
           height="{{ product.featured_image.height }}"
           id="pvh-hero-img"
-          data-threejs-src="{{ product.featured_image | image_url: width: 1400 }}"
+          data-threejs-src="{{ hero_img_src }}"
         >
       {% else %}
-        <div style="width:100%;height:100%;background:var(--pvh-oat);"></div>
+        <div class="pvh-hero-fallback"></div>
       {% endif %}
     </div>
     <div class="pvh-hero-badge">
@@ -84,7 +87,7 @@
       <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 9V6a1 1 0 0 1 1-1h11v11H3v-2"/><path d="M15 9h4l3 3v4h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/></svg>
     </div>
     <div>
-      <div class="pvh-trust-label">Free Shipping</div>
+      <div class="pvh-trust-label">Free EU Shipping</div>
       <div class="pvh-trust-detail">On orders over €50</div>
     </div>
   </div>
@@ -125,12 +128,12 @@
     <div class="pvh-problem-col" data-pvh-enter>
       <span class="pvh-tag">The problem</span>
       <h2 class="pvh-problem-heading">Most fountains are loud, plastic, and built to be hidden.</h2>
-      <p class="pvh-problem-body">The ones that work end up under the sink. The ones that look decent don't work well. Either way, you're always aware of it — and so is your cat.</p>
+      <p class="pvh-problem-body">The ones that work end up under the sink. The ones that look decent don't work well. Either way, you're always aware of it — and so is your pet.</p>
     </div>
-    <div class="pvh-problem-col pvh-problem-col--solution" data-pvh-enter style="transition-delay:0.12s">
+    <div class="pvh-problem-col pvh-problem-col--solution pvh-problem-col--delay" data-pvh-enter>
       <span class="pvh-tag">Why it's different</span>
       <h2 class="pvh-problem-heading">Triple-stage filtration, a motion-sensor outlet, and a build that wipes clean.</h2>
-      <p class="pvh-problem-body">Most fountains run water constantly and clog quietly. Brook's induction outlet flows when your cat approaches and stops when she leaves — filter lasts longer, motor runs quieter. Brook is what we'd leave on the counter and not think twice about. That was the standard we built to.</p>
+      <p class="pvh-problem-body">Most fountains run water constantly and clog quietly. Brook's induction outlet flows when your cat or dog approaches and stops when they leave — filter lasts longer, motor runs quieter. Brook is what we'd leave on the counter and not think twice about. That was the standard we built to.</p>
     </div>
   </div>
 </section>
@@ -147,18 +150,18 @@
     <div class="pvh-steps-grid">
       <div class="pvh-step" data-pvh-enter>
         <div class="pvh-step-num">01</div>
-        <h3 class="pvh-step-title">Cats distrust still water by instinct</h3>
-        <p class="pvh-step-body">Desert-descended animals, cats instinctively avoid water that isn't moving. A still bowl triggers that wariness; a flowing fountain doesn't. It's not a quirk — it's evolution.</p>
+        <h3 class="pvh-step-title">Pets prefer moving water by instinct</h3>
+        <p class="pvh-step-body">Cats descend from desert hunters and instinctively avoid still water; dogs prefer cleaner, oxygenated water too. A still bowl triggers wariness in cats and indifference in dogs. A flowing fountain triggers neither.</p>
       </div>
-      <div class="pvh-step" data-pvh-enter style="transition-delay:0.1s">
+      <div class="pvh-step pvh-step--delay-1" data-pvh-enter>
         <div class="pvh-step-num">02</div>
-        <h3 class="pvh-step-title">Most indoor cats drink far less than they should</h3>
-        <p class="pvh-step-body">Most indoor cats on a dry food diet drink less water than they need. Low water intake can affect energy and overall health — a flowing source makes it easier for them to drink more.</p>
+        <h3 class="pvh-step-title">Most pets on dry food don't drink enough</h3>
+        <p class="pvh-step-body">Cats and dogs on a dry-food diet often drink less water than they need. Low water intake can affect energy and overall health — a flowing source makes it easier for them to drink more.</p>
       </div>
-      <div class="pvh-step" data-pvh-enter style="transition-delay:0.2s">
+      <div class="pvh-step pvh-step--delay-2" data-pvh-enter>
         <div class="pvh-step-num">03</div>
         <h3 class="pvh-step-title">Brook removes the friction</h3>
-        <p class="pvh-step-body">Running water, triple-stage filtration, near-silent pump. Leave it out. Let it run. Most owners notice their cat drinking more within the first day.</p>
+        <p class="pvh-step-body">Running water, triple-stage filtration, near-silent pump. Leave it out. Let it run. Most owners notice their pet drinking more within the first day.</p>
       </div>
     </div>
   </div>
@@ -181,7 +184,7 @@
         </div>
         <div class="pvh-benefit-body">
           <h3 class="pvh-benefit-title">Running water by instinct</h3>
-          <p class="pvh-benefit-desc">Cats are hardwired to prefer moving water. Brook's gentle flow matches what they evolved to drink — so they come back to it without any encouragement.</p>
+          <p class="pvh-benefit-desc">Cats and dogs are hardwired to prefer moving water. Brook's gentle flow matches what they evolved to drink — so they come back to it without any encouragement.</p>
         </div>
       </div>
       <div class="pvh-benefit">
@@ -190,7 +193,7 @@
         </div>
         <div class="pvh-benefit-body">
           <h3 class="pvh-benefit-title">Triple-stage filtration</h3>
-          <p class="pvh-benefit-desc">Removes fur, food debris, odours, and chlorine in three layers. Your cat or dog always drinks clean, fresh water — not the tap-water aftertaste from a plastic bowl.</p>
+          <p class="pvh-benefit-desc">Foam, activated carbon, and cotton layers remove fur, debris, odours, and chlorine. Your pet drinks clean, fresh water — not the tap aftertaste of a plastic bowl.</p>
         </div>
       </div>
       <div class="pvh-benefit">
@@ -199,7 +202,7 @@
         </div>
         <div class="pvh-benefit-body">
           <h3 class="pvh-benefit-title">Under 25 dB — near silent</h3>
-          <p class="pvh-benefit-desc">Quieter than a household fridge. Shy cats won't startle. Light sleepers won't notice it from another room. It simply runs, continuously and quietly.</p>
+          <p class="pvh-benefit-desc">Quieter than a household fridge. Shy cats won't startle, anxious dogs won't notice. It simply runs, continuously and quietly — even at night.</p>
         </div>
       </div>
       <div class="pvh-benefit">
@@ -207,8 +210,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
         </div>
         <div class="pvh-benefit-body">
-          <h3 class="pvh-benefit-title">Triple-stage filtration</h3>
-          <p class="pvh-benefit-desc">Foam, activated carbon, and cotton layers remove hair, sediment, and odours from every sip. Cats have sensitive noses — clean water makes a difference more than most owners realise.</p>
+          <h3 class="pvh-benefit-title">Easy to clean and refill</h3>
+          <p class="pvh-benefit-desc">The bowl and tray lift out and go on the top rack of the dishwasher. The motor unit wipes clean. No fiddly disassembly — a five-minute job once a week.</p>
         </div>
       </div>
       <div class="pvh-benefit">
@@ -216,8 +219,8 @@
           <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"/><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"/></svg>
         </div>
         <div class="pvh-benefit-body">
-          <h3 class="pvh-benefit-title">Rechargeable — no cable on the floor</h3>
-          <p class="pvh-benefit-desc">The battery model runs cordlessly. No trailing wire across the kitchen. Charge once, run for days. Put it wherever your cat drinks best.</p>
+          <h3 class="pvh-benefit-title">USB-powered, place it anywhere</h3>
+          <p class="pvh-benefit-desc">Runs on a standard USB cable and adapter. No trailing mains cable. Put it wherever your pet actually drinks — kitchen, hallway, beside their bed.</p>
         </div>
       </div>
     </div>
@@ -236,14 +239,14 @@
 <!-- ═══════════════════════════════════════════════════
      OUR STORY
 ════════════════════════════════════════════════════ -->
-<section class="pvh-section" style="background:var(--pvh-green-tint); padding:80px 64px;" aria-label="Our story">
-  <div class="pvh-container" style="max-width:720px; margin:0 auto; text-align:center;" data-pvh-enter>
+<section class="pvh-section pvh-story" aria-label="Our story">
+  <div class="pvh-container pvh-story-inner" data-pvh-enter>
     <span class="pvh-tag">Our story</span>
     <h2 class="pvh-section-title">Why we made Brook</h2>
-    <p class="pvh-section-sub" style="max-width:600px; margin:0 auto 32px;">
-      We're cat people who got tired of the choice: a fountain that works but looks like a plastic appliance you have to hide, or a nice bowl your cat barely drinks from. Brook is the result — a fountain that filters quietly over USB, good enough to leave on the counter.
+    <p class="pvh-section-sub pvh-story-sub">
+      We're pet people who got tired of the choice: a fountain that works but looks like a plastic appliance you have to hide, or a nice bowl your pet barely drinks from. Brook is the result — a fountain that filters quietly over USB, good enough to leave on the counter.
     </p>
-    <p style="font-size:14px; color:var(--pvh-muted); font-style:italic;">— The PetVitals team</p>
+    <p class="pvh-story-sign">— The PetVitals team</p>
   </div>
 </section>
 
@@ -258,7 +261,7 @@
     <div class="pvh-guarantee-body">
       <span class="pvh-tag">Our promise</span>
       <h2 class="pvh-guarantee-title">If your pet won't drink from Brook, we'll refund every cent.</h2>
-      <p class="pvh-guarantee-text">Try Brook for 30 full days. If your cat ignores it, hates it, or you just change your mind — email us. We'll refund your full purchase price. You don't need to return the fountain. We trust your judgement; we believe in the product.</p>
+      <p class="pvh-guarantee-text">Try Brook for 30 full days. If your cat or dog ignores it, hates it, or you just change your mind — email us. We'll refund your full purchase price. You don't need to return the fountain. We trust your judgement; we believe in the product.</p>
       <p class="pvh-guarantee-sign">— The PetVitals team</p>
     </div>
   </div>
@@ -275,16 +278,16 @@
     </div>
     <div class="pvh-faq-grid" data-pvh-enter>
       <details class="pvh-faq-item">
-        <summary>Will my cat actually use it? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Most cats approach Brook within the first few hours. Running water triggers their natural investigation instinct. Some take a day or two. If yours is the rare exception after a fair trial, our 30-day guarantee covers you completely — no return needed.</div>
+        <summary>Will my pet actually use it? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
+        <div class="pvh-faq-answer">Most cats and dogs approach Brook within the first few hours. Running water triggers their natural investigation instinct. Some take a day or two. If yours is the rare exception after a fair trial, our 30-day guarantee covers you completely — no return needed.</div>
       </details>
       <details class="pvh-faq-item">
         <summary>How loud is the pump? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Under 25 decibels — quieter than a household fridge. Most owners forget it's running until they hear their cat drinking from it.</div>
+        <div class="pvh-faq-answer">Under 25 decibels — quieter than a household fridge. Most owners forget it's running until they hear their pet drinking from it.</div>
       </details>
       <details class="pvh-faq-item">
         <summary>How long does delivery take? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">EU orders typically arrive in 7–14 business days. You'll receive a tracking number by email once your order ships. If it hasn't arrived within 20 business days, contact us and we'll sort it immediately.</div>
+        <div class="pvh-faq-answer">EU orders typically arrive in 8–17 business days. You'll receive a tracking number by email once your order ships. If it hasn't arrived within 21 business days, contact us and we'll sort it immediately.</div>
       </details>
       <details class="pvh-faq-item">
         <summary>Is it dishwasher safe? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
@@ -292,7 +295,7 @@
       </details>
       <details class="pvh-faq-item">
         <summary>How often do I replace the filter? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
-        <div class="pvh-faq-answer">Once a month with regular use. The triple-stage filter saturates after about 30 days. We recommend marking the date when you first set it up.</div>
+        <div class="pvh-faq-answer">Once a month with regular use. The triple-stage filter saturates after about 30 days. We recommend marking the date on your calendar when you first set it up.</div>
       </details>
       <details class="pvh-faq-item">
         <summary>What's in the box? <span class="pvh-faq-chevron" aria-hidden="true">+</span></summary>
@@ -308,7 +311,7 @@
 <section class="pvh-cta" aria-label="Order now">
   <div class="pvh-cta-inner" data-pvh-enter>
     <h2 class="pvh-cta-title">Give your pet the water<br>they actually want.</h2>
-    <p class="pvh-cta-sub">{{ first_variant.price | money }} · Free shipping over €50 · 30-day money-back guarantee</p>
+    <p class="pvh-cta-sub">From {{ first_variant.price | money }} · Free EU shipping over €50 · 30-day money-back guarantee</p>
     <a href="/products/brook" class="pvh-btn-light">
       Order Brook
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
@@ -334,14 +337,13 @@
       {% endif %}
       <div>
         <div class="pvh-sticky-name">Brook — Pet Water Fountain</div>
-        <div class="pvh-sticky-price">{{ first_variant.price | money }} &nbsp;·&nbsp; Free shipping over €50</div>
+        <div class="pvh-sticky-price">From {{ first_variant.price | money }} &nbsp;·&nbsp; Free EU shipping over €50</div>
       </div>
     </div>
     <button
       type="button"
       class="pvh-sticky-btn pvh-ajax-atc"
       data-variant="{{ first_variant.id }}"
-      style="font-family:inherit;"
     >
       Add to Cart
     </button>
@@ -449,7 +451,10 @@
 </script>
 
 <script>
-(function pvhHeroWebGL() {
+// Three.js is loaded with `defer` in theme.liquid, so it isn't ready when
+// this inline IIFE first parses. Wait for DOMContentLoaded — deferred
+// scripts have already executed by then.
+function pvhBootHeroWebGL() {
   'use strict';
   if (window.matchMedia('(max-width: 768px)').matches) return;
   if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
@@ -563,16 +568,17 @@
   visualEl.addEventListener('mousemove', onMouseMove, { passive: true });
   visualEl.addEventListener('mouseleave', onMouseLeave, { passive: true });
 
-  /* Resize */
+  /* Resize — named handler so cleanup() can remove it */
   var resizeTimer = null;
-  window.addEventListener('resize', function () {
+  function onWindowResize() {
     if (resizeTimer) clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function () {
       W = canvas.offsetWidth; H = canvas.offsetHeight; aspect = W / H;
       maxY = 0.5 * aspect; minY = -maxY;
       renderer.setSize(W, H); mesh.scale.set(1, aspect, 1);
     }, 100);
-  }, { passive: true });
+  }
+  window.addEventListener('resize', onWindowResize, { passive: true });
 
   /* Loop */
   var rafId = null;
@@ -602,7 +608,7 @@
     if (rafId) { cancelAnimationFrame(rafId); rafId = null; }
     visualEl.removeEventListener('mousemove', onMouseMove);
     visualEl.removeEventListener('mouseleave', onMouseLeave);
-    window.removeEventListener('resize', arguments.callee);
+    window.removeEventListener('resize', onWindowResize);
     if (uniforms.uTexture.value) uniforms.uTexture.value.dispose();
     planeGeo.dispose(); mat.dispose(); particleGeo.dispose(); particleMat.dispose(); renderer.dispose();
     visualEl.classList.remove('pvh-webgl-active'); canvas.classList.remove('is-ready');
@@ -611,7 +617,13 @@
     if (e.detail && e.detail.sectionId && e.detail.sectionId.indexOf('petvitals-home') !== -1) cleanup();
   });
   canvas.addEventListener('webglcontextlost', function (e) { e.preventDefault(); cleanup(); }, false);
-})();
+}
+
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', pvhBootHeroWebGL, { once: true });
+} else {
+  pvhBootHeroWebGL();
+}
 </script>
 
 {% schema %}

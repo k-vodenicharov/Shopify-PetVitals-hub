@@ -7,6 +7,9 @@
   Metafields read (namespace: pvh_nutrition):
     serving_size, hydration_boost, filter_life,
     uv_sterilization, flow_rate, material
+
+  All visual styling lives in the inline <style> of
+  pvh-receipt-drawer.liquid (no Tailwind dependency).
 {%- endcomment -%}
 
 {%- if cart.item_count > 0 -%}
@@ -15,39 +18,27 @@
 {%- assign _time = 'now' | date: '%H:%M' -%}
 {%- assign _ref  = cart.token | slice: 0, 8 | upcase -%}
 
-<div class="pvh-receipt-paper bg-pvh-paper px-5 pt-6 pb-5 shadow-[0_6px_32px_rgba(0,0,0,0.45)]">
+<div class="pvh-receipt-paper">
 
   <!-- ── Store header ────────────────────────────── -->
-  <div class="text-center mb-4">
-    <p class="pvh-mono text-[13px] font-bold tracking-[0.14em] text-pvh-ink uppercase">
-      PET VITALS HUB
-    </p>
-    <p class="pvh-mono text-[9.5px] text-pvh-ink/45 tracking-[0.1em] mt-0.5">
-      petvitalshub.com
-    </p>
-    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 mt-2 tracking-[0.06em]">
-      {{ _date }}&nbsp;&nbsp;{{ _time }}
-    </p>
-    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 tracking-[0.06em]">
-      REF:&nbsp;#{{ _ref }}
-    </p>
+  <div class="pvh-rcpt-store">
+    <p class="pvh-mono pvh-rcpt-store-name">PET VITALS HUB</p>
+    <p class="pvh-mono pvh-rcpt-store-url">petvitalshub.com</p>
+    <p class="pvh-mono pvh-rcpt-store-meta">{{ _date }}&nbsp;&nbsp;{{ _time }}</p>
+    <p class="pvh-mono pvh-rcpt-store-meta">REF:&nbsp;#{{ _ref }}</p>
   </div>
 
-  <div class="pvh-mono text-center text-pvh-ink/25 text-[10px] tracking-[0.22em] select-none leading-none">
-    ================================
-  </div>
+  <div class="pvh-mono pvh-rcpt-divider">================================</div>
 
   <!-- ── Line items ─────────────────────────────── -->
 
     <!-- Column headers -->
-    <div class="pvh-mono flex gap-2 text-[9px] text-pvh-ink/40 tracking-[0.1em] uppercase mt-2.5 mb-0.5">
-      <span class="w-5 shrink-0">QTY</span>
-      <span class="flex-1">ITEM</span>
-      <span class="shrink-0">PRICE</span>
+    <div class="pvh-mono pvh-rcpt-cols">
+      <span class="pvh-rcpt-qty">QTY</span>
+      <span class="pvh-rcpt-name">ITEM</span>
+      <span class="pvh-rcpt-price">PRICE</span>
     </div>
-    <div class="pvh-mono text-pvh-ink/20 text-[10px] tracking-[0.2em] leading-none mb-1">
-      --------------------------------
-    </div>
+    <div class="pvh-mono pvh-rcpt-divider pvh-rcpt-divider--dim">--------------------------------</div>
 
     <!-- ── Line items ──────────────────────────────── -->
     {%- for item in cart.items -%}
@@ -61,42 +52,42 @@
       <div class="pvh-item-row" style="animation-delay:{{ _delay }}ms;">
 
         <!-- Main row: qty · name · line price -->
-        <div class="flex gap-2 items-baseline pvh-mono text-[11.5px]">
-          <span class="w-5 shrink-0 text-pvh-ink/55">{{ item.quantity }}x</span>
-          <span class="flex-1 font-bold text-pvh-ink truncate" title="{{ item.product.title }}">
+        <div class="pvh-mono pvh-rcpt-main">
+          <span class="pvh-rcpt-qty">{{ item.quantity }}x</span>
+          <span class="pvh-rcpt-name" title="{{ item.product.title }}">
             {{- item.product.title | truncate: 21, '' -}}
           </span>
-          <span class="shrink-0 font-bold text-pvh-ink">
+          <span class="pvh-rcpt-price">
             {{ item.final_line_price | money }}
           </span>
         </div>
 
         <!-- Variant -->
         {%- unless item.product.has_only_default_variant -%}
-          <p class="pvh-mono text-[9.5px] text-pvh-ink/50 pl-7 truncate tracking-[0.04em]">
+          <p class="pvh-mono pvh-rcpt-variant">
             &#x21B3;&nbsp;{{ item.variant.title }}
           </p>
         {%- endunless -%}
 
         <!-- Unit price if qty > 1 -->
         {%- if item.quantity > 1 -%}
-          <p class="pvh-mono text-[9.5px] text-pvh-ink/40 pl-7 tracking-[0.04em]">
+          <p class="pvh-mono pvh-rcpt-each">
             ({{ item.original_price | money }}&nbsp;each)
           </p>
         {%- endif -%}
 
         <!-- Selling plan -->
         {%- if item.selling_plan_allocation -%}
-          <p class="pvh-mono text-[9.5px] text-pvh-green pl-7 tracking-[0.04em]">
+          <p class="pvh-mono pvh-rcpt-plan">
             &#x21B3;&nbsp;{{ item.selling_plan_allocation.selling_plan.name }}
           </p>
         {%- endif -%}
 
         <!-- ── pvh_nutrition specs panel ──────────────── -->
         {%- if _has_specs -%}
-          <div class="mt-2 ml-5 pl-2 border-l-2 border-pvh-green/30">
+          <div class="pvh-rcpt-specs">
 
-            <p class="pvh-mono text-[9px] font-bold tracking-[0.16em] text-pvh-green uppercase mb-1">
+            <p class="pvh-mono pvh-rcpt-specs-head">
               &#9632;&nbsp;PRODUCT SPECS
             </p>
 
@@ -148,41 +139,35 @@
       </div>
 
       {%- unless forloop.last -%}
-        <div class="pvh-mono text-pvh-ink/15 text-[10px] tracking-[0.2em] leading-none my-2">
-          ................................
-        </div>
+        <div class="pvh-mono pvh-rcpt-divider pvh-rcpt-divider--dot">................................</div>
       {%- endunless -%}
 
     {%- endfor -%}
 
     <!-- ── Totals ───────────────────────────────────── -->
-    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-3 select-none">
-      ================================
-    </div>
+    <div class="pvh-mono pvh-rcpt-divider pvh-rcpt-divider--total">================================</div>
 
     {%- if cart.cart_level_discount_applications.size > 0 -%}
       {%- for discount in cart.cart_level_discount_applications -%}
-        <div class="flex justify-between pvh-mono text-[10.5px] text-pvh-green mt-1.5">
+        <div class="pvh-mono pvh-rcpt-totals-line pvh-rcpt-totals-line--discount">
           <span>DISCOUNT: {{ discount.title | upcase | truncate: 18, '' }}</span>
           <span>-{{ discount.total_allocated_amount | money }}</span>
         </div>
       {%- endfor -%}
     {%- endif -%}
 
-    <div class="flex justify-between pvh-mono text-[10.5px] text-pvh-ink/60 mt-2">
-      <span>SUBTOTAL</span>
-      <span>{{ cart.items_subtotal_price | money }}</span>
+    <div class="pvh-mono pvh-rcpt-totals-line pvh-rcpt-totals-line--subtotal">
+      <span class="pvh-rcpt-label">SUBTOTAL</span>
+      <span class="pvh-rcpt-value">{{ cart.items_subtotal_price | money }}</span>
     </div>
-    <div class="flex justify-between pvh-mono text-[10.5px] mt-0.5">
-      <span class="text-pvh-ink/60">SHIPPING</span>
-      <span class="text-pvh-green font-bold">FREE (EU)</span>
-    </div>
-
-    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-2 select-none">
-      ================================
+    <div class="pvh-mono pvh-rcpt-totals-line pvh-rcpt-totals-line--free">
+      <span class="pvh-rcpt-label">SHIPPING</span>
+      <span class="pvh-rcpt-value">FREE (EU)</span>
     </div>
 
-    <div class="flex justify-between pvh-mono text-[14px] font-bold text-pvh-ink mt-2">
+    <div class="pvh-mono pvh-rcpt-divider pvh-rcpt-divider--total-bottom">================================</div>
+
+    <div class="pvh-mono pvh-rcpt-total">
       <span>TOTAL</span>
       <span>
         {%- if settings.currency_code_enabled_cart_total -%}
@@ -193,23 +178,21 @@
       </span>
     </div>
 
-    <div class="pvh-mono text-pvh-ink/30 text-[10px] tracking-[0.22em] leading-none mt-1.5 select-none">
-      ================================
-    </div>
+    <div class="pvh-mono pvh-rcpt-divider pvh-rcpt-divider--final">================================</div>
 
-    <p class="pvh-mono text-[9px] text-pvh-ink/30 mt-2 tracking-[0.04em]">
+    <p class="pvh-mono pvh-rcpt-vat">
       * Incl. VAT. Final taxes calculated at checkout.
     </p>
 
   <!-- ── Receipt footer ──────────────────────────── -->
-  <div class="text-center mt-6 mb-1">
-    <p class="pvh-mono text-[9.5px] text-pvh-ink/35 tracking-[0.2em] uppercase">
+  <div class="pvh-rcpt-footer">
+    <p class="pvh-mono pvh-rcpt-thanks">
       * &nbsp; * &nbsp; THANK&nbsp;YOU! &nbsp; * &nbsp; *
     </p>
-    <p class="pvh-mono text-[9px] text-pvh-ink/25 mt-1.5 tracking-[0.04em]">
+    <p class="pvh-mono pvh-rcpt-fine">
       Your pet will love this order.
     </p>
-    <p class="pvh-mono text-[8.5px] text-pvh-ink/20 mt-1 tracking-[0.04em]">
+    <p class="pvh-mono pvh-rcpt-fine pvh-rcpt-fine--xs">
       Questions? support@petvitalshub.com
     </p>
   </div>
@@ -218,7 +201,7 @@
 {%- comment -%} Torn paper ::after is defined in pvh-receipt-drawer.liquid <style> {%- endcomment -%}
 
 {%- else -%}
-  <p class="pvh-mono text-center text-[11px] text-pvh-paper/40 py-12 tracking-[0.16em] uppercase">
+  <p class="pvh-mono pvh-rcpt-empty">
     Your cart is empty
   </p>
 {%- endif -%}
